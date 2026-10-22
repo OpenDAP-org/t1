@@ -1,6 +1,6 @@
 # Review of the earlier experiments
 
-The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, datasheets, a OpenDAP OS prototype and 12 3D models) are references only, and many of their decisions were wrong. This review checks every item that was considered for adoption against the decisions already taken, the product rules (mainline-only, no custom kernel, commercially available parts, standard trick-less software, audio and battery first) and, where possible, the mainline Linux sources. Checked on 2026-10-21.
+The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, datasheets, an OpenDAP OS prototype and 12 3D models) are references only, and many of their decisions were wrong. This review checks every item that was considered for adoption against the decisions already taken, the product rules (mainline-only, no custom kernel, commercially available parts, standard trick-less software, audio and battery first) and, where possible, the mainline Linux sources. Checked on 2026-10-21.
 
 **Verdicts:** *Keep* (kept as a Draft requirement), *Withdraw* (wrong, conflicting or not validated), *Open* (turned into an open question).
 
