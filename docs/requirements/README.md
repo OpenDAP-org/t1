@@ -56,7 +56,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 ## Context
 
 - T1-048 (maintainers, 2026-10-22): thresholds in [`../specs/experience-budgets.md`](../specs/experience-budgets.md). Values are Draft until confirmed and calibrated on the first prototype.
-- T1-046 and T1-047 (maintainers, 2026-10-22): many DAPs cap library indexing, glitch with too much data and slow down after many hours without a restart ([UX research](../research/ux/)). These are product rules, verified by scale and endurance tests on every release (TK-014, TK-015).
+- T1-046 and T1-047 (maintainers, 2026-10-22): many DAPs cap library indexing, glitch with too much data and slow down after many hours without a restart ([UX research](../research/ux/)). These are product rules, verified by scale and endurance tests on every release (TK-016, TK-017).
 - T1-043, T1-044: specified in [`../specs/controls-and-status-led.md`](../specs/controls-and-status-led.md) (Draft).
 - **OpenDAP** is the brand; **T1** is the model and the product.
 - Official faceplates: touch (default), cassette, classic. Official HATs: powerbank, NAS, camera, recorder, oscilloscope, VNA, radio.

@@ -2,7 +2,7 @@
 
 - **Status:** Draft. The structure is confirmed (T1-048); the values are proposals to confirm and to calibrate on the first prototype. Where the hardware allows better, the target moves up (T1-045).
 - **Date:** 2026-10-22
-- **Rule:** each metric has an **ideal** value (the target), a **warning** value (investigate before release) and a **hard limit** (the release does not ship). Every metric is measured by an automated test on the virtual T1 and, where it depends on hardware, on the device (TK-014, TK-015).
+- **Rule:** each metric has an **ideal** value (the target), a **warning** value (investigate before release) and a **hard limit** (the release does not ship). Every metric is measured by an automated test on the virtual T1 and, where it depends on hardware, on the device (TK-016, TK-017).
 - **Sources:** the [UX research](../research/ux/), the T1 requirements and the board power tree. Values without a source are engineering proposals and say so.
 
 ## Start-up and responsiveness
@@ -49,4 +49,4 @@ Noise floor into sensitive IEMs, distortion and output power are set from the fi
 
 | Metric | Ideal | Warning | Hard limit | Basis |
 |---|---|---|---|---|
-| Memory, file descriptors and response times over 72 h of use | flat | any upward trend | growth that would exhaust a resource in 30 days | T1-047, SYS-034, TK-015 |
+| Memory, file descriptors and response times over 72 h of use | flat | any upward trend | growth that would exhaust a resource in 30 days | T1-047, SYS-034, TK-017 |
