@@ -1,0 +1,15 @@
+.DS_Store
+.claude/settings.local.json
+
+# FreeCAD
+*.FCBak
+*.FCStd1
+
+# Blender
+*.blend1
+renders/**/out/
+
+# Python
+__pycache__/
+.venv/
+sim/**/results/

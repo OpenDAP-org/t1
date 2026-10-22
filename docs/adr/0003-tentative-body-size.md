@@ -1,0 +1,15 @@
+# ADR 0003: Tentative body size
+
+- **Status:** Accepted
+- **Date:** 2026-10-22
+- **Decided by:** Claude, under the maintainers' delegation, following the product rules
+
+## Context
+
+The body should be as close to a credit card as possible, keep its proportions and be as thin as possible (T1-032, T1-033), but may grow up to the maximum (T1-031) when needed. The display fixes the width at about 59.5 mm (faceplate-touch ADR 0001). Battery capacity is maximized within the body (T1-035) and autonomy should stay around the category average (T1-037). Research: [battery life](../research/2026-10-battery-life-analysis.md), [battery selection](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-battery-selection.md).
+
+## Decision
+
+- The tentative body is **59.5 × 94.3 × 24 mm** (credit-card proportions at the display's width), to be tightened around the off-the-shelf battery (board ADR 0007, about 88 % of the category's average audiophile runtime). Quote-only cells are excluded (T1-038).
+- The design does not wait for a development kit (T1-042). Until real measurements exist, the body stays at the conservative **24 mm** and is not shrunk, so a larger off-the-shelf pack can still fit if the estimate turns out pessimistic; power-saving levers (gating the unused output's amplifiers, large audio buffers, clock and block gating) are designed in from the start.
+- When measurements exist (a Radxa ZERO 3 is planned, or the prototype itself), apply T1-037 and T1-039: the measured pessimistic runtime must clear the 6 h red line, and the thickness shrinks toward 20 mm only while runtime stays around the category average.
