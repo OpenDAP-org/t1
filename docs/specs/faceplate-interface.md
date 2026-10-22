@@ -4,9 +4,26 @@ How a faceplate attaches to the core. Every faceplate (touch, cassette, classic,
 
 Faceplates are not meant to be swapped regularly, so this interface is kept to the minimum below. Requirements: CASE-008 to T1-019. Decision: [ADR 0001](../adr/0001-faceplate-interface-lives-in-t1.md).
 
-## Flat-cable connectors
+## Flat-cable connector, interface v0
 
-Pinout: not defined yet.
+Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)). The board maps its SoC pins onto these groups; no SoC pin is part of the interface. Connector: Hirose FH35C-51S, 0.3 mm pitch, 51 contacts: 46 used, 5 reserved (board ADR 0006, "about 10 %" spare). Contact positions are fixed in pinout v1.
+
+| Group | Lines | Contacts | Notes |
+|---|---|---|---|
+| Display, high speed | MIPI DSI clock ±, data lanes 0–3 ± (or LVDS on the same lines) | 10 | A faceplate uses the lanes its panel needs; a single-lane panel leaves lanes 1–3 unconnected |
+| I2C | SCL, SDA | 2 | Touch, ambient light sensor, HID controls (ADR 0002), panel |
+| SPI/DBI | SCLK, MOSI, MISO, CS, D/C | 5 | Panels and displays driven over SPI or MIPI DBI |
+| Touch | INT, RST | 2 | |
+| Panel | RST, TE | 2 | |
+| Interrupts | HID_INT, ALS_INT | 2 | Open-drain on the faceplate side; wake sources |
+| Status LED | LED_R, LED_G, LED_B | 3 | Anodes, driven by constant-current sources on the board (≤ 20 mA each); cathodes to faceplate ground (FPT-016, FPT-025) |
+| Microphone | PDM_CLK, PDM_DATA | 2 | |
+| Detect and spare GPIO | FP_DET#, GPIO ×2 | 3 | Slow lines |
+| Power | FP_3V3 ×2, FP_1V8, FP_VCI, MIC_1V8, BL_LEDA, BL_LEDK | 7 | Backlight driver on the board; the LED string returns through BL_LEDK |
+| Ground | Between DSI pairs, group edges, returns | 8 | |
+| Reserved | — | 5 | For later revisions |
+
+Logic levels: 3.3 V for the low-speed groups, 1.8 V for PDM; a faceplate whose parts need other levels translates on its side.
 
 ## Control commands
 
