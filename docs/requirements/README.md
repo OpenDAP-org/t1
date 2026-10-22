@@ -48,6 +48,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-042 | No decision shall depend on obtaining a development kit (for example a Radxa ZERO 3); kits only refine estimates when available. | must | Confirmed |
 | T1-043 | The T1 shall define a standard set of button combinations for system functions (power, power menu, restart, boot modes, screenshots and others), inspired by Android's conventions; for example, Volume − + Main held opens the power/restart menu and Main held powers on. | must | Confirmed |
 | T1-044 | The T1 shall define a status LED code with at least a base set of states, based on existing standards where possible. | must | Confirmed |
+| T1-045 | The T1 shall always use 100 % of its hardware: software never locks, caps or hides a capability the hardware has. Limits exist only for safety, and they are documented and visible to the user. | must | Confirmed |
 
 ## Context
 
