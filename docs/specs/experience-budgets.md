@@ -13,7 +13,7 @@
 | Screen on (from off) to interactive | ≤ 150 ms | > 300 ms | > 600 ms | Proposal |
 | Button press to action (play, pause, volume) | ≤ 50 ms | > 100 ms | > 200 ms | Proposal; about 100 ms is where delay becomes noticeable |
 | Touch to visual response | ≤ 50 ms | > 100 ms | > 150 ms | Proposal |
-| UI frame rate while scrolling | 60 fps | < 50 fps | < 30 fps | Display refresh |
+| UI frame rate (scrolling, transitions, animations), under any background load | 60 fps (display refresh) | < 55 fps, or any dropped-frame burst | < 50 fps | T1-056, SYS-036 |
 | Track change gap (same format) | 0 samples | — | > 0 samples | Gapless is exact or it fails (UX research) |
 
 ## Library scale

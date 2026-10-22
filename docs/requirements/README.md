@@ -59,6 +59,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-053 | Unplugging headphones shall pause playback, and music shall never move to the speaker unless the user chooses it. | must | Confirmed |
 | T1-054 | As a USB DAC for a computer or phone, the T1 shall deliver the same audio quality as in standalone playback, bit-perfect and without added noise or delay. | must | Confirmed |
 | T1-055 | The battery shall be replaceable by the user with common tools and a standard part. | must | Confirmed |
+| T1-056 | The interface shall always be very fluid: every animation and scroll at the display's full frame rate and every touch or button answered within the experience budgets, at all times, including during library scans, downloads, updates, high-rate or DSD playback and low battery. | must | Confirmed |
 
 ## Context
 
