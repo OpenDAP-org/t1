@@ -1,6 +1,6 @@
 # Review of the earlier experiments
 
-The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, datasheets, a DAP OS prototype and 12 3D models) are references only, and many of their decisions were wrong. This review checks every item that was considered for adoption against the decisions already taken, the product rules (mainline-only, no custom kernel, commercially available parts, standard trick-less software, audio and battery first) and, where possible, the mainline Linux sources. Checked on 2026-10-21.
+The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, datasheets, a OpenDAP OS prototype and 12 3D models) are references only, and many of their decisions were wrong. This review checks every item that was considered for adoption against the decisions already taken, the product rules (mainline-only, no custom kernel, commercially available parts, standard trick-less software, audio and battery first) and, where possible, the mainline Linux sources. Checked on 2026-10-21.
 
 **Verdicts:** *Keep* (kept as a Draft requirement), *Withdraw* (wrong, conflicting or not validated), *Open* (turned into an open question).
 
@@ -55,14 +55,14 @@ The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, da
 | Power-up sequence ending in "apply overlay" at hot-plug | Withdraw (wrong) | Mainline Linux applies overlays from the bootloader, not at runtime; the sequence must be redesigned around boot-time detection or another hot-plug mechanism. |
 | Four M2 screws, steel slider lock, release button on the right edge | Withdraw → Open | The right edge carries the power button; the mechanism was never validated. A latch is needed anyway for the pogo spring force. |
 
-## DAP OS and UI (`dap-os`, `system`, `ui-components`)
+## OpenDAP OS and UI (`opendap-os`, `system`, `ui-components`)
 
 The maintainers discards the experiments' **UI prototype and design system entirely**. Only items required for other reasons survive.
 
 | Item | Verdict | Reason |
 |---|---|---|
-| MaskROM recovery, automatic A/B rollback | Keep | Already decided (dap-os ADR 0004). |
-| Alpine + dinit + DRM/KMS without Wayland | Withdraw (wrong) | Conflicts with Debian (dap-os ADR 0002) and with Wayland. |
+| MaskROM recovery, automatic A/B rollback | Keep | Already decided (opendap-os ADR 0004). |
+| Alpine + dinit + DRM/KMS without Wayland | Withdraw (wrong) | Conflicts with Debian (opendap-os ADR 0002) and with Wayland. |
 | Hearing safety: weekly dose, 85 dB(A), per-headphone profiles (EN 50332) | Keep | Required for personal music players (EN 50332), independently of the prototype. |
 | Verified-HAT card on connect | Withdraw | From the discarded UI prototype. |
 | Error messages: human sentence and next step | Withdraw | From the discarded UI prototype. |
