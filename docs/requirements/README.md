@@ -61,6 +61,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-055 | The battery shall be replaceable by the user with common tools and a standard part. | must | Confirmed |
 | T1-056 | The interface shall always be very fluid: every animation and scroll at the display's full frame rate and every touch or button answered within the experience budgets, at all times, including during library scans, downloads, updates, high-rate or DSD playback and low battery. | must | Confirmed |
 | T1-057 | The device shall react as fluidly as its interface: the audible and physical effect of every action (volume, play, pause, seek, track change, output or gain change) follows the input within the experience budgets, and what the interface shows always matches what the device is doing. | must | Confirmed |
+| T1-058 | The Commercial edition shall include the HAT device-side piece, fitted. In the DIY edition it is an optional accessory. | must | Confirmed |
 
 ## Context
 
