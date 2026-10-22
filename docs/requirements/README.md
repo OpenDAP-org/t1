@@ -51,9 +51,11 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-045 | The T1 shall always use 100 % of its hardware: software never locks, caps or hides a capability the hardware has. Limits exist only for safety, and they are documented and visible to the user. | must | Confirmed |
 | T1-046 | Scale shall never degrade the experience: no fixed limit on library size or indexing, and no glitches, stalls or lost data with large libraries, long playlists, large files or many installed capabilities. | must | Confirmed |
 | T1-047 | Long sessions shall never degrade the experience: the T1 shall stay as fast and stable after days of use without a restart as after a fresh boot, with no growing memory use, slowdowns or accumulated glitches. | must | Confirmed |
+| T1-048 | Every experience metric (start-up, responsiveness, library scale, audio output, power, endurance) shall have three fixed thresholds: an ideal value, a warning value and a hard limit. Targets always aim at what the hardware allows; a release that crosses a hard limit does not ship. | must | Confirmed |
 
 ## Context
 
+- T1-048 (maintainers, 2026-10-22): thresholds in [`../specs/experience-budgets.md`](../specs/experience-budgets.md). Values are Draft until confirmed and calibrated on the first prototype.
 - T1-046 and T1-047 (maintainers, 2026-10-22): many DAPs cap library indexing, glitch with too much data and slow down after many hours without a restart ([UX research](../research/ux/)). These are product rules, verified by scale and endurance tests on every release (TK-014, TK-015).
 - T1-043, T1-044: specified in [`../specs/controls-and-status-led.md`](../specs/controls-and-status-led.md) (Draft).
 - **OpenDAP** is the brand; **T1** is the model and the product.
