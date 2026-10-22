@@ -134,7 +134,7 @@ Type: **F** functional, **E** emotional, **S** social. Persona: **P** primary, *
 |---|---|---|---|
 | When I doubt a claim, I want to measure the output and the digital stream myself, so I can verify it. | F, E | P | BRD-040 (I2S/DSD test pads), BRD-041 (passive capture), T1-026 |
 | When I use the T1 as a USB DAC, I want the same noise floor as standalone and no added latency, so I can use one device everywhere. | F | P | noise rises with USB attached and audio delay in DAC mode are reported on FiiO players ([ASR, JM21][asr-jm21]) |
-| When a limit applies, I want to see it and why, so I can trust the device. | E | P | T1-045; [ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md) output ceiling with the interim battery |
+| When a limit applies, I want to see it and why, so I can trust the device. | E | P | T1-045; [ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md) output ceiling with the interim battery (note, 2026-10-22: removed by [board ADR 0014](https://github.com/opendap-project/board/blob/main/docs/adr/0014-two-cell-battery.md), the T1 moved to a 2S pack) |
 
 ### 4.7 Tinkering
 
@@ -261,7 +261,7 @@ The details that decide whether the T1 feels extraordinary. "How to check" is th
 | 10 | Unplug while playing | pauses, does not blast the speaker | Rockbox pause on unplug ([Rockbox manual][rb-playback]) | test both jacks with the speaker present (T1-016) |
 | 11 | The first update | nothing lost, nothing broken, a clear note of what changed | microSD lost after an update ([HiBy R3][hiby-dl]) | upgrade and rollback tests (OS-017) with a full library and capabilities installed |
 | 12 | USB DAC mode | same noise as standalone, no added delay | noise rise and delay ([ASR, JM21][asr-jm21]) | noise and latency measured with a host, both modes |
-| 13 | A limit appears | the user sees which limit, why and what lifts it | (T1-045 requirement) | every safety cap has a visible state and a doc page; [ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md) output ceiling is one |
+| 13 | A limit appears | the user sees which limit, why and what lifts it | (T1-045 requirement) | every safety cap has a visible state and a doc page; [ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md) output ceiling is one (note, 2026-10-22: removed by [board ADR 0014](https://github.com/opendap-project/board/blob/main/docs/adr/0014-two-cell-battery.md); safety limits remain) |
 | 14 | The device is stuck | a guaranteed way back without a computer specialist | factory reset and SD reflash as the fix (user report, [ASR, JM21 thread][asr-jm21]) | recovery tests from every failure state, including MaskROM |
 | 15 | Battery after two years | runtime still close to new, or a cheap, simple cell swap | dead and swollen batteries ending players ([ASR, DAPs dead][asr-dead]) | battery replacement time and tools, timed on a real unit |
 

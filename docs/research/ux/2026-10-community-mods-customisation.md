@@ -246,6 +246,17 @@ Candidate requirements use "shall" for consistency with the requirements tables.
 
 ## 10. Tensions with current requirements, and questions for the maintainers
 
+> **Resolved (2026-10-22).** The maintainers answered every question below:
+>
+> 1. Themes: one official theme, with community themes supported from the start as design-system token sets and template-based layouts (SYS-030, DS-007), and WCAG AA contrast in every theme (DS-010).
+> 2. Alternative shells: community scope. The architecture allows them (documented image build, separable board support, owner-controlled boot), but OpenDAP does not support them (SYS-035).
+> 3. Side-loading: possible in developer mode, which must be simple to turn on (SYS-031).
+> 4. Verified boot: if it is ever enforced, the owner can enrol their own keys or turn enforcement off without losing data (opendap-os OS-025).
+> 5. Hearing safety: the limits required by law (EN 50332) are fixed and always visible; everything beyond them is adjustable (SYS-012 context, T1-045).
+> 6. Warranty: a commercial policy, decided outside this repository.
+>
+> The questions are kept as they were asked.
+
 1. **Themes vs one design system (SYS-009, SYS-017).** The strongest pattern in this research is visual customisation: Rockbox themes, Winamp and cassette skins, palettes, iPod-style shells. A theme system that only swaps design-system tokens and chooses among host-rendered now-playing layouts keeps accessibility and input profiles intact (architecture §5.7). The architecture research already cites Sailfish ambiences as a precedent for one theme driving the system (§3.3 there). Should user themes be allowed, and at which depth (tokens only, layouts, custom components)?
 2. **Alternative product shells vs "no third-party activities" (architecture Q5).** Communities replace the whole player. Inside OpenDAP OS, the proposal keeps the product shell first-party. Should an alternative shell be a supported image variant (a build option of OS-010), an unsupported but documented path, or out of scope?
 3. **Package endpoint vs installing from anywhere (SYS-010, SYS-011).** Users of Compás install Lua plugins by copying a file to the SD card, and other projects install from a PC. SYS-011 sends every download through the image's package endpoint, and architecture §5.12 accepts unsigned capabilities in developer mode. Is developer mode the only door for side-loading, and is it acceptable to everyday users who just want a community theme or plugin?

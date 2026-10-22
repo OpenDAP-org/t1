@@ -17,7 +17,7 @@ The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, da
 | Murata Type 2EL (NXP IW612) | Keep as candidate | Mainline `nxpwifi` driver supports IW61x over SDIO (`drivers/net/wireless/nxp/nxpwifi`). Whether Debian's backports kernel enables it is not checked. |
 | eFuse on each HAT rail | Keep | Consistent with the protection requirements. |
 | Microphone privacy LED wired to microphone power | Keep | Hardware-enforced, cannot be faked by software. |
-| BQ25895 / BQ27Z561 / TPS2121 / FUSB302B | Open | Common TI/onsemi parts with mainline drivers, but the desk research proposes BQ25792 (can also source power to a powerbank HAT). Evaluate together. |
+| BQ25895 / BQ27Z561 / TPS2121 / FUSB302B | Open | Common TI/onsemi parts with mainline drivers, but the desk research proposes BQ25792 (can also source power to a powerbank HAT). Evaluate together. Note (2026-10-22): the T1 moved to a 2S battery; the board now uses the BQ25798 charger and BQ28Z610-R1 gauge ([board ADR 0014](https://github.com/opendap-project/board/blob/main/docs/adr/0014-two-cell-battery.md)). |
 | RP2354B as the RP2350 variant | Open | RP2350 is decided (board ADR 0004); the in-package-flash variant is a sourcing choice. |
 | Compute module (8-layer HDI) + audio module + 6-layer base board | Withdraw | The maintainers' first intention is a single PCB with SoC and DAC chipset on it, no system-on-module. |
 

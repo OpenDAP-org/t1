@@ -2,6 +2,7 @@
 
 - **Date:** 2026-10-22
 - **Status:** Desk research, **initial estimate**. Nothing here has been built or measured. Every runtime below is a model output, not a promise. It is **landed as a model**, not validated: it becomes a claim only after the prototype measurements in §12.
+- **Note (2026-10-22, after this report):** the T1 moved to a two-cell (2S) battery with a quoted pack, [board ADR 0014](https://github.com/opendap-project/board/blob/main/docs/adr/0014-two-cell-battery.md). The Adafruit 328 is no longer a T1 pack; the BQ25895 charger and MAX17055 gauge are replaced by the BQ25798 and BQ28Z610-R1, and a TPS62136 pre-regulator (3.8 V) now feeds the former 1S loads. The figures below are kept as written (1S); the 2S study puts the core session about 9–12 % lower at the same pack energy (est., [2S study](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-battery-2s.md) §5).
 - **Requirements served:** T1-009 (battery autonomy is a top priority), T1-012 (≥ 2,000 mAh commercial cell), T1-035 (largest battery that fits), BRD-008 (power down unused blocks), BRD-009 (low-power mode).
 - **Maintainers' decision rule this report supports (§11):**
   - After the battery is chosen, the body shrinks toward the ideal **if** the audiophile-session autonomy stays around the **category average**. Slightly below average is acceptable.

@@ -22,7 +22,7 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 | Combination | Result | Reference |
 |---|---|---|
 | **Main**, long | Power on, normal boot | Android power-on |
-| **Main + Volume −**, held at power-on | **MaskROM** (USB download over the main USB-C) | Android: Power + Volume Down enters the bootloader/download mode. T1: [board ADR 0009](https://github.com/opendap-project/board/blob/main/docs/adr/0009-bom-v1-decisions.md), BRD-035, implemented in hardware |
+| **Main + Volume −**, held at power-on | **MaskROM** (USB download over the main USB-C) | Android: Power + Volume Down enters the bootloader/download mode. T1: [board ADR 0009](https://github.com/opendap-project/board/blob/main/docs/adr/0009-bom-v1-decisions.md), BRD-035, implemented in hardware. MaskROM through the buttons needs a full power-off first (a warm restart does not reopen the entry window) and an empty or unbootable microSD slot (board BOM v1.6 line 97; software can still reboot into the loader) |
 | **Main + Volume +**, held at power-on | **Recovery** (OpenDAP OS recovery; reflash from SD/TF, BRD-043) | Android: Power + Volume Up enters recovery on many devices. BRD-017 (recovery key) |
 
 ### 1.3 Device on
