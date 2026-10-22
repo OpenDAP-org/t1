@@ -15,6 +15,11 @@
 | Touch to visual response | ≤ 50 ms | > 100 ms | > 150 ms | Proposal |
 | UI frame rate (scrolling, transitions, animations), under any background load | 60 fps (display refresh) | < 55 fps, or any dropped-frame burst | < 50 fps | T1-056, SYS-036 |
 | Track change gap (same format) | 0 samples | — | > 0 samples | Gapless is exact or it fails (UX research) |
+| Volume input to audible change | ≤ 20 ms | > 50 ms | > 100 ms | T1-057, SYS-037: volume set in the DAC register (proposal) |
+| Play or resume input to first sound | ≤ 100 ms | > 200 ms | > 400 ms | T1-057 (proposal) |
+| Pause input to silence | ≤ 50 ms | > 100 ms | > 200 ms | T1-057, SYS-037 (proposal) |
+| Seek or track skip to new audio | ≤ 150 ms | > 300 ms | > 600 ms | T1-057, SYS-037 (proposal) |
+| Interface state vs device state | always equal | any visible mismatch | any mismatch that persists | T1-057 |
 
 ## Library scale
 
