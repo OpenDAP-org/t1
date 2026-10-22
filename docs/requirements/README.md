@@ -52,9 +52,17 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-046 | Scale shall never degrade the experience: no fixed limit on library size or indexing, and no glitches, stalls or lost data with large libraries, long playlists, large files or many installed capabilities. | must | Confirmed |
 | T1-047 | Long sessions shall never degrade the experience: the T1 shall stay as fast and stable after days of use without a restart as after a fresh boot, with no growing memory use, slowdowns or accumulated glitches. | must | Confirmed |
 | T1-048 | Every experience metric (start-up, responsiveness, library scale, audio output, power, endurance) shall have three fixed thresholds: an ideal value, a warning value and a hard limit. Targets always aim at what the hardware allows; a release that crosses a hard limit does not ship. | must | Confirmed |
+| T1-049 | The T1 shall produce no audible click or pop at power on or off, play, pause, seek, track change, sample-rate or PCM/DSD change, output change or gain change. | must | Confirmed |
+| T1-050 | Volume shall be set inside the DAC in fine steps, with identical left and right attenuation, a level remembered per output, and a safe level after a power cycle. | must | Confirmed |
+| T1-051 | The T1 shall resume exactly where the user left off (queue, shuffle order, repeat mode, track and position) after a pause, a power-off, a crash or a battery cut-off. | must | Confirmed |
+| T1-052 | The first library import shall work without extra software or manual steps: music copied to the device or a microSD card is found, indexed in the background and playable while indexing continues. | must | Confirmed |
+| T1-053 | Unplugging headphones shall pause playback, and music shall never move to the speaker unless the user chooses it. | must | Confirmed |
+| T1-054 | As a USB DAC for a computer or phone, the T1 shall deliver the same audio quality as in standalone playback, bit-perfect and without added noise or delay. | must | Confirmed |
+| T1-055 | The battery shall be replaceable by the user with common tools and a standard part. | must | Confirmed |
 
 ## Context
 
+- T1-049 to T1-055 (2026-10-22, under the maintainers' delegation): moments of truth that had no must requirement, from the [UX candidate requirements](../research/ux/2026-10-candidate-requirements.md) and the [priority audit](../research/2026-10-requirement-priorities.md).
 - T1-048 (maintainers, 2026-10-22): thresholds in [`../specs/experience-budgets.md`](../specs/experience-budgets.md). Values are Draft until confirmed and calibrated on the first prototype.
 - T1-046 and T1-047 (maintainers, 2026-10-22): many DAPs cap library indexing, glitch with too much data and slow down after many hours without a restart ([UX research](../research/ux/)). These are product rules, verified by scale and endurance tests on every release (TK-016, TK-017).
 - T1-043, T1-044: specified in [`../specs/controls-and-status-led.md`](../specs/controls-and-status-led.md) (Draft).
