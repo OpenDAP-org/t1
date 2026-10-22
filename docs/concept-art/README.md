@@ -9,5 +9,5 @@ The real design is built in this repository, with simulation and real structure.
 ## Images
 
 - `t1-three-quarter.png`: Three-quarter front view of the assembled handheld: dark graphite rounded body, large screen showing a music player mock-up, ribbed side key.
-- `t1-back.png`: Straight-on back view: plain dark back cover with an embossed logo and an orange key on the right edge.
+- `t1-back.png`: Straight-on back view: plain dark back cover with an embossed logo; the orange key seen on the right of the image is on the device's left edge (the view is from the back), as in T1-059.
 - `t1-exploded.png`: Exploded view: screen front, circuit board, body frame, a pale battery-like block and back cover separated along the depth axis.
