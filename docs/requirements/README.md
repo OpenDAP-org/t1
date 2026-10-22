@@ -46,9 +46,12 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-040 | The audiophile experience is the one thing that is never sacrificed: it is required at 100 %. This is an OpenDAP. | must | Confirmed |
 | T1-041 | Everything else is balanced by cost and benefit, with concessions where they give the best possible product and make the most of the hardware. | must | Confirmed |
 | T1-042 | No decision shall depend on obtaining a development kit (for example a Radxa ZERO 3); kits only refine estimates when available. | must | Confirmed |
+| T1-043 | The T1 shall define a standard set of button combinations for system functions (power, power menu, restart, boot modes, screenshots and others), inspired by Android's conventions; for example, Volume − + Main held opens the power/restart menu and Main held powers on. | must | Confirmed |
+| T1-044 | The T1 shall define a status LED code with at least a base set of states, based on existing standards where possible. | must | Confirmed |
 
 ## Context
 
+- T1-043, T1-044: specified in [`../specs/controls-and-status-led.md`](../specs/controls-and-status-led.md) (Draft).
 - **OpenDAP** is the brand; **T1** is the model and the product.
 - Official faceplates: touch (default), cassette, classic. Official HATs: powerbank, NAS, camera, recorder, oscilloscope, VNA, radio.
 - T1-013 (was CASE-001), T1-014 (was CASE-002), T1-015 (was CASE-003), T1-016 (was CASE-004), T1-017 (was CASE-007), T1-018 (was CASE-009), T1-019 (was CASE-010), T1-020 (was CASE-011), T1-021 (was CASE-012), T1-022 (was CASE-023), T1-023 (was CASE-026), T1-024 (was CASE-027): moved from the `case` repository on 2026-10-21, because they are product requirements, not physical-case ones.
