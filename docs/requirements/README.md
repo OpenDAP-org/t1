@@ -62,6 +62,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-056 | The interface shall always be very fluid: every animation and scroll at the display's full frame rate and every touch or button answered within the experience budgets, at all times, including during library scans, downloads, updates, high-rate or DSD playback and low battery. | must | Confirmed |
 | T1-057 | The device shall react as fluidly as its interface: the audible and physical effect of every action (volume, play, pause, seek, track change, output or gain change) follows the input within the experience budgets, and what the interface shows always matches what the device is doing. | must | Confirmed |
 | T1-058 | The Commercial edition shall include the HAT device-side piece, fitted. In the DIY edition it is an optional accessory. | must | Confirmed |
+| T1-059 | The Action button shall be the device's main physical control: completely round, with a subtly concave surface and a defined tactile perimeter, and the only physical control with the orange brand accent. Main (power) and the volume buttons are secondary controls; the volume buttons use capsule geometry. | must | Confirmed |
 
 ## Context
 
