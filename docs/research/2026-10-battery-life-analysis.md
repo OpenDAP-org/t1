@@ -17,7 +17,7 @@
   - [`opendap-os/docs/research/2026-10-image-composition.md`](../../../opendap-os/docs/research/2026-10-image-composition.md) (§5.6 and §8, power)
   - [`system/docs/adr/0002-system-architecture.md`](../../../system/docs/adr/0002-system-architecture.md)
   - [`t1/docs/requirements/README.md`](../requirements/README.md)
-  - [`toolkit/docs/research/2026-10-verification-instrumentation.md`](../../../toolkit/docs/research/2026-10-verification-instrumentation.md) (P7, battery verification)
+  - [`toolkit/verify/docs/research/2026-10-verification-instrumentation.md`](../../../toolkit/docs/research/2026-10-verification-instrumentation.md) (P7, battery verification)
 - **Evidence convention:**
   - **[DS]** a figure read from the vendor datasheet or product page in this session (link in §14).
   - **[DOC]** a figure taken from one of the OpenDAP reports above.
