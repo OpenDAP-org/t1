@@ -375,12 +375,20 @@ async function drawScreen() {
     lg = g.createLinearGradient(0, 300, 0, 372); lg.addColorStop(0, 'rgba(17,19,21,0)'); lg.addColorStop(1, 'rgba(17,19,21,1)');   // title and artist sit on the field
     g.fillStyle = lg; g.fillRect(0, 300, 320, 180); }
   g.font = '500 11px "IBM Plex Mono", monospace'; g.fillStyle = '#C6CBD0';
-  // status bar (SYS-038): start = time, microSD; end = Bluetooth, Wi-Fi, battery %, battery icon
+  // status bar (SYS-038): start = time, microSD, volume (speaker icon and level; semantic colour: success within
+  // the safe limit, warning above it); end = Bluetooth, Wi-Fi, battery %, battery icon
   const sy = 18; g.strokeStyle = '#C6CBD0'; g.lineWidth = 1.4; g.lineJoin = 'round'; g.lineCap = 'round'; g.textBaseline = 'middle';
   g.fillText('14:32', 18, sy);
-  { const x = 18 + g.measureText('14:32').width + 9, y = sy - 5.5;           // microSD card
+  let sx = 18 + g.measureText('14:32').width + 9;
+  { const x = sx, y = sy - 5.5;                                               // microSD card
     g.beginPath(); g.moveTo(x, y + 2.5); g.lineTo(x + 2.5, y); g.lineTo(x + 8, y); g.lineTo(x + 8, y + 11); g.lineTo(x, y + 11); g.closePath(); g.stroke();
-    for (let i = 0; i < 3; i++) { g.beginPath(); g.moveTo(x + 3 + i * 1.8, y + 1.6); g.lineTo(x + 3 + i * 1.8, y + 3.6); g.stroke(); } }
+    for (let i = 0; i < 3; i++) { g.beginPath(); g.moveTo(x + 3 + i * 1.8, y + 1.6); g.lineTo(x + 3 + i * 1.8, y + 3.6); g.stroke(); }
+    sx += 8 + 10; }
+  { const vol = 42, safe = true, c = safe ? '#64D6A1' : '#F3C66B';            // sample level, within the safe limit
+    g.save(); g.fillStyle = c; g.strokeStyle = c;
+    g.beginPath(); g.moveTo(sx, sy - 2.5); g.lineTo(sx + 3, sy - 2.5); g.lineTo(sx + 7, sy - 6); g.lineTo(sx + 7, sy + 6); g.lineTo(sx + 3, sy + 2.5); g.lineTo(sx, sy + 2.5); g.closePath(); g.fill();   // speaker
+    g.beginPath(); g.arc(sx + 8, sy, 4.5, -Math.PI / 4, Math.PI / 4); g.stroke();
+    g.fillText(String(vol), sx + 16, sy); g.restore(); }
   let ex = 302;
   { const w = 19, h = 9, x = ex - w - 2, y = sy - h / 2;                    // battery icon
     g.beginPath(); g.roundRect(x, y, w, h, 2); g.stroke();
