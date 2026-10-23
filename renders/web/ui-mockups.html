@@ -8,132 +8,8 @@
 <title>T1 interface mockups</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* Engineered Matter tokens (ui-components/tokens/opendap.tokens.json), with the type scale and spacing
-   proposed in the small-screen UI and accessibility research (2026-10-23): a 35 cm reading distance,
-   16 px side margins, spacing by proximity (4 within a unit, 8-12 within a group, 16-24 between groups). */
-:root{
-  --bg:#111315; --surface:#191C1F; --raised:#202428; --active:#292E33; --sep:#3A4148;
-  --g500:#737C85; --text:#F5F6F4; --text2:#C6CBD0; --muted:#939BA3; --on-brand:#111315;
-  --brand:#FF6A2A; --focus:#FF874D;
-  --success:#64D6A1; --warning:#F3C66B; --error:#FF5D65; --info:#69BFFF; --processing:#A995FF;
-  --border:#343A40; --border-strong:#515A63;
-  --fs-display:32px; --lh-display:40px; --fs-headline:24px; --lh-headline:32px; --fs-title:20px; --lh-title:28px;
-  --fs-bl:17px; --lh-bl:24px; --fs-body:15px; --lh-body:22px; --fs-label:13px; --lh-label:18px; --fs-cap:12px; --lh-cap:16px;
-  --m:16px; --unit:4px; --group:12px; --section:20px;
-  --sans:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --page:#0B0C0E;
-  /* Physical controls on the panel's coordinates (px from the panel's top), from the concept art geometry. */
-  --y-action:38px; --y-volup:144px; --y-voldn:226px; --y-main:90px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--page);color:var(--text2);font-family:var(--sans);padding:40px 24px 80px}
-a{color:var(--focus)}
-.wrap{max-width:1440px;margin:0 auto}
-header h1{font-size:24px;line-height:32px;font-weight:600;color:var(--text)}
-header p{font-size:14px;line-height:21px;color:var(--muted);margin-top:8px;max-width:920px}
-.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
-.principles div{background:#141619;border:1px solid #23272B;border-radius:12px;padding:12px 14px;font-size:13px;line-height:19px;color:var(--muted)}
-.principles b{display:block;color:var(--text);font-weight:600;font-size:14px;margin-bottom:2px}
-@media (max-width:900px){.principles{grid-template-columns:1fr}}
-h2.group{font-size:20px;line-height:28px;font-weight:600;color:var(--text);margin:48px 0 4px}
-p.group{font-size:14px;line-height:21px;color:var(--muted);max-width:920px;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:40px 24px;justify-items:center}
-figure{width:360px}
-/* The panel with a 20 px gutter where the physical controls are drawn at their real height. */
-.dev{position:relative;width:360px;height:480px;padding:0 20px}
-.key{position:absolute;width:5px;border-radius:3px}
-.key.action{left:12px;top:calc(var(--y-action) - 42px);height:84px;background:#FF6A2A;opacity:.6}
-.key.vp,.key.vm{left:12px;height:70px;background:#AAB0B6;opacity:.45}
-.key.vp{top:calc(var(--y-volup) - 35px)}.key.vm{top:calc(var(--y-voldn) - 35px)}
-.key.main{right:12px;top:calc(var(--y-main) - 46px);height:92px;background:#AAB0B6;opacity:.45}
-figcaption{margin-top:12px;padding:0 20px;font-size:12px;line-height:17px;color:var(--muted)}
-figcaption b{display:block;color:var(--text2);font-weight:500;font-size:14px;line-height:20px;margin-bottom:2px}
-figcaption .laws{display:block;margin-top:6px;color:var(--g500)}
-figcaption .laws em{font-style:normal;color:var(--muted)}
-/* The panel: 320 x 480 px, one CSS px per panel px. */
-.screen{width:320px;height:480px;background:var(--bg);color:var(--text);position:relative;overflow:hidden;border-radius:3px;outline:1px solid #22262A;font-size:var(--fs-body);line-height:var(--lh-body)}
-.sb{height:28px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--text2);position:relative;z-index:3}
-.sb .l,.sb .r{display:flex;align-items:center;gap:6px}
-.sb svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6}
-.vol{color:var(--success)}
-.head{height:48px;display:flex;align-items:center;padding:0 4px 0 var(--m);position:relative;z-index:2}
-.head.back{padding-left:0}
-.head h2{font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.head.big h2{font-size:var(--fs-headline);line-height:var(--lh-headline)}
-.ib{width:48px;height:48px;display:grid;place-items:center;color:var(--text);flex:none}
-svg.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
-.pad{padding:0 var(--m)}
-.sec{font-size:var(--fs-label);line-height:var(--lh-label);color:var(--muted);padding:var(--group) var(--m) var(--unit)}
-.ln{min-height:52px;display:flex;align-items:center;gap:12px;padding:0 var(--m);border-bottom:1px solid var(--border)}
-.ln.two{min-height:60px}
-.ln .t{flex:1;min-width:0}
-.t1{font-size:var(--fs-bl);line-height:var(--lh-bl);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t2{font-size:var(--fs-label);line-height:var(--lh-label);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.v{font-family:var(--mono);font-size:var(--fs-label);line-height:var(--lh-label);color:var(--text2);flex:none;text-align:right}
-.mono{font-family:var(--mono)}
-.btn{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:var(--fs-bl);font-weight:600;line-height:var(--lh-bl)}
-.btn.primary{background:var(--brand);color:var(--on-brand);height:64px}
-.btn.ghost{color:var(--text2);font-weight:500}
-.btn svg{width:22px;height:22px;fill:currentColor}
-.seg{display:flex;gap:2px}
-.seg>*{flex:1;height:48px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:var(--fs-label);font-weight:500;color:var(--text2)}
-.seg>*:first-child{border-radius:999px 0 0 999px}.seg>*:last-child{border-radius:0 999px 999px 0}
-.seg>.on{background:var(--active);color:var(--text);font-weight:600}
-.tabs{display:flex;gap:20px;padding:0 var(--m);border-bottom:1px solid var(--border)}
-.tabs>*{height:48px;display:flex;align-items:center;font-size:var(--fs-body);line-height:var(--lh-body);color:var(--muted);position:relative;min-width:48px}
-.tabs>.on{color:var(--text);font-weight:600}
-.tabs>.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--text)}
-.art{border-radius:6px;flex:none;display:inline-block;vertical-align:middle}
-.strip{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--surface);display:flex;align-items:center;gap:12px;padding:0 0 0 var(--m);z-index:3}
-.strip .t{flex:1;min-width:0}
-.strip .t1{font-size:var(--fs-body);line-height:var(--lh-body);font-weight:500}
-.strip .prog{position:absolute;left:0;right:0;top:0;height:2px;background:var(--active)}
-.strip .prog i{display:block;height:2px;width:42%;background:var(--text2)}
-.ppw{width:56px;height:56px;display:grid;place-items:center;color:var(--text)}
-.ppw svg{width:24px;height:24px;fill:currentColor}
-.pp{width:68px;height:68px;border-radius:50%;background:var(--brand);display:grid;place-items:center;color:var(--on-brand)}
-.pp svg{width:28px;height:28px;fill:currentColor}
-.sk{width:56px;height:56px;display:grid;place-items:center;color:var(--text);flex-direction:column}
-.sk svg{width:28px;height:28px;fill:currentColor}
-.sk svg.i{fill:none;width:26px;height:26px}
-.tg{width:52px;height:52px;display:grid;place-items:center;color:var(--muted);position:relative}
-.tg.on{color:var(--text)}
-.tg.on::after{content:"";position:absolute;bottom:7px;left:50%;margin-left:-2px;width:4px;height:4px;border-radius:2px;background:var(--text)}
-.tg svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:square}
-.ambient{position:absolute;left:0;right:0;top:0;height:380px;z-index:0;
-  background:radial-gradient(180px 180px at 96px 150px,rgba(78,70,190,.55),rgba(78,70,190,0) 70%),radial-gradient(170px 170px at 250px 230px,rgba(40,150,190,.42),rgba(40,150,190,0) 70%),radial-gradient(120px 120px at 190px 120px,rgba(150,95,230,.40),rgba(150,95,230,0) 70%),radial-gradient(120px 120px at 130px 250px,rgba(70,110,220,.32),rgba(70,110,220,0) 70%);}
-.ambient::after{content:"";position:absolute;inset:0;background:linear-gradient(#111315 0,rgba(17,19,21,0) 76px,rgba(17,19,21,0) 300px,#111315 372px)}
-.elabel{position:absolute;left:0;display:flex;align-items:center;gap:6px;z-index:5;font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--text2);transform:translateY(-50%)}
-.elabel i{display:block;width:3px;height:24px;border-radius:0 2px 2px 0;background:var(--brand)}
-.elabel.r{left:auto;right:0;flex-direction:row-reverse}
-.elabel.r i{border-radius:2px 0 0 2px;background:var(--text2)}
-.kb{position:absolute;left:0;right:0;bottom:0;background:#0D0F11;z-index:4;border-top:1px solid var(--border)}
-.kb .cand{height:32px;display:flex;align-items:center;gap:18px;padding:0 12px;font-size:var(--fs-body);color:var(--text2)}
-.kb .kr{display:flex;justify-content:center}
-.kb .k{width:32px;height:46px;display:grid;place-items:center;font-size:17px;color:var(--text)}
-.kb .k span{width:28px;height:38px;border-radius:5px;background:var(--active);display:grid;place-items:center}
-.kb .k.w span{width:auto;padding:0 8px}
-.idx{position:absolute;right:0;top:124px;bottom:72px;width:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;line-height:11px;color:var(--muted);z-index:2}
-.slider{display:flex;align-items:center;gap:12px;height:36px}
-.slider .trk{flex:1;height:4px;border-radius:2px;background:var(--active);position:relative}
-.slider .trk i{position:absolute;left:0;top:0;bottom:0;background:var(--text2);border-radius:2px}
-.slider .trk b{position:absolute;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--text)}
-.chain{position:relative;padding:0 4px 0 44px}
-.chain::before{content:"";position:absolute;left:23px;top:28px;bottom:28px;width:2px;background:var(--border-strong)}
-.node{position:relative;min-height:56px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
-.node::before{content:"";position:absolute;left:-27px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--bg);border:2px solid var(--text2)}
-.node.on::before{background:var(--text2)}
-.node .t{flex:1;min-width:0}
-.axis{position:relative;height:104px;margin:var(--unit) var(--m) 0}
-.axis .line{position:absolute;left:8px;right:8px;top:40px;height:2px;background:var(--border-strong)}
-.stop{position:absolute;top:14px;width:72px;margin-left:-36px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:var(--fs-label);line-height:var(--lh-label);color:var(--text2);text-align:center;height:60px}
-.stop i{display:block;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--text2);margin-top:3px}
-.stop.on i{width:22px;height:22px;margin-top:-1px;background:var(--text);border-color:var(--text)}
-.stop.on{color:var(--text);font-weight:600}
-.meter{position:absolute;left:0;width:6px;border-radius:0 3px 3px 0;background:var(--active);z-index:5;overflow:hidden}
-.meter i{position:absolute;left:0;right:0;bottom:0}
-</style>
+<link rel="stylesheet" href="t1-ui.css">
+
 </head>
 <body>
 <div class="wrap">
@@ -155,63 +31,11 @@ svg.i{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke
 <div id="groups"></div>
 </div>
 
-<template id="statusbar">
-  <div class="sb">
-    <div class="l"><span>10:42</span>
-      <svg viewBox="0 0 14 14" aria-label="microSD card"><path d="M4 1.5h5l2.5 2.5v8.5h-7.5z"/><path d="M6 1.5v2M8 1.5v2"/></svg>
-      <span class="vol" style="display:inline-flex;gap:3px;align-items:center" aria-label="Volume 38"><svg viewBox="0 0 14 14"><path d="M2 5.5h2.5L8 2.5v9L4.5 8.5H2z"/><path d="M10 5a3 3 0 0 1 0 4"/></svg>38</span>
-    </div>
-    <div class="r">
-      <svg viewBox="0 0 14 14" aria-label="Bluetooth"><path d="M4 4l6 5-3 3V2l3 3-6 5"/></svg>
-      <svg viewBox="0 0 14 14" aria-label="Wi-Fi"><path d="M1.5 5.5a8 8 0 0 1 11 0M3.5 7.8a5 5 0 0 1 7 0M5.6 10a2 2 0 0 1 2.8 0"/></svg>
-      <span>82%</span>
-      <svg viewBox="0 0 20 14" style="width:21px" aria-label="Battery 82 percent"><rect x="1" y="3" width="16" height="8" rx="2"/><rect x="3" y="5" width="11" height="4" rx="1" fill="currentColor" stroke="none"/><path d="M19 6v2"/></svg>
-    </div>
-  </div>
-</template>
 
+
+<script src="t1-ui.js"></script>
 <script>
-const sv=d=>`<svg class="i" viewBox="0 0 24 24">${d}</svg>`;
-const I={
-  back:sv('<path d="M15 5l-7 7 7 7"/>'), down:sv('<path d="M6 9l6 6 6-6"/>'),
-  search:sv('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>'),
-  heart:sv('<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>'),
-  queue:sv('<path d="M4 6h16M4 12h10M4 18h10"/><path d="M18 14v6l3-3z" fill="currentColor"/>'),
-  devices:sv('<rect x="3" y="5" width="12" height="9"/><path d="M1.5 17h15"/><rect x="17" y="8" width="5.5" height="11"/>'),
-  shuffle:sv('<path d="M3 7h3.5l7 10H21M3 17h3.5L9 13.5M13.5 10.5L16 7h5"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/>'),
-  repeat:sv('<path d="M4 11V6h16"/><path d="M17 3l3 3-3 3"/><path d="M20 13v5H4"/><path d="M7 21l-3-3 3-3"/>'),
-  plus:sv('<path d="M12 5v14M5 12h14"/>'), check:sv('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
-  sun:sv('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2"/>'),
-  handle:sv('<path d="M5 9h14M5 15h14"/>'),
-  chev:'<svg viewBox="0 0 16 16" style="width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;flex:none"><path d="M6 3l5 5-5 5"/></svg>',
-  rew:sv('<path d="M11 6.5a7.5 7.5 0 1 1-6.8 4.3"/><path d="M4 5v5h5"/>'),
-  fwd:sv('<path d="M13 6.5a7.5 7.5 0 1 0 6.8 4.3"/><path d="M20 5v5h-5"/>'),
-};
-const F={
-  prev:'<svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5v14L9 12z"/></svg>',
-  next:'<svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5v14l10-7z"/></svg>',
-  play:'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',
-  pause:'<svg viewBox="0 0 24 24"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg>',
-};
-const sb=()=>document.getElementById('statusbar').innerHTML;
-const ib=(icon,label,style='')=>`<span class="ib" role="button" aria-label="${label}" style="${style}">${icon}</span>`;
-const head=(title,back=true,right='',cls='')=>`<div class="head${back?' back':''} ${cls}">${back?ib(I.back,'Back'):''}<h2>${title}</h2>${right}</div>`;
-const ln=(t1,t2,v='',extra='')=>`<div class="ln${t2?' two':''}" ${extra}><span class="t"><div class="t1">${t1}</div>${t2?`<div class="t2">${t2}</div>`:''}</span>${v}</div>`;
-const PAL=[['#4E46BE','#2896BE'],['#3C5A78','#8A6BC8'],['#2E6E5E','#5B8FD0'],['#6A4FA0','#C07AA0'],['#22506E','#4FB0A8'],['#5A5F8E','#9AA6D6']];
-const art=(k,w,h=w,r=6)=>{const [a,b]=PAL[k%PAL.length];return `<span class="art" style="width:${w}px;height:${h}px;border-radius:${r}px;background:radial-gradient(${w*0.9}px ${h*0.9}px at 30% 30%,${a},transparent 70%),radial-gradient(${w*0.8}px ${h*0.8}px at 75% 75%,${b},transparent 70%),#191C1F" aria-hidden="true"></span>`};
-const strip=(t='You Only Live Once',a='The Strokes')=>`<div class="strip" role="button" aria-label="Now playing: ${t}, ${a}. Open player"><span class="prog"><i></i></span>${art(0,40)}<span class="t"><div class="t1">${t}</div><div class="t2">${a}</div></span><span class="ppw" role="button" aria-label="Pause">${F.pause}</span></div>`;
-const actionLabel=t=>`<div class="elabel" style="top:var(--y-action)" aria-label="Action button: ${t}"><i></i></div>`;
-const player=(o={})=>`<div class="ambient" aria-hidden="true"></div>${sb()}<div class="head" style="justify-content:space-between;padding:0">${ib(I.down,'Library')}<span style="display:flex">${ib(I.devices,'Play on')}${ib(I.heart,'Like')}${ib(I.queue,'Queue')}</span></div>
-  <div style="position:absolute;left:var(--m);right:var(--m);top:262px;z-index:1">
-   <div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">You Only Live Once</div>
-   <div style="color:var(--text2);font-size:var(--fs-body);line-height:var(--lh-body)">The Strokes · First Impressions of Earth</div>
-   <div class="mono" style="font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--muted);margin-top:var(--unit);display:flex;justify-content:space-between;white-space:nowrap;gap:8px"><span>${o.line1||'FLAC 16/44.1 · 4.4 mm'}</span><span style="color:var(--text2)">${o.line2===undefined?'Direct':o.line2}</span></div>
-   <div style="margin-top:var(--group);height:3px;border-radius:2px;background:var(--active);position:relative"><div style="width:42%;height:3px;background:var(--text);border-radius:2px"></div><div style="position:absolute;left:42%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--text)"></div></div>
-   <div class="mono" style="display:flex;justify-content:space-between;font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--muted);margin-top:6px"><span>1:19</span><span>−1:50</span></div>
-  </div>
-  <div style="position:absolute;left:0;right:0;bottom:18px;display:flex;align-items:center;justify-content:space-between;padding:0 6px;z-index:1"><span class="tg" role="button" aria-label="Shuffle off">${I.shuffle}</span><span class="sk" role="button" aria-label="Previous">${F.prev}</span><span class="pp" role="button" aria-label="${o.paused?'Play':'Pause'}">${o.paused?F.play:F.pause}</span><span class="sk" role="button" aria-label="Next">${F.next}</span><span class="tg on" role="button" aria-label="Repeat album, on">${I.repeat}</span></div>`;
-
-const G=[];const S=(title,cap,laws,html)=>({title,cap,laws,html});
+const G=[];
 
 G.push(['The instrument','The body and the screen working as one: the physical controls are drawn at their real height beside each panel.',[
 S('Now Playing','Where the T1 wakes. Title, then artist and album as one unit; the format and signal state in one mono line; the seek bar; five transport controls in the thumb zone, the orange one shared with the Action button. Down to the library, right to the queue, up for more.',
@@ -219,7 +43,7 @@ S('Now Playing','Where the T1 wakes. Title, then artist and album as one unit; t
  player()),
 S('Volume, beside its keys','A volume press draws the level on the left edge, between Volume + and Volume −, where the finger is: the value large, its semantic state in words. It leaves after a second.',
  'Natural mapping (the indicator sits at the keys); feedback within 50 ms (T1-057); colour never alone; calm (no modal).',
- `${player()}<div style="position:absolute;inset:28px 0 0;background:rgba(17,19,21,.6);z-index:4"></div>
+ `${player().replace('<span class="vol" style="display:inline-flex;gap:3px;align-items:center" aria-label="Volume 38">','<span class="vol" style="display:inline-flex;gap:3px;align-items:center;color:var(--warning)" aria-label="Volume 64">').replace('</svg>38</span>','</svg>64</span>')}<div style="position:absolute;inset:28px 0 0;background:rgba(17,19,21,.6);z-index:4"></div>
   <div class="meter" style="top:calc(var(--y-volup) - 34px);height:calc(var(--y-voldn) - var(--y-volup) + 68px)"><i style="height:64%;background:var(--warning)"></i></div>
   <div style="position:absolute;left:var(--m);top:calc(var(--y-volup) - 30px);z-index:5" role="status" aria-label="Volume 64, above the safe level">
    <div class="mono" style="font-size:var(--fs-display);line-height:var(--lh-display);color:var(--warning)">64</div>
@@ -233,7 +57,6 @@ S('Power, beside Main','A long press of Main opens the power choices next to Mai
    ${['Power off','Restart','Restart to recovery'].map((t,i)=>`<div role="button" style="height:56px;display:flex;align-items:center;justify-content:flex-end;padding-right:var(--m);border-bottom:1px solid var(--border);font-size:var(--fs-bl);${i==0?'color:var(--text);font-weight:600':'color:var(--text2)'}">${t}</div>`).join('')}
    <div style="padding:var(--group) var(--m) 0;text-align:right;font-size:var(--fs-label);line-height:var(--lh-label);color:var(--muted)">Press Main again to power off</div>
   </div>
-  <div class="elabel r" style="top:var(--y-main)"><i></i></div>
   <div style="position:absolute;left:var(--m);right:var(--m);bottom:12px;z-index:3"><div class="btn ghost" role="button">Cancel</div></div>`),
 S('Paused: headphones unplugged','Unplugging pauses and never moves music to the speaker (T1-053). The state is said in words, on the format line, and Play resumes on the same output when it is back.',
  'Error prevention; visibility of system status; the primary action stays where the thumb expects it.',
@@ -254,20 +77,23 @@ S('Library: artists','One column of 52 px lines with hairlines and album counts;
   <div class="tabs" role="tablist"><span role="tab">Albums</span><span class="on" role="tab" aria-selected="true">Artists</span><span role="tab">Playlists</span><span role="tab">More</span></div>
   <div style="padding-right:20px">
    <div class="sec">A</div><div style="border-top:1px solid var(--border)">${ln('Arcade Fire','','<span class="v">5</span>')}${ln('Arctic Monkeys','','<span class="v">7</span>')}</div>
-   <div class="sec">B</div><div style="border-top:1px solid var(--border)">${ln('Beach House','','<span class="v">8</span>')}</div>
+   <div class="sec">B</div><div style="border-top:1px solid var(--border)">${ln('Beach House','','<span class="v">8</span>')}${ln('Big Thief','','<span class="v">6</span>')}${ln('Bon Iver','','<span class="v">4</span>')}</div>
   </div>
   <div class="idx" aria-label="Index">${'ABCDEFGHIJKLMNOPRSTW#'.split('').map(c=>`<span>${c}</span>`).join('')}</div>${strip()}`),
 S('Album','The cover leads, the track list is the body, and Play with Shuffle sits at the bottom, in the thumb zone, as the screen\'s primary action (also on Action).',
  'Fitts (Play where the thumb rests, not under the title); Von Restorff; progressive disclosure (credits and format detail in More).',
  `${sb()}${head('',true,ib(I.heart,'Like album'))}
   <div class="pad" style="display:flex;gap:var(--group);align-items:flex-end">${art(0,112,112,8)}<span style="min-width:0"><div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">First Impressions of Earth</div><div style="color:var(--text2)">The Strokes · 2006</div><div class="mono" style="font-size:var(--fs-cap);line-height:var(--lh-cap);color:var(--muted);margin-top:var(--unit)">FLAC 16/44.1 · 52 min</div></span></div>
-  <div style="margin-top:var(--group);border-top:1px solid var(--border)">${[['1','You Only Live Once'],['2','Juicebox'],['3','Heart in a Cage']].map(([n,t])=>`<div class="ln" style="min-height:48px"><span class="v" style="width:16px;text-align:left;color:var(--muted)">${n}</span><span class="t"><div class="t1" style="font-size:var(--fs-body);line-height:var(--lh-body)">${t}</div></span></div>`).join('')}</div>
+  <div style="margin-top:var(--group);border-top:1px solid var(--border)">${[['1','You Only Live Once'],['2','Juicebox'],['3','Heart in a Cage'],['4','Razorblade'],['5','On the Other Side'],['6','Vision of Division']].map(([n,t])=>`<div class="ln" style="min-height:48px"><span class="v" style="width:16px;text-align:left;color:var(--muted)">${n}</span><span class="t"><div class="t1" style="font-size:var(--fs-body);line-height:var(--lh-body)">${t}</div></span></div>`).join('')}</div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(rgba(17,19,21,0),var(--bg) 40%);z-index:2"></div>
   <div style="position:absolute;left:var(--m);right:var(--m);bottom:12px;display:flex;gap:var(--group);align-items:center;z-index:3"><div class="btn primary" style="flex:1" role="button">${F.play} Play</div><span role="button" aria-label="Shuffle" style="width:64px;height:64px;border-radius:50%;background:var(--active);display:grid;place-items:center;color:var(--text)">${I.shuffle}</span></div>`),
 S('Search','Results by kind from the first letter, with artwork; the mini QWERTY keyboard (32 × 46 px keys, the documented exception) with word candidates above it.',
  'Doherty (results per keystroke); recognition (artwork beside results); Jakob (QWERTY).',
  `${sb()}<div class="head back">${ib(I.back,'Back')}<div style="flex:1;height:40px;border-bottom:2px solid var(--text2);display:flex;align-items:center;font-size:var(--fs-bl);color:var(--text);margin-right:var(--m)">stro<span style="width:1px;height:20px;background:var(--focus);margin-left:1px"></span></div></div>
   <div class="sec">Artists</div>
   <div class="ln two" style="border-top:1px solid var(--border)">${art(0,40,40,20)}<span class="t"><div class="t1">The Strokes</div><div class="t2">3 albums</div></span></div>
+  <div class="sec" style="padding-top:var(--unit)">Albums</div>
+  <div class="ln two" style="border-top:1px solid var(--border)">${art(2,40)}<span class="t"><div class="t1">Is This It</div><div class="t2">The Strokes · 2001</div></span></div>
   <div class="kb" aria-label="Keyboard">
    <div class="cand"><span>strokes</span><span>strobe</span><span>strong</span></div>
    ${['qwertyuiop','asdfghjkl','zxcvbnm'].map((r,i)=>`<div class="kr">${i==2?'<span class="k w" style="width:48px"><span>⇧</span></span>':''}${r.split('').map(c=>`<span class="k"><span>${c}</span></span>`).join('')}${i==2?'<span class="k w" style="width:48px"><span>⌫</span></span>':''}</div>`).join('')}
@@ -285,12 +111,12 @@ S('Audiobook','Spoken word has its own transport: back 15 s, forward 30 s, speed
 G.push(['Around the player','Companions of Now Playing, placed by the spatial model: the queue enters from the trailing edge, details rise from the bottom.',[
 S('Queue','A panel from the trailing edge; the player stays visible at the left, so the listener knows where they are and how to go back.',
  'Spatial continuity (the panel enters from the side of its control); common region; forgiveness (removal shows Undo).',
- `${player()}<div style="position:absolute;top:28px;bottom:0;left:36px;right:0;background:var(--bg);z-index:4;border-left:1px solid var(--border);box-shadow:-12px 0 24px rgba(0,0,0,.4)">
+ `${player()}<div style="position:absolute;top:28px;bottom:0;left:0;width:36px;background:linear-gradient(90deg,rgba(17,19,21,.55),rgba(17,19,21,.97));backdrop-filter:blur(6px);z-index:4"></div><div style="position:absolute;top:28px;bottom:0;left:36px;right:0;background:var(--bg);z-index:4;border-left:1px solid var(--border);box-shadow:-12px 0 24px rgba(0,0,0,.4)">
    <div class="head"><h2>Queue</h2></div>
    <div class="sec" style="padding-top:0">Now</div>
    <div class="ln two" style="border-top:1px solid var(--border)">${art(0,36)}<span class="t"><div class="t1">You Only Live Once</div><div class="t2">The Strokes</div></span></div>
    <div class="sec">Next · First Impressions of Earth</div>
-   <div style="border-top:1px solid var(--border)">${['Juicebox','Heart in a Cage','Razorblade'].map(t=>`<div class="ln" style="padding-right:0"><span class="t"><div class="t1" style="font-size:var(--fs-body);line-height:var(--lh-body)">${t}</div></span><span class="ib" role="button" aria-label="Reorder ${t}" style="color:var(--muted)">${I.handle}</span></div>`).join('')}</div>
+   <div style="border-top:1px solid var(--border)">${['Juicebox','Heart in a Cage','Razorblade','On the Other Side','Vision of Division'].map(t=>`<div class="ln" style="padding-right:0"><span class="t"><div class="t1" style="font-size:var(--fs-body);line-height:var(--lh-body)">${t}</div></span><span class="ib" role="button" aria-label="Reorder ${t}" style="color:var(--muted)">${I.handle}</span></div>`).join('')}</div>
   </div>`),
 S('More: the signal path','Swipe up or the More control: the signal chain drawn as an engineer draws it, every stage with its value, and whether the path is bit-perfect (SYS-041, audio profiles spec §3).',
  'Progressive disclosure; intimate knowledge (psychological ownership); engineered identity (technical drawing).',
@@ -364,17 +190,7 @@ S('First run: ready','The music on the card is found and playable at once while 
   <div style="position:absolute;left:var(--m);right:var(--m);bottom:12px"><div class="btn primary" role="button">${F.play} Play something</div></div>`),
 ]]);
 
-const root=document.getElementById('groups');let n=0;
-G.forEach(([title,intro,screens])=>{
-  const h=document.createElement('h2');h.className='group';h.textContent=title;root.appendChild(h);
-  const p=document.createElement('p');p.className='group';p.textContent=intro;root.appendChild(p);
-  const grid=document.createElement('div');grid.className='grid';root.appendChild(grid);
-  screens.forEach(s=>{n++;
-    const f=document.createElement('figure');
-    f.innerHTML=`<div class="dev"><span class="key action" title="Action"></span><span class="key vp" title="Volume +"></span><span class="key vm" title="Volume −"></span><span class="key main" title="Main"></span><div class="screen" role="img" aria-label="${s.title}">${s.html}</div></div><figcaption><b>${n}. ${s.title}</b>${s.cap}<span class="laws"><em>Applies:</em> ${s.laws}</span></figcaption>`;
-    grid.appendChild(f);
-  });
-});
+renderGroups(G);
 </script>
 </body>
 </html>
