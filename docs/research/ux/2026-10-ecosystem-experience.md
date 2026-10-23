@@ -579,6 +579,8 @@ The questions first raised here were answered; the requirements are recorded in 
 | A phone app | Yes; OpenDAP Desktop comes first | T1-068 |
 | The household | A must: one shared collection with each member's personal state; family members in the manner of streaming services' profiles | SYS-043, SYS-044 |
 | Playback across devices | Real-time sync of playback across all of the listener's devices is a must | SYS-042 |
+| Multi-room (the same music on several devices at once) | A should | SYS-046 |
+| What the protocol syncs | Everything, down to the library index and its details, so the computer can prepare it; without a desktop client the T1 works on demand | OS-029 |
 | Third parties (MusicBrainz, AcoustID, stores, streaming, scrobbling) | All can be integrated, always as opt-in providers, never in the core | SYS-045 |
 | NFC and haptics | Yes, when suitable parts are available | BRD-057, BRD-058 |
 
