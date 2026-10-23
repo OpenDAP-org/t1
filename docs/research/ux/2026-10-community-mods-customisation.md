@@ -10,11 +10,11 @@
 - **Inputs read:**
   - [`t1/docs/requirements/README.md`](../../requirements/README.md)
   - [`t1/docs/specs/faceplate-interface.md`](../../specs/faceplate-interface.md) and [`t1/docs/specs/controls-and-status-led.md`](../../specs/controls-and-status-led.md)
-  - [`system/docs/requirements/README.md`](../../../../system/docs/requirements/README.md)
-  - [`system/docs/research/2026-10-system-architecture.md`](../../../../system/docs/research/2026-10-system-architecture.md) (capabilities, slots and templates, §5.11 audio engine, §5.12 security model, developer mode)
-  - [`blackbird-os/docs/requirements/README.md`](../../../../blackbird-os/docs/requirements/README.md), [ADR 0004](../../../../blackbird-os/docs/adr/0004-image-lifecycle.md), [ADR 0005](../../../../blackbird-os/docs/adr/0005-trust-model-for-now.md)
-  - [`hats/standard/docs/requirements/README.md`](../../../../hats/standard/docs/requirements/README.md)
-  - [`board/docs/requirements/README.md`](../../../../board/docs/requirements/README.md) (BRD-017, BRD-023, BRD-035, BRD-043, BRD-049)
+  - [`system/docs/requirements/README.md`](https://github.com/opendap-project/system/blob/main/docs/requirements/README.md)
+  - [`system/docs/research/2026-10-system-architecture.md`](https://github.com/opendap-project/system/blob/main/docs/research/2026-10-system-architecture.md) (capabilities, slots and templates, §5.11 audio engine, §5.12 security model, developer mode)
+  - [`blackbird-os/docs/requirements/README.md`](https://github.com/opendap-project/blackbird-os/blob/main/docs/requirements/README.md), [ADR 0004](https://github.com/opendap-project/blackbird-os/blob/main/docs/adr/0004-image-lifecycle.md), [ADR 0005](https://github.com/opendap-project/blackbird-os/blob/main/docs/adr/0005-trust-model-for-now.md)
+  - [`hats/standard/docs/requirements/README.md`](https://github.com/opendap-project/hat-standard/blob/main/docs/requirements/README.md)
+  - [`board/docs/requirements/README.md`](https://github.com/opendap-project/board/blob/main/docs/requirements/README.md) (BRD-017, BRD-023, BRD-035, BRD-043, BRD-049)
 
 ## 0. How evidence is marked
 
@@ -124,7 +124,7 @@
 |---|---|---|
 | Own USB audio driver (USB Audio Player PRO) | Android's mixer: UAPP "bypasses the Android audio system completely" and claims "bit-perfect 24-bit audio playback and all sample rates that the chip supports without resampling" on internal audio, plus native DSD | [UAPP](https://www.extreamsd.com/index.php/products/usb-audio-player-pro) |
 | Android 14 bit-perfect mode | Optional for vendors, "Only USB devices", no software volume ("the hardware controls the volume"), no sample-rate conversion or effects | [AOSP preferred mixer attributes](https://source.android.com/docs/core/audio/preferred-mixer-attr) |
-| Manufacturer "bit-perfect" modes | HiBy markets "Direct Transport Architecture (systemwide bit-perfect audio)"; FiiO markets "no global SRC" and an exclusive "Pure Music mode". Internals are proprietary (**UNVERIFIED**) | As cited in [system architecture research §3.6](../../../../system/docs/research/2026-10-system-architecture.md) |
+| Manufacturer "bit-perfect" modes | HiBy markets "Direct Transport Architecture (systemwide bit-perfect audio)"; FiiO markets "no global SRC" and an exclusive "Pure Music mode". Internals are proprietary (**UNVERIFIED**) | As cited in [system architecture research §3.6](https://github.com/opendap-project/system/blob/main/docs/research/2026-10-system-architecture.md) |
 | System-wide DSP (JamesDSP, ViPER4Android) | No system-wide EQ or convolution in stock firmware. JamesDSP offers a partitioned convolver, FIR EQ with AutoEQ, crossfeed, compressor and user-written effects in EEL2. Its Android manager targets Android 5–10 and installs through system modification or Magisk. ViPER4Android's app source "is currently not open source" | [JDSP4Linux](https://github.com/Audio4Linux/JDSP4Linux), [JamesDSPManager](https://github.com/james34602/JamesDSPManager), [ViPER4Android](https://github.com/AndroidAudioMods/ViPER4Android) |
 | Rootless DSP | RootlessJamesDSP uses internal audio capture. Limits: apps that block capture (Spotify, Chrome) stay unprocessed, it conflicts with other effect apps, and latency increases | [RootlessJamesDSP](https://github.com/ThePBone/RootlessJamesDSP) |
 | Safe-volume warnings | AOSP's safe media volume depends on a "country option", can be set inactive once the user confirms, and is re-enabled after 20 hours of music at unsafe volume (`UNSAFE_VOLUME_MUSIC_ACTIVE_MS_MAX = 20 * 3600 * 1000`). Android also computes a sound dose over "a seven-day continuously rolling window" (EN 50332-3, IEC 62368-1) and, without acknowledgement, "the volume lowers to the predefined … RS1 value" | [SoundDoseHelper.java](https://github.com/aosp-mirror/platform_frameworks_base/blob/main/services/core/java/com/android/server/audio/SoundDoseHelper.java), [AOSP sound dose](https://source.android.com/docs/core/audio/sound-dose) |
@@ -169,7 +169,7 @@
 | piCorePlayer | Runs "entirely in RAM", "you can simply pull the power without any risk of corruption" | [picoreplayer.org](https://www.picoreplayer.org/) |
 | Lyrion (formerly Logitech Media Server) | The community took over the Squeezebox server after Logitech and renamed it, so Squeezebox hardware keeps working | [lyrion.org](https://lyrion.org/), [slimserver](https://github.com/LMS-Community/slimserver) |
 | Mopidy | An "extensible music server" controlled "from any MPD or web client" | [mopidy](https://github.com/mopidy/mopidy) |
-| MPD | Bit-perfect only with ALSA `hw:`, no software mixer, no ReplayGain and no forced format; per-format output policy | As cited in [system architecture research §3.6](../../../../system/docs/research/2026-10-system-architecture.md) |
+| MPD | Bit-perfect only with ALSA `hw:`, no software mixer, no ReplayGain and no forced format; per-format output policy | As cited in [system architecture research §3.6](https://github.com/opendap-project/system/blob/main/docs/research/2026-10-system-architecture.md) |
 | Volumio | Plugin kinds: audio interface, music service, system hardware, system controller, user interface | Same |
 | CamillaDSP, AutoEq | IIR/FIR engine "for crossovers, room correction etc."; AutoEq (about 16,000 GitHub stars) generates headphone EQ from measurements, and DAP firmwares import its format (HiBy PEQ parses `ParametricEQ.txt`) | [camilladsp](https://github.com/HEnquist/camilladsp), [AutoEq](https://github.com/jaakkopasanen/AutoEq), [Hiby-R1-Mod](https://github.com/bidhata/Hiby-R1-Mod) |
 

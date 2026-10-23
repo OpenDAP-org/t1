@@ -9,16 +9,16 @@
   - Closer to credit-card size wins. Thinner is better: toward ≤ 20 mm, and 25 mm only if autonomy needs it.
   - The ideal proportion is the card's height:width ratio (≈ 1.59). A small deviation is allowed when it buys a standard cell or fits the display.
 - **Inputs read:**
-  - [`board/docs/specs/bom-v0.md`](../../../board/docs/specs/bom-v0.md)
-  - [`board/docs/research/2026-10-component-selection.md`](../../../board/docs/research/2026-10-component-selection.md)
-  - [`board/docs/research/2026-10-sourcing-alternatives.md`](../../../board/docs/research/2026-10-sourcing-alternatives.md)
-  - [`board/docs/research/2026-10-high-speed-io-topology.md`](../../../board/docs/research/2026-10-high-speed-io-topology.md)
-  - [`board/docs/research/2026-10-battery-selection.md`](../../../board/docs/research/2026-10-battery-selection.md) (revised for the 62.5 × 93.75 × 25 mm body: candidates, pocket arithmetic)
-  - [`faceplates/touch/docs/adr/0001-focus-lcds-e35gh-display.md`](../../../faceplates/touch/docs/adr/0001-focus-lcds-e35gh-display.md) and [`faceplates/touch/docs/research/2026-10-display-selection.md`](../../../faceplates/touch/docs/research/2026-10-display-selection.md)
-  - [`blackbird-os/docs/research/2026-10-image-composition.md`](../../../blackbird-os/docs/research/2026-10-image-composition.md) (§5.6 and §8, power)
-  - [`system/docs/adr/0002-system-architecture.md`](../../../system/docs/adr/0002-system-architecture.md)
+  - [`board/docs/specs/bom-v0.md`](https://github.com/opendap-project/board/blob/main/docs/specs/bom-v0.md)
+  - [`board/docs/research/2026-10-component-selection.md`](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-component-selection.md)
+  - [`board/docs/research/2026-10-sourcing-alternatives.md`](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-sourcing-alternatives.md)
+  - [`board/docs/research/2026-10-high-speed-io-topology.md`](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-high-speed-io-topology.md)
+  - [`board/docs/research/2026-10-battery-selection.md`](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-battery-selection.md) (revised for the 62.5 × 93.75 × 25 mm body: candidates, pocket arithmetic)
+  - [`faceplates/touch/docs/adr/0001-focus-lcds-e35gh-display.md`](https://github.com/opendap-project/faceplate-touch/blob/main/docs/adr/0001-focus-lcds-e35gh-display.md) and [`faceplates/touch/docs/research/2026-10-display-selection.md`](https://github.com/opendap-project/faceplate-touch/blob/main/docs/research/2026-10-display-selection.md)
+  - [`blackbird-os/docs/research/2026-10-image-composition.md`](https://github.com/opendap-project/blackbird-os/blob/main/docs/research/2026-10-image-composition.md) (§5.6 and §8, power)
+  - [`system/docs/adr/0002-system-architecture.md`](https://github.com/opendap-project/system/blob/main/docs/adr/0002-system-architecture.md)
   - [`t1/docs/requirements/README.md`](../requirements/README.md)
-  - [`toolkit/verify/docs/research/2026-10-verification-instrumentation.md`](../../../toolkit/docs/research/2026-10-verification-instrumentation.md) (P7, battery verification)
+  - [`toolkit/verify/docs/research/2026-10-verification-instrumentation.md`](https://github.com/opendap-project/toolkit-verify/blob/main/docs/research/2026-10-verification-instrumentation.md) (P7, battery verification)
 - **Evidence convention:**
   - **[DS]** a figure read from the vendor datasheet or product page in this session (link in §14).
   - **[DOC]** a figure taken from one of the OpenDAP reports above.
@@ -126,7 +126,7 @@ The calculation is a short script that was run locally. Every table can be repro
 
 ## 2. Battery candidates and usable energy
 
-Candidates come from the revised [battery selection report](../../../board/docs/research/2026-10-battery-selection.md). BOM line 21 (Jauch LP705176JS) **fits no envelope** according to that report, so it is not used here.
+Candidates come from the revised [battery selection report](https://github.com/opendap-project/board/blob/main/docs/research/2026-10-battery-selection.md). BOM line 21 (Jauch LP705176JS) **fits no envelope** according to that report, so it is not used here.
 
 | Pack | Status in the battery report | Label energy | Usable (90 %) | Aged (72 %) |
 |---|---|---|---|---|
@@ -450,7 +450,7 @@ With the screen on, the display becomes the largest single block: ≈ 38 % of 1.
 
 ## 9. What the architecture must do
 
-These follow from [system ADR 0002](../../../system/docs/adr/0002-system-architecture.md) and blackbird-os §8.
+These follow from [system ADR 0002](https://github.com/opendap-project/system/blob/main/docs/adr/0002-system-architecture.md) and blackbird-os §8.
 
 1. **Screen-off is a transition owned by the orchestrator.**
    - Freeze every UI activity's cgroup (cgroup freezer).
@@ -641,7 +641,7 @@ The tables follow the maintainers' priorities: closest to card size first, then 
 
 ## 12. Prototype measurements to validate this model
 
-This plugs into promise **P7** of the [verification instrumentation report](../../../toolkit/docs/research/2026-10-verification-instrumentation.md): published autonomy for named scenarios, met within ±10 % on hardware.
+This plugs into promise **P7** of the [verification instrumentation report](https://github.com/opendap-project/toolkit-verify/blob/main/docs/research/2026-10-verification-instrumentation.md): published autonomy for named scenarios, met within ±10 % on hardware.
 
 ### 12.1 Design-for-test (needed before layout)
 

@@ -6,7 +6,7 @@
 - **Builds on:**
   - the [controls and gestures research](2026-10-controls-gestures-small-screen.md) (targets, gestures, buttons);
   - the [ecosystem experience research](2026-10-ecosystem-experience.md) (principles E1 to E20);
-  - the [interface mockups](../../../renders/web/ui-mockups.html), which apply this document.
+  - the [interface mockups](https://github.com/opendap-project/blackbird-ui/blob/main/renders/web/ui-mockups.html), which apply this document.
 - **Method:**
   - three benches with primary sources fetched on 2026-10-23: small-screen platforms and dedicated devices; legibility and accessibility standards and research; icons, text and localisation;
   - measurements on the IBM Plex font files;

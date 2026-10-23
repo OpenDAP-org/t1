@@ -1,6 +1,6 @@
 # Audio profiles: benchmark
 
-- **Status:** Research, 2026-10-23. The resulting decisions are in the [audio profiles spec](../../specs/audio-profiles.md) (T1-064).
+- **Status:** Research, 2026-10-23. The resulting decisions are in the [audio profiles spec](https://github.com/opendap-project/system/blob/main/docs/specs/audio-profiles.md) (T1-064).
 - **Question:** what audio profiles should the T1 offer, from neutral reference listening for sound engineers to personal audiophile sessions with their own colour and texture?
 
 ## 1. What the market offers
