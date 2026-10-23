@@ -195,9 +195,9 @@ const M = {
   back: new THREE.MeshPhysicalMaterial({ color: 0x2b2d2f, roughness: 0.55, bumpMap: G, bumpScale: 0.2 }),
   glass: new THREE.MeshPhysicalMaterial({ color: 0x020203, roughness: 0.08, clearcoat: 1, clearcoatRoughness: 0.03, envMapIntensity: 0.6 }),
   glassTop: new THREE.MeshPhysicalMaterial({ color: 0x0c0d10, roughness: 0.03, transparent: true, opacity: 0.1, envMapIntensity: 0.8, depthWrite: false }),
-  btn: new THREE.MeshPhysicalMaterial({ color: 0x3a3d40, metalness: 1, roughness: 0.3, clearcoat: 0.4, clearcoatRoughness: 0.2 }),
+  btn: new THREE.MeshPhysicalMaterial({ color: 0xa3a8ae, metalness: 0.55, roughness: 0.38, clearcoat: 0.7, clearcoatRoughness: 0.25 }),   // Volume and Main: silver-finished plastic (metallic paint under a clear coat)
   act: new THREE.MeshPhysicalMaterial({ color: 0xff6a2a, metalness: 0.85, roughness: 0.34, clearcoat: 0.6, clearcoatRoughness: 0.15, side: THREE.DoubleSide }),
-  relief: new THREE.MeshStandardMaterial({ color: 0xf4f2ed, roughness: 0.45, metalness: 0.1 }),
+  relief: new THREE.MeshStandardMaterial({ color: 0x2b2e32, roughness: 0.5, metalness: 0.1 }),   // + and − in graphite, to read on the silver keys
   print: new THREE.MeshStandardMaterial({ color: 0xf4f2ed, roughness: 0.7, polygonOffset: true, polygonOffsetFactor: -2 }),
   dark: new THREE.MeshStandardMaterial({ color: 0x0a0b0c, roughness: 0.6 }),
   black: new THREE.MeshBasicMaterial({ color: 0x050505 }),

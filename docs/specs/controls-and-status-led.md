@@ -56,9 +56,9 @@ Seen from the front:
 |---|---|---|---|
 | Left, top | **Action** | A round disc, subtly concave: circular outline, shallow comfortable concavity, a defined tactile perimeter with no sharp rim, a stable central contact area. Deeper travel and a clearer click (T1-022). The only control in the orange brand accent. | The main action button; default play / pause (§1.3) |
 | Left, below Action | **Volume +** and **Volume −** | Two half-capsules: together they form one capsule split across the middle, each half with a rounded outer end and a flat inner edge at the split, operated as two separate buttons. Not a rocker. Short, predictable travel. | Volume steps |
-| Right | **Main (power)** | A taller capsule with horizontal ribs for touch identification. Graphite, visually quieter than Action. | System button (§1.2, §1.3) |
+| Right | **Main (power)** | A taller capsule with horizontal ribs for touch identification. Silver-finished, visually quieter than Action. | System button (§1.2, §1.3) |
 
-All buttons are graphite except Action.
+Volume + / − and Main are silver-finished plastic: a metallic silver paint under a satin clear coat on the polymer cap, with the + and − reliefs in graphite (maintainers, 2026-10-23). Action stays in the orange accent; the body stays graphite.
 
 **Button groups.** The volume pair is the reference instance of the button-group pattern shared by physical and on-screen controls (ui-components DS-013): one capsule split into segments, rounded outer ends, flat inner edges at each split, every segment its own button, with a consistent gap or divider.
 
