@@ -114,7 +114,7 @@
 | UX-066 | If verified boot is ever enforced, the owner shall be able to enrol their own keys or turn enforcement off from the device, without erasing user data and without a key from OpenDAP, and the device shall show which keys it trusts. | must | blackbird-os | MOD §8 #11, §10 Q4 · [wInd3x](https://github.com/freemyipod/wInd3x), [ZX500-USB-DAC](https://github.com/remove/ZX500-USB-DAC) | refines OS-011 (ADR 0005); see D-2 |
 | UX-067 | Each Blackbird OS release shall publish its full source and build inputs, so anyone can rebuild and keep updating a T1 image without the project. | must | blackbird-os | MOD §8 #10, §9 (lock-in) · [lyrion.org](https://lyrion.org/) | refines OS-010, OS-011, OS-023 |
 | UX-068 | Blackbird OS should document how to build and boot an image with a different product shell. | should (D-1) | blackbird-os | MOD §8 #9, §10 Q2 · [compas-player](https://github.com/Starnished66/compas-player) | refines OS-010 |
-| UX-069 | The T1 should boot an Blackbird OS image from the SD/TF card without modifying internal storage, so alternative or development images can be tried and removed by taking the card out. | should | blackbird-os | MOD §9 (try before you flash) · [diskos](https://github.com/b0hemia/diskos) | refines BRD-043; feasibility **UNVERIFIED** |
+| UX-069 | The T1 should boot a Blackbird OS image from the SD/TF card without modifying internal storage, so alternative or development images can be tried and removed by taking the card out. | should | blackbird-os | MOD §9 (try before you flash) · [diskos](https://github.com/b0hemia/diskos) | refines BRD-043; feasibility **UNVERIFIED** |
 
 ## 7. Updates and recovery
 
