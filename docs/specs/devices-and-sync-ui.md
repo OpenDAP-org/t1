@@ -104,5 +104,5 @@ Tapping the sync line opens one screen:
 
 ## 9. Open points
 
-- Drawn layouts at 320 × 480, in the design system, then a usability check on the virtual T1 (ecosystem research §13.2).
+- First drawn layouts at 320 × 480 in the design system tokens: [`renders/web/devices-and-sync.html`](../../renders/web/devices-and-sync.html) (10 screens). Next: a usability check on the virtual T1 (ecosystem research §13.2).
 - The wording of every message, in all five launch languages (SYS-028).
