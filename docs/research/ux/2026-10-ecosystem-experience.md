@@ -574,6 +574,7 @@ The questions first raised here were answered; the requirements are recorded in 
 |---|---|---|
 | Copying music to the T1 without vendor software | Plain files: over USB the T1 appears by default as a standard storage device with an organised directory tree; OpenDAP Desktop and the CLI are recommended | T1-065 (Draft: the layout is to define) |
 | The T1 without the desktop, and purchases | The T1 is fully useful without the desktop: files bought (for example FLAC) and loaded by any means simply play. On the device, a wish list; a provider may offer one-action purchase, opt-in in that provider's settings | T1-066, T1-067 |
+| Sync and connected features with a computer | Through OpenDAP Desktop or the CLI, over any link; without them, plain USB storage and standalone use | DESK-011 |
 | Transcoding on sync | Offered, per device, optional | DESK-010 |
 | A phone app | Yes; OpenDAP Desktop comes first | T1-068 |
 | The household | A must: one shared collection with each member's personal state; family members in the manner of streaming services' profiles | SYS-043, SYS-044 |
