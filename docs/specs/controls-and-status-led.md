@@ -34,15 +34,16 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 | **Main + Volume −**, short | Screenshot | Android |
 | **Main + Volume −**, hold | Power menu (same as Main long), also reachable when the screen is off | maintainers' choice (2026-10-22) |
 | **Main**, held until forced power-off | Hardware power-off, works even if the OS is unresponsive | Android forced restart; implemented by the PMIC |
-| **Volume + / −**, short | Volume step | Android |
-| **Volume + / −**, long | Repeat volume steps | Android key repeat |
-| **Action**, short | Assignable; default play / pause | Developer-accessible (BRD-036) |
-| **Action**, long | Assignable; default none | as above |
-| **Action + Volume +** / **Action + Volume −** | Next / previous track | proposed, so track control works with the screen off |
+| **Volume + / −**, short | One volume step | Android (T1-062) |
+| **Volume + / −**, long | Next / previous track, screen on or off; no auto-repeat | Android music apps with the screen off (T1-062) |
+| **Action**, short | The current screen's primary action; with the screen off, play / pause of the active media | The orange primary action on screen (T1-061) |
+| **Action**, long | A direct action the user chooses; default none | T1-061; developer-accessible (BRD-036) |
 
 **Rules:**
 
-- System combinations (with **Main**) cannot be reassigned. **Action** and the Action combinations can.
+- System combinations (with **Main**) cannot be reassigned. The Action long press can.
+- Every button works with the screen off, with the same response as with it on (T1-060).
+- No double or triple press on Action or volume: a single press never waits for a second one (T1-063). Research: [buttons, gestures and touch on a small screen](../research/ux/2026-10-controls-gestures-small-screen.md).
 - Safety-related functions never depend only on software: forced power-off (PMIC) and MaskROM entry (hardware circuit) work with any OS state.
 - Volume limits and the hearing-safety dose (SYS-012) apply to button volume changes like any other.
 
@@ -54,8 +55,8 @@ Seen from the front:
 
 | Edge | Button | Form | Role |
 |---|---|---|---|
-| Left, top | **Action** | A round disc, subtly concave: circular outline, shallow comfortable concavity, a defined tactile perimeter with no sharp rim, a stable central contact area. Deeper travel and a clearer click (T1-022). The only control in the orange brand accent. | The main action button; default play / pause (§1.3) |
-| Left, below Action | **Volume +** and **Volume −** | Two half-capsules: together they form one capsule split across the middle, each half with a rounded outer end and a flat inner edge at the split, operated as two separate buttons. Not a rocker. Short, predictable travel. | Volume steps |
+| Left, top | **Action** | A round disc, subtly concave: circular outline, shallow comfortable concavity, a defined tactile perimeter with no sharp rim, a stable central contact area. Deeper travel and a clearer click (T1-022). The only control in the orange brand accent. | The main action button: the screen's primary action (§1.3) |
+| Left, below Action | **Volume +** and **Volume −** | Two half-capsules: together they form one capsule split across the middle, each half with a rounded outer end and a flat inner edge at the split, operated as two separate buttons. Not a rocker. Short, predictable travel. | Volume steps; long press, previous / next track |
 | Right | **Main (power)** | A taller capsule with horizontal ribs for touch identification. Silver-finished, visually quieter than Action. | System button (§1.2, §1.3) |
 
 Volume + / − and Main are silver-finished plastic: a metallic silver paint under a satin clear coat on the polymer cap, with the + and − reliefs in graphite (maintainers, 2026-10-23). Action stays in the orange accent; the body stays graphite.

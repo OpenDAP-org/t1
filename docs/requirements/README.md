@@ -63,9 +63,20 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-057 | The device shall react as fluidly as its interface: the audible and physical effect of every action (volume, play, pause, seek, track change, output or gain change) follows the input within the experience budgets, and what the interface shows always matches what the device is doing. | must | Confirmed |
 | T1-058 | The Commercial edition shall include the HAT device-side piece, fitted. In the DIY edition it is an optional accessory. | must | Confirmed |
 | T1-059 | The physical controls follow the concept art: on the left edge, the Action button is a round disc at the top, subtly concave, and the only control in the orange brand accent; Volume + and Volume − below it are two half-capsules: together they form one capsule split across the middle, each half with a rounded outer end and a flat inner edge at the split, operated as two separate buttons. On the right edge, Main (power) is a taller capsule with horizontal ribs for touch identification. Volume and Main are silver-finished plastic; Action is the only orange control. | must | Confirmed |
+| T1-060 | The body buttons shall work with the screen off, with the same response as with the screen on. | must | Confirmed |
+| T1-061 | A short press of Action shall perform the current screen's primary action (with the screen off: play / pause of the active media); a long press shall perform a direct action the user chooses. | must | Confirmed |
+| T1-062 | A short press of Volume + / − shall change the volume by one step; a long press shall go to the next / previous track, with the screen on or off. | must | Confirmed |
+| T1-063 | Action and the volume buttons shall have no double or triple press, so a single press is never delayed waiting for another. | must | Confirmed |
+| T1-064 | The T1 shall offer audio profiles, from a monitor profile for neutral, reference listening to personal audiophile sessions with a custom profile that shapes the sound's colour and texture. | must | Confirmed |
+
+## Open questions
+
+- T1-064: what a profile can set (for example the DAC's digital filter, EQ, crossfeed, gain, output), whether profiles attach to a headphone (SYS-012 has per-headphone profiles), and how to switch them quickly. The monitor profile's relation to bit-perfect playback (OS-020).
 
 ## Context
 
+- T1-060 to T1-063 (maintainers, 2026-10-23), after the [research](../research/ux/2026-10-controls-gestures-small-screen.md): Action follows the screen's primary action, as the orange control on screen does; long-press volume for tracks follows an Android convention, applied with the screen on too so one press means one thing. Multi-press would delay the single press by Android's 300 ms double-tap window, against the experience budgets (T1-057).
+- T1-064 (maintainers, 2026-10-23): audio profiles are a core part of the audiophile experience.
 - T1-059 (maintainers, 2026-10-23): Volume + / − and Main changed from graphite to silver-finished plastic (metallic paint under a satin clear coat); the body stays graphite and Action orange.
 - T1-059 (maintainers, 2026-10-22): the button design in the concept art (`docs/concept-art/`) governs; the design system draft describes it. Other details in that concept art are stale (480 × 800 screen, 1.27 mm pins, earlier dimensions).
 - T1-049 to T1-055 (2026-10-22, under the maintainers' delegation): moments of truth that had no must requirement, from the [UX candidate requirements](../research/ux/2026-10-candidate-requirements.md) and the [priority audit](../research/2026-10-requirement-priorities.md).
