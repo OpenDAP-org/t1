@@ -12,7 +12,7 @@
 - **Builds on:**
   - [RFC 0004](https://github.com/opendap-project/rfcs/blob/main/text/0004-opendap-protocol.md), the OpenDAP Protocol;
   - the [user-facing conventions](https://github.com/opendap-project/system/blob/main/docs/specs/user-facing-conventions.md);
-  - the [Engineered Matter design system](https://github.com/opendap-project/ui-components/blob/main/docs/specs/design-system.md): targets §8.3, gestures §8.5, type §9.3;
+  - the [Engineered Matter design system](https://github.com/opendap-project/blackbird-ui/blob/main/docs/specs/design-system.md): targets §8.3, gestures §8.5, type §9.3;
   - the [controls and status LED spec](controls-and-status-led.md) §2.2;
   - the [ecosystem experience research](../research/ux/2026-10-ecosystem-experience.md) E8, E10, E11, E13.
 

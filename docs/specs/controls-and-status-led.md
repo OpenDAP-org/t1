@@ -49,7 +49,7 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 
 ### 1.4 Physical control design
 
-The button design in the [concept art](../concept-art/) governs (T1-059): it is the reference for the form of the controls, and this section describes it. Other details in that concept art are stale (480 × 800 screen, 1.27 mm pins, earlier dimensions) and are not a source. The shared visual language is in the [design system spec](https://github.com/opendap-project/ui-components/blob/main/docs/specs/design-system.md); materials, finishes and manufacturability in the [case industrial-design spec](https://github.com/opendap-project/case/blob/main/docs/specs/industrial-design.md).
+The button design in the [concept art](../concept-art/) governs (T1-059): it is the reference for the form of the controls, and this section describes it. Other details in that concept art are stale (480 × 800 screen, 1.27 mm pins, earlier dimensions) and are not a source. The shared visual language is in the [design system spec](https://github.com/opendap-project/blackbird-ui/blob/main/docs/specs/design-system.md); materials, finishes and manufacturability in the [case industrial-design spec](https://github.com/opendap-project/case/blob/main/docs/specs/industrial-design.md).
 
 Seen from the front:
 
@@ -61,7 +61,7 @@ Seen from the front:
 
 Volume + / − and Main are silver-finished plastic: a metallic silver paint under a satin clear coat on the polymer cap, with the + and − reliefs in graphite (maintainers, 2026-10-23). Action stays in the orange accent; the body stays graphite.
 
-**Button groups.** The volume pair is the reference instance of the button-group pattern shared by physical and on-screen controls (ui-components DS-013): one capsule split into segments, rounded outer ends, flat inner edges at each split, every segment its own button, with a consistent gap or divider.
+**Button groups.** The volume pair is the reference instance of the button-group pattern shared by physical and on-screen controls (blackbird-ui DS-013): one capsule split into segments, rounded outer ends, flat inner edges at each split, every segment its own button, with a consistent gap or divider.
 
 **Feedback.** Each button confirms its action through travel, click, shape and position, and through the screen when it is on. A physical action never depends only on a small on-screen animation: with the screen off, volume and playback changes are audible, and the action follows the press within the [experience budgets](experience-budgets.md) (T1-057).
 
@@ -69,7 +69,7 @@ Volume + / − and Main are silver-finished plastic: a metallic silver paint und
 
 ## 2. Status LED
 
-The status LED is on the faceplate (FPT-003), RGB where possible (FPT-025), and developer-controllable (FPT-016). The colours follow **IEC 60073** (meanings of colours for indicators), and the on-screen semantic colours use the same families for the same meanings ([design system](https://github.com/opendap-project/ui-components/blob/main/docs/specs/design-system.md) §18.4): red for danger or fault, yellow/amber for an abnormal or warning condition, green for normal, blue for a condition that needs an action, white for neutral information. Patterns follow the same standard's use of flashing to draw attention.
+The status LED is on the faceplate (FPT-003), RGB where possible (FPT-025), and developer-controllable (FPT-016). The colours follow **IEC 60073** (meanings of colours for indicators), and the on-screen semantic colours use the same families for the same meanings ([design system](https://github.com/opendap-project/blackbird-ui/blob/main/docs/specs/design-system.md) §18.4): red for danger or fault, yellow/amber for an abnormal or warning condition, green for normal, blue for a condition that needs an action, white for neutral information. Patterns follow the same standard's use of flashing to draw attention.
 
 ### 2.1 Patterns
 

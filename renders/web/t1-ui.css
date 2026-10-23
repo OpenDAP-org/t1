@@ -1,6 +1,6 @@
 /* SPDX-FileCopyrightText: 2026 The OpenDAP Project */
 /* SPDX-License-Identifier: CC-BY-SA-4.0 */
-/* Engineered Matter tokens (ui-components/tokens/opendap.tokens.json), with the type scale and spacing
+/* Engineered Matter tokens (blackbird-ui/tokens/opendap.tokens.json), with the type scale and spacing
    proposed in the small-screen UI and accessibility research (2026-10-23): a 35 cm reading distance,
    16 px side margins, spacing by proximity (4 within a unit, 8-12 within a group, 16-24 between groups). */
 :root{

@@ -11,7 +11,7 @@
   - [OpenDAP Desktop as the companion](https://github.com/opendap-project/desktop/blob/main/docs/research/2026-10-desktop-companion.md) (`desktop`): library, curation, device sync, providers and the benchmark of companion apps and stores.
 - **Inputs read (OpenDAP):**
   - requirements in `t1` (T1-001 to T1-064), `system` (SYS-001 to SYS-041), `blackbird-os` (OS-001 to OS-028), `desktop` (DESK-001 to DESK-009), `toolkit-cli` (TK-001 to TK-011) and `board` (BRD-025 to BRD-039);
-  - [system ADR 0002](https://github.com/opendap-project/system/blob/main/docs/adr/0002-system-architecture.md), the [CLI spec](https://github.com/opendap-project/toolkit-cli/blob/main/docs/specs/opendap-cli.md), the [controls spec](../../specs/controls-and-status-led.md), the [audio profiles spec](../../specs/audio-profiles.md) and the [design system](https://github.com/opendap-project/ui-components/blob/main/docs/specs/design-system.md).
+  - [system ADR 0002](https://github.com/opendap-project/system/blob/main/docs/adr/0002-system-architecture.md), the [CLI spec](https://github.com/opendap-project/toolkit-cli/blob/main/docs/specs/opendap-cli.md), the [controls spec](../../specs/controls-and-status-led.md), the [audio profiles spec](../../specs/audio-profiles.md) and the [design system](https://github.com/opendap-project/blackbird-ui/blob/main/docs/specs/design-system.md).
 
 ## 1. Summary
 

@@ -1,7 +1,7 @@
 # UX research: interface and accessibility on the T1's screen
 
 - **Date:** 2026-10-23
-- **Status:** Desk research, with the decisions it led to recorded in the [design system](https://github.com/opendap-project/ui-components/blob/main/docs/specs/design-system.md) (Engineered Matter) and in DS-015 to DS-020 and SYS-061 to SYS-066. Nothing was tested with users or on the real panel. Values to confirm on the virtual T1 (OS-018) and on the first prototype are marked as such.
+- **Status:** Desk research, with the decisions it led to recorded in the [design system](https://github.com/opendap-project/blackbird-ui/blob/main/docs/specs/design-system.md) (Engineered Matter) and in DS-015 to DS-020 and SYS-061 to SYS-066. Nothing was tested with users or on the real panel. Values to confirm on the virtual T1 (OS-018) and on the first prototype are marked as such.
 - **Question:** how should text, icons, layout, controls, gestures and accessibility work within the T1's real screen? The screen is a 3.5" panel, 320 × 480 px at about 166 ppi (1 px = 0.153 mm, active area 48.96 × 73.44 mm), read at arm's length, often while walking, in sunlight, held in one hand, and often used without looking.
 - **Builds on:**
   - the [controls and gestures research](2026-10-controls-gestures-small-screen.md) (targets, gestures, buttons);

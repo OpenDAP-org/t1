@@ -55,7 +55,7 @@ The earlier experiments (claude.ai artifacts, 18–22 October 2026: research, da
 | Power-up sequence ending in "apply overlay" at hot-plug | Withdraw (wrong) | Mainline Linux applies overlays from the bootloader, not at runtime; the sequence must be redesigned around boot-time detection or another hot-plug mechanism. |
 | Four M2 screws, steel slider lock, release button on the right edge | Withdraw → Open | The right edge carries the power button; the mechanism was never validated. A latch is needed anyway for the pogo spring force. |
 
-## Blackbird OS and UI (`blackbird-os`, `system`, `ui-components`)
+## Blackbird OS and UI (`blackbird-os`, `system`, `blackbird-ui`)
 
 The maintainers discards the experiments' **UI prototype and design system entirely**. Only items required for other reasons survive.
 

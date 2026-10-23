@@ -203,7 +203,7 @@ Items from the three studies that existing requirements or specs already state. 
 [req-sys]: https://github.com/opendap-project/system/blob/main/docs/requirements/README.md
 [req-os]: https://github.com/opendap-project/blackbird-os/blob/main/docs/requirements/README.md
 [req-brd]: https://github.com/opendap-project/board/blob/main/docs/requirements/README.md
-[req-ds]: https://github.com/opendap-project/ui-components/blob/main/docs/requirements/README.md
+[req-ds]: https://github.com/opendap-project/blackbird-ui/blob/main/docs/requirements/README.md
 [req-desk]: https://github.com/opendap-project/desktop/blob/main/docs/requirements/README.md
 [req-tk-cli]: https://github.com/opendap-project/toolkit-cli/blob/main/docs/requirements/README.md
 [req-tk-verify]: https://github.com/opendap-project/toolkit-verify/blob/main/docs/requirements/README.md
