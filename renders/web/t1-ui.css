@@ -14,7 +14,8 @@
   --m:16px; --unit:4px; --group:12px; --section:20px;
   --sans:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
   --page:#0B0C0E;
-  /* Physical controls on the panel's coordinates (px from the panel's top), from the concept art geometry. */
+  /* The T1 reference board's controls on the panel's coordinates (px from the panel's top), as its device
+     description would give them (system hardware support spec §3); other hardware brings its own. */
   --y-action:38px; --y-volup:144px; --y-voldn:226px; --y-main:90px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
