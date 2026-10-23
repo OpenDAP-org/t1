@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!-- SPDX-FileCopyrightText: 2026 The OpenDAP Project -->
+<!-- SPDX-License-Identifier: CC-BY-SA-4.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T1 interface mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Values from ui-components/tokens/opendap.tokens.json (Engineered Matter). */
+:root{
+  --bg:#111315; --surface:#191C1F; --raised:#202428; --active:#292E33; --sep:#3A4148;
+  --g500:#737C85; --text:#F5F6F4; --text2:#C6CBD0; --muted:#939BA3; --on-brand:#111315;
+  --brand:#FF6A2A; --focus:#FF874D;
+  --success:#64D6A1; --warning:#F3C66B; --error:#FF5D65; --info:#69BFFF; --processing:#A995FF;
+  --border:#343A40; --border-strong:#515A63;
+  --r-control:10px; --r-card:16px; --r-panel:20px; --r-pill:999px;
+  --fs-display:32px; --lh-display:38px; --fs-headline:24px; --lh-headline:30px; --fs-title:20px; --lh-title:26px;
+  --fs-bl:16px; --lh-bl:22px; --fs-body:14px; --lh-body:20px; --fs-label:12px; --lh-label:16px; --fs-cap:11px; --lh-cap:14px;
+  --sans:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --page:#0B0C0E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);color:var(--text2);font-family:var(--sans);padding:40px 24px 80px}
+a{color:var(--focus)}
+.wrap{max-width:1440px;margin:0 auto}
+header h1{font-size:24px;line-height:30px;font-weight:600;color:var(--text)}
+header p{font-size:14px;line-height:20px;color:var(--muted);margin-top:6px;max-width:880px}
+h2.group{font-size:20px;line-height:26px;font-weight:600;color:var(--text);margin:48px 0 4px}
+p.group{font-size:14px;line-height:20px;color:var(--muted);max-width:880px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:40px 32px;justify-items:center}
+figure{width:320px}
+figcaption{margin-top:12px;font-size:12px;line-height:16px;color:var(--muted)}
+figcaption b{display:block;color:var(--text2);font-weight:500;font-size:14px;line-height:20px;margin-bottom:2px}
+figcaption .laws{display:block;margin-top:6px;color:var(--g500)}
+figcaption .laws em{font-style:normal;color:var(--muted)}
+/* IA map */
+.map{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:20px}
+.map .col{background:#141619;border:1px solid #23272B;border-radius:12px;padding:12px}
+.map h3{font-size:14px;line-height:20px;color:var(--text);font-weight:600}
+.map ul{list-style:none;margin-top:6px;font-size:12px;line-height:18px;color:var(--muted)}
+.map li::before{content:"· ";color:var(--g500)}
+@media (max-width:900px){.map{grid-template-columns:1fr 1fr}}
+/* The panel: 320 x 480 px, one CSS px per panel px. */
+.screen{width:320px;height:480px;background:var(--bg);color:var(--text);position:relative;overflow:hidden;border-radius:4px;outline:1px solid #22262A;font-size:var(--fs-body);line-height:var(--lh-body)}
+.sb{height:28px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:11px;line-height:14px;color:var(--text2);position:relative;z-index:2}
+.sb .l,.sb .r{display:flex;align-items:center;gap:7px}
+.sb svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+.vol{color:var(--success)}
+.topbar{height:52px;display:flex;align-items:center;padding:0 8px;gap:4px;position:relative;z-index:2}
+.topbar h2{font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:48px;height:48px;display:grid;place-items:center;border-radius:var(--r-control);color:var(--text);flex:none}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.content{padding:0 24px}
+.label{font-size:var(--fs-label);line-height:var(--lh-label);color:var(--muted);margin:14px 0 8px}
+.card{background:var(--surface);border-radius:var(--r-card)}
+.row{min-height:52px;display:flex;align-items:center;gap:12px;padding:6px 16px}
+.row+.row{border-top:1px solid var(--border)}
+.row .ic{width:24px;height:24px;flex:none;color:var(--text2)}
+.row .ic:has(.art){width:auto;height:auto}
+.row .ic svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.row .t{flex:1;min-width:0}
+.t1{font-size:var(--fs-bl);line-height:var(--lh-bl);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t2{font-size:var(--fs-label);line-height:var(--lh-label);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{font-family:var(--mono);font-size:var(--fs-label);color:var(--muted);flex:none}
+.chev{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.8;flex:none}
+.mono{font-family:var(--mono)}
+.btn{height:52px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;gap:8px;font-size:var(--fs-bl);font-weight:600;line-height:var(--lh-bl)}
+.btn.primary{background:var(--brand);color:var(--on-brand);height:64px}
+.btn.secondary{background:var(--active);color:var(--text);font-weight:500}
+.btn.ghost{color:var(--text2);font-weight:500}
+.seg{display:flex;gap:2px}
+.seg>*{flex:1;height:52px;background:var(--active);display:flex;align-items:center;justify-content:center;gap:6px;font-size:var(--fs-body);font-weight:500;color:var(--text)}
+.seg>*:first-child{border-radius:999px 0 0 999px}.seg>*:last-child{border-radius:0 999px 999px 0}
+.seg>.on{background:var(--sep);font-weight:600}
+.art{border-radius:10px;flex:none;position:relative;overflow:hidden;display:inline-block;vertical-align:middle}
+.mini{position:absolute;left:8px;right:8px;bottom:8px;height:64px;background:var(--raised);border-radius:var(--r-card);display:flex;align-items:center;gap:12px;padding:0 4px 0 8px;z-index:3}
+.mini .t{flex:1;min-width:0}
+.mini .t1{font-size:var(--fs-body);line-height:var(--lh-body);font-weight:500}
+.mini .prog{position:absolute;left:16px;right:16px;bottom:0;height:2px;background:var(--active);border-radius:1px}
+.mini .prog i{display:block;height:2px;width:42%;background:var(--text2);border-radius:1px}
+.ppw{width:52px;height:52px;display:grid;place-items:center;color:var(--text)}
+.ppw svg{width:24px;height:24px;fill:currentColor}
+.pp{width:68px;height:68px;border-radius:50%;background:var(--brand);display:grid;place-items:center;color:var(--on-brand)}
+.pp svg{width:28px;height:28px;fill:currentColor}
+.sk{width:52px;height:52px;display:grid;place-items:center;color:var(--text)}
+.sk svg{width:26px;height:26px;fill:currentColor}
+.tg{width:52px;height:52px;display:grid;place-items:center;color:var(--text2)}
+.tg.big svg{width:34px;height:34px;stroke-width:1.5}
+.tg svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--raised);border-radius:var(--r-panel) var(--r-panel) 0 0;padding:8px 0 16px;z-index:4}
+.grab{width:36px;height:4px;border-radius:2px;background:var(--border-strong);margin:4px auto 8px}
+.toast{position:absolute;left:12px;right:12px;bottom:84px;background:var(--active);border-radius:var(--r-control);min-height:52px;display:flex;align-items:center;gap:10px;padding:0 8px 0 14px;font-size:var(--fs-body);line-height:var(--lh-body);z-index:5}
+.toast .u{margin-left:auto;height:48px;padding:0 10px;display:flex;align-items:center;color:var(--focus);font-weight:600}
+.slider{height:48px;display:flex;align-items:center;gap:12px}
+.slider .trk{flex:1;height:4px;border-radius:2px;background:var(--active);position:relative}
+.slider .trk i{position:absolute;left:0;top:0;bottom:0;background:var(--text2);border-radius:2px}
+.slider .trk b{position:absolute;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--text)}
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:var(--active);font-size:var(--fs-label);line-height:var(--lh-label);color:var(--text2)}
+.ambient{position:absolute;left:0;right:0;top:0;height:380px;z-index:0;
+  background:radial-gradient(180px 180px at 96px 150px,rgba(78,70,190,.55),rgba(78,70,190,0) 70%),radial-gradient(170px 170px at 250px 230px,rgba(40,150,190,.42),rgba(40,150,190,0) 70%),radial-gradient(120px 120px at 190px 120px,rgba(150,95,230,.40),rgba(150,95,230,0) 70%),radial-gradient(120px 120px at 130px 250px,rgba(70,110,220,.32),rgba(70,110,220,0) 70%);}
+.ambient::after{content:"";position:absolute;inset:0;background:linear-gradient(#111315 0,rgba(17,19,21,0) 76px,rgba(17,19,21,0) 300px,#111315 372px)}
+.kb{position:absolute;left:0;right:0;bottom:0;background:#0D0F11;z-index:4}
+.kb .cand{height:32px;display:flex;align-items:center;gap:16px;padding:0 12px;font-size:var(--fs-body);color:var(--text2);border-bottom:1px solid var(--border)}
+.kb .kr{display:flex;justify-content:center}
+.kb .k{width:32px;height:46px;display:grid;place-items:center;font-size:16px;color:var(--text)}
+.kb .k span{width:28px;height:38px;border-radius:6px;background:var(--active);display:grid;place-items:center}
+.kb .k.w span{width:auto;padding:0 8px}
+.idx{position:absolute;right:2px;top:92px;bottom:84px;width:20px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;line-height:10px;color:var(--muted);z-index:2}
+.tabs{display:flex;gap:2px;margin:0 24px}
+.tabs>*{flex:1;height:48px;display:flex;align-items:center;justify-content:center;font-size:var(--fs-body);color:var(--muted);border-bottom:2px solid transparent}
+.tabs>.on{color:var(--text);border-bottom-color:var(--text);font-weight:500}
+.dose{height:8px;border-radius:4px;background:var(--active);overflow:hidden}
+.dose i{display:block;height:8px;background:var(--success);border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>T1 interface mockups</h1>
+  <p>The T1's interface at the panel's real size (320 × 480, one CSS pixel per panel pixel), in the Engineered Matter tokens, from the <a href="../../docs/research/ux/2026-10-ecosystem-experience.md">ecosystem experience research</a>, the <a href="../../docs/research/ux/2026-10-controls-gestures-small-screen.md">controls and gestures research</a>, the <a href="../../docs/specs/audio-profiles.md">audio profiles spec</a> and the design system. Draft, 2026-10-23, for reference: layouts are to be confirmed on the virtual T1. Library content is illustrative; artwork is a placeholder. Devices and sync screens: <a href="devices-and-sync.html">devices-and-sync.html</a>.</p>
+</header>
+
+<h2 class="group">Navigation</h2>
+<p class="group">A dedicated player, not a phone (SYS-017): no launcher and no app grid. Music opens on the library, the player is one tap away from anywhere through the mini player, and every edge gesture has a visible control (SYS-039, WCAG 2.5.1). Depth stays at three levels or fewer from the library to any track.</p>
+<div class="map">
+  <div class="col"><h3>Library (home)</h3><ul><li>Continue (last album, book, episode)</li><li>Search</li><li>Artists · Albums · Songs</li><li>Playlists · Genres · Folders</li><li>Podcasts · Audiobooks · Recordings</li></ul></div>
+  <div class="col"><h3>Now Playing</h3><ul><li>Transport, seek, like, devices</li><li>Trailing edge → Queue</li><li>Swipe up → More: signal path, profile, lyrics, credits</li><li>Devices: where it plays</li><li>Swipe down → minimise</li></ul></div>
+  <div class="col"><h3>Quick settings</h3><ul><li>From the status bar</li><li>Wi-Fi, Bluetooth, profile, output</li><li>Sleep timer, brightness</li><li>Sync line, notifications</li></ul></div>
+  <div class="col"><h3>Settings</h3><ul><li>Sound: profiles, outputs, headphones, hearing</li><li>Library · Devices · Storage</li><li>Display and controls</li><li>Accessibility · Language</li><li>Software Update · About</li></ul></div>
+  <div class="col"><h3>System layers</h3><ul><li>Volume overlay (buttons)</li><li>Toasts with Undo</li><li>Power menu (Main, long)</li><li>First run</li></ul></div>
+</div>
+<div id="groups"></div>
+</div>
+
+<template id="statusbar">
+  <div class="sb">
+    <div class="l"><span>10:42</span>
+      <svg viewBox="0 0 14 14" aria-label="microSD card"><path d="M4 1.5h5l2.5 2.5v8.5h-7.5z"/><path d="M6 1.5v2M8 1.5v2"/></svg>
+      <span class="vol" style="display:inline-flex;gap:3px;align-items:center" aria-label="Volume 38"><svg viewBox="0 0 14 14"><path d="M2 5.5h2.5L8 2.5v9L4.5 8.5H2z"/><path d="M10 5a3 3 0 0 1 0 4"/></svg>38</span>
+    </div>
+    <div class="r">
+      <svg viewBox="0 0 14 14" aria-label="Bluetooth"><path d="M4 4l6 5-3 3V2l3 3-6 5"/></svg>
+      <svg viewBox="0 0 14 14" aria-label="Wi-Fi"><path d="M1.5 5.5a8 8 0 0 1 11 0M3.5 7.8a5 5 0 0 1 7 0M5.6 10a2 2 0 0 1 2.8 0"/></svg>
+      <span>82%</span>
+      <svg viewBox="0 0 20 14" style="width:20px" aria-label="Battery 82 percent"><rect x="1" y="3" width="16" height="8" rx="2"/><rect x="3" y="5" width="11" height="4" rx="1" fill="currentColor" stroke="none"/><path d="M19 6v2"/></svg>
+    </div>
+  </div>
+</template>
+
+<script>
+const sv=(d,extra='')=>`<svg class="i" viewBox="0 0 24 24" ${extra}>${d}</svg>`;
+const I={
+  back:sv('<path d="M15 5l-7 7 7 7"/>'),
+  down:sv('<path d="M6 9l6 6 6-6"/>'),
+  search:sv('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>'),
+  gear:sv('<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1M18.7 18.7l-2.1-2.1M7.4 7.4L5.3 5.3"/>'),
+  heart:sv('<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>'),
+  queue:sv('<path d="M4 6h16M4 12h10M4 18h10"/><path d="M18 14v6l3-3z" fill="currentColor"/>'),
+  devices:sv('<rect x="3" y="5" width="12" height="9" rx="1.5"/><path d="M1.5 17h15"/><rect x="17" y="8" width="5.5" height="11" rx="1.5"/>'),
+  more:sv('<path d="M6 15l6-6 6 6"/>'),
+  shuffle:sv('<path d="M3 7h3.5l7 10H21M3 17h3.5L9 13.5M13.5 10.5L16 7h5"/><path d="M18 4l3 3-3 3M18 14l3 3-3 3"/>'),
+  repeat:sv('<path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M17 3l3 3-3 3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/><path d="M7 21l-3-3 3-3"/>'),
+  artist:sv('<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>'),
+  album:sv('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5"/>'),
+  song:sv('<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>'),
+  list:sv('<path d="M4 6h12M4 12h12M4 18h8"/><path d="M19 15v6M16 18h6"/>'),
+  genre:sv('<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>'),
+  folder:sv('<path d="M3 7.5V18a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 21 18V9a1.5 1.5 0 0 0-1.5-1.5H12L10 5H4.5A1.5 1.5 0 0 0 3 6.5z"/>'),
+  podcast:sv('<circle cx="12" cy="10" r="2.5"/><path d="M8 14.5a5.5 5.5 0 1 1 8 0M5.3 17.2a9 9 0 1 1 13.4 0"/><path d="M12 13v8"/>'),
+  book:sv('<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/>'),
+  mic:sv('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>'),
+  sound:sv('<path d="M3 9.5h3.5L11 5.5v13l-4.5-4H3z"/><path d="M15 9a4 4 0 0 1 0 6M17.5 6.5a7.5 7.5 0 0 1 0 11"/>'),
+  head:sv('<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+  ear:sv('<path d="M7 9a5 5 0 0 1 10 0c0 3-3 4-3 7a3 3 0 0 1-6 0"/><path d="M10 9.5a2 2 0 0 1 4 0"/>'),
+  display:sv('<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/>'),
+  access:sv('<circle cx="12" cy="4.5" r="1.8"/><path d="M5 8l7 1.5L19 8M12 9.5V14l-3.5 6.5M12 14l3.5 6.5"/>'),
+  globe:sv('<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.5 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.5-3.5-8.5s1-6 3.5-8.5z"/>'),
+  update:sv('<path d="M12 3v11M7.5 9.5L12 14l4.5-4.5"/><path d="M4 16v3.5h16V16"/>'),
+  info:sv('<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8v.4"/>'),
+  storage:sv('<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 14h16M8 17h.5"/>'),
+  moon:sv('<path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/>'),
+  sun:sv('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4M18.7 18.7l-1.4-1.4M6.7 6.7L5.3 5.3"/>'),
+  bt:sv('<path d="M7 7l10 9-5 4.5V3.5L17 8 7 17"/>'),
+  wifi:sv('<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.6 16a5 5 0 0 1 6.8 0"/><circle cx="12" cy="19.2" r=".6"/>'),
+  power:sv('<path d="M12 3v8"/><path d="M6.5 6.5a7.5 7.5 0 1 0 11 0"/>'),
+  restart:sv('<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/>'),
+  check:sv('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  plus:sv('<path d="M12 5v14M5 12h14"/>'),
+  usb:sv('<path d="M12 3v15"/><path d="M9 6l3-3 3 3"/><path d="M12 13l-4-2.5V8M12 15l4-2.5V10"/><circle cx="12" cy="19" r="2"/>'),
+  jack:sv('<path d="M12 21V12"/><rect x="9.5" y="3" width="5" height="9" rx="2.5"/><path d="M9.5 7.5h5"/>'),
+  warn:sv('<path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.2v.3"/>'),
+  battery:sv('<rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21.5 10.5v3"/><rect x="5" y="9" width="3" height="6" rx=".8" fill="currentColor" stroke="none"/>'),
+  ab:sv('<path d="M3.5 18L7 6l3.5 12M4.8 14h4.4"/><path d="M14 6h4a3 3 0 0 1 0 6h-4zM14 12h4.5a3 3 0 0 1 0 6H14z"/>'),
+  rew:sv('<path d="M11 6.5a7.5 7.5 0 1 1-6.8 4.3"/><path d="M4 5v5h5"/><text x="12.2" y="15.6" font-size="7.5" font-family="IBM Plex Sans" font-weight="600" text-anchor="middle" fill="currentColor" stroke="none">15</text>'),
+  fwd:sv('<path d="M13 6.5a7.5 7.5 0 1 0 6.8 4.3"/><path d="M20 5v5h-5"/><text x="11.8" y="15.6" font-size="7.5" font-family="IBM Plex Sans" font-weight="600" text-anchor="middle" fill="currentColor" stroke="none">30</text>'),
+  chev:'<svg class="chev" viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></svg>',
+};
+const F={
+  prev:'<svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM19 5v14L9 12z"/></svg>',
+  next:'<svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM5 5v14l10-7z"/></svg>',
+  play:'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',
+  pause:'<svg viewBox="0 0 24 24"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg>',
+};
+const sb=()=>document.getElementById('statusbar').innerHTML;
+const topbar=(title,back=true,right='')=>`<div class="topbar">${back?`<span class="ib" role="button" aria-label="Back">${I.back}</span>`:'<span style="width:16px;flex:none"></span>'}<h2>${title}</h2>${right}</div>`;
+const ib=(icon,label)=>`<span class="ib" role="button" aria-label="${label}">${icon}</span>`;
+const row=(ic,t1,t2,right='',opt='')=>`<div class="row" ${opt}>${ic?`<span class="ic">${ic}</span>`:''}<span class="t"><div class="t1">${t1}</div>${t2?`<div class="t2">${t2}</div>`:''}</span>${right}</div>`;
+// Placeholder artwork: two colour fields per album, never orange (orange is reserved for the primary action).
+const PAL=[['#4E46BE','#2896BE'],['#3C5A78','#8A6BC8'],['#2E6E5E','#5B8FD0'],['#6A4FA0','#C07AA0'],['#22506E','#4FB0A8'],['#5A5F8E','#9AA6D6'],['#3A3F7A','#6E5BC8'],['#4B6A3A','#8FB07A']];
+const art=(k,size,r=10)=>{const [a,b]=PAL[k%PAL.length];return `<span class="art" style="width:${size}px;height:${size}px;border-radius:${r}px;background:radial-gradient(${size*0.9}px ${size*0.9}px at 30% 30%,${a},transparent 70%),radial-gradient(${size*0.8}px ${size*0.8}px at 75% 75%,${b},transparent 70%),#191C1F" aria-hidden="true"></span>`};
+const mini=(t='You Only Live Once',a='The Strokes')=>`<div class="mini" role="button" aria-label="Now playing: ${t}, ${a}. Open player">${art(0,48,8)}<span class="t"><div class="t1">${t}</div><div class="t2">${a}</div></span><span class="ppw" role="button" aria-label="Pause">${F.pause}</span><span class="prog"><i></i></span></div>`;
+
+const G=[]; // [group title, intro, screens[]]
+const S=(title,cap,laws,html)=>({title,cap,laws,html});
+
+/* ---------- First run ---------- */
+G.push(['First run','Music before any account or computer (E1, T1-066). Setup is two short choices, each skippable; the first sound is the peak to design (peak-end rule).',[
+S('Language','The first screen asks one thing, in each language\'s own name. Everything else waits until after the first sound.',
+ 'Hick\'s law (one choice); recognition over recall (names in their own script); goal-gradient (step 1 of 2 shown).',
+ `${sb()}<div class="content" style="padding-top:24px">
+  <div class="mono" style="font-size:11px;color:var(--muted)">1 / 2</div>
+  <div style="font-size:var(--fs-headline);line-height:var(--lh-headline);font-weight:600;margin-top:6px">Language</div>
+  <div class="card" style="margin-top:16px">
+   ${row('','English','',`<span class="ic" style="color:var(--text)">${I.check}</span>`,'style="background:var(--active);border-radius:16px 16px 0 0"')}
+   ${row('','Español','')}${row('','中文（简体）','')}${row('','हिन्दी','')}${row('','العربية','','','dir="rtl"')}
+  </div></div>
+  <div class="content" style="position:absolute;left:0;right:0;bottom:16px"><div class="btn primary" role="button">Continue</div></div>`),
+S('Ready to play','The library is found and indexed in the background; playable at once (T1-052). The safe starting level is stated once, calmly (SYS-012).',
+ 'Doherty threshold (play now, index later); peak-end (first sound); calm technology (progress in the periphery).',
+ `${sb()}<div class="content" style="padding-top:24px">
+  <div class="mono" style="font-size:11px;color:var(--muted)">2 / 2</div>
+  <div style="font-size:var(--fs-headline);line-height:var(--lh-headline);font-weight:600;margin-top:6px">Your music is here</div>
+  <div style="margin-top:8px;color:var(--text2)">12,480 tracks found on the microSD card. You can play while the T1 finishes indexing.</div>
+  <div style="margin-top:20px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted)"><span>Indexing</span><span class="mono">4,120 / 12,480</span></div>
+  <div class="dose" style="margin-top:6px;height:4px"><i style="width:33%;background:var(--text2);height:4px"></i></div>
+  <div class="card" style="margin-top:20px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start"><span style="color:var(--info);flex:none">${I.ear}</span><span style="font-size:12px;line-height:16px;color:var(--text2)">Volume starts at a safe level for every new headphone. Your weekly listening dose is in Sound → Hearing.</span></div>
+  </div>
+  <div class="content" style="position:absolute;left:0;right:0;bottom:16px"><div class="btn primary" role="button">${F.play.replace('<svg','<svg style="width:22px;height:22px;fill:currentColor"')} Play something</div></div>`),
+S('Empty library','No music yet: say plainly how to add it, with the ways people already know (T1-065, DESK-011).',
+ 'Jakob\'s law (USB drive, folders); error prevention (states what each way does); Tesler\'s law (the T1 indexes, wherever files are).',
+ `${sb()}${topbar('Library',false,ib(I.search,'Search'))}
+  <div class="content" style="text-align:center;padding-top:40px">
+  <div style="width:72px;height:72px;margin:0 auto;border-radius:50%;background:var(--surface);display:grid;place-items:center;color:var(--text2)">${I.song}</div>
+  <div style="margin-top:16px;font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">No music yet</div>
+  <div style="margin-top:8px;color:var(--text2)">Connect the T1 to a computer and copy music into the <span class="mono">Music</span> folder, or insert a card with music.</div>
+  <div style="margin-top:12px;font-size:12px;line-height:16px;color:var(--muted)">With OpenDAP Desktop, your library syncs by itself.</div>
+  </div>`),
+]]);
+
+/* ---------- Library ---------- */
+G.push(['Library','The home of the T1. Continue first (the most likely next action), then the ways people browse their own collection. The mini player keeps Now Playing one tap away; primary and frequent actions sit in the lower half.',[
+S('Library','Continue shows the last album, book and episode, each resuming where it stopped (T1-051). Browse entries carry their counts.',
+ 'Fitts\'s law (mini player and Continue in the thumb zone); serial position (Continue first); Miller (grouped sections); Action button: play/pause when the screen has no primary action of its own.',
+ `${sb()}${topbar('Library',false,ib(I.search,'Search')+ib(I.gear,'Settings'))}
+  <div class="content">
+  <div class="card" style="padding:12px;display:flex;gap:12px;align-items:center">${art(2,64)}<span style="flex:1;min-width:0"><div class="t2">Continue</div><div class="t1" style="font-weight:500">In Rainbows</div><div class="t2">Radiohead · 4 of 10</div></span><span class="ppw" role="button" aria-label="Resume">${F.play}</span></div>
+  <div class="card" style="margin-top:12px">
+   ${row(I.artist,'Artists','',`<span class="num">412</span>`)}${row(I.album,'Albums','',`<span class="num">1,086</span>`)}${row(I.list,'Playlists','',`<span class="num">23</span>`)}${row(I.genre,'More','Songs, genres, podcasts, books',I.chev)}
+  </div></div>${mini()}`),
+S('Albums','A grid of covers: albums are recognised by their art more than by their names. Two columns keep each cover large enough to recognise and to tap.',
+ 'Recognition over recall; Fitts\'s law (128 px tiles); law of proximity (title and artist tied to their cover).',
+ `${sb()}${topbar('Albums',true,ib(I.search,'Search'))}
+  <div style="padding:0 24px;display:grid;grid-template-columns:128px 128px;gap:16px 16px">
+  ${[['First Impressions of Earth','The Strokes'],['In Rainbows','Radiohead'],['Is This It','The Strokes'],['AM','Arctic Monkeys']].map(([t,a],k)=>`<div role="button" style="display:flex;flex-direction:column">${art(k,128,12)}<div style="margin-top:6px;font-size:var(--fs-body);line-height:var(--lh-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t}</div><div class="t2">${a}</div></div>`).join('')}
+  </div>${mini()}`),
+S('Artists, with an index','Long lists get an A–Z index on the trailing edge for fast jumps in a 100,000-track library (T1-046); its area is excluded from the edge gesture (SYS-039).',
+ 'Fitts\'s law (jump instead of fling); Hick\'s law (letters chunk the list); gesture exclusion kept small (design system §8.5).',
+ `${sb()}${topbar('Artists',true,ib(I.search,'Search'))}
+  <div class="content" style="padding-right:28px">
+  <div class="label" style="margin-top:4px">A</div>
+  <div class="card">${row('','Arcade Fire','5 albums')}${row('','Arctic Monkeys','7 albums')}</div>
+  <div class="label">B</div>
+  <div class="card">${row('','Beach House','8 albums')}${row('','Bon Iver','4 albums')}</div>
+  </div>
+  <div class="idx" aria-label="Index">${'ABCDEFGHIJKLMNOPRSTW#'.split('').map(c=>`<span>${c}</span>`).join('')}</div>${mini()}`),
+S('Album','Play is the screen\'s primary action (orange, 64 px, and the Action button). Shuffle is beside it as a secondary. The format line says what the files are.',
+ 'Von Restorff (one orange action); Fitts\'s law (Play in reach); Miller (track list as one chunk); progressive disclosure (credits in More).',
+ `${sb()}${topbar('',true,ib(I.heart,'Like album'))}
+  <div class="content" style="margin-top:-8px;display:flex;gap:16px;align-items:flex-end">${art(0,96,12)}<span style="min-width:0"><div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">First Impressions of Earth</div><div style="color:var(--text2)">The Strokes · 2006</div></span></div>
+  <div class="content mono" style="font-size:11px;line-height:14px;color:var(--muted);margin-top:8px">FLAC · 16 bit · 44.1 kHz · 14 tracks · 52 min</div>
+  <div class="content" style="margin-top:16px;display:flex;gap:16px;align-items:center"><div class="btn primary" style="flex:1" role="button">${F.play.replace('<svg','<svg style="width:22px;height:22px;fill:currentColor"')} Play</div><span class="tg" role="button" aria-label="Shuffle" style="background:var(--active);border-radius:50%;width:52px;height:52px">${I.shuffle}</span></div>
+  <div class="content" style="margin-top:12px">
+   ${[['1','You Only Live Once'],['2','Juicebox'],['3','Heart in a Cage']].map(([n,t])=>`<div class="row" style="padding:0;min-height:48px"><span class="num" style="width:20px">${n}</span><span class="t"><div class="t1" style="font-size:var(--fs-body)">${t}</div></span></div>`).join('')}
+  </div>`),
+S('Search','Results as you type, grouped by kind, from the first letter. The mini QWERTY keyboard is the documented exception to the target sizes (32 × 46 px keys, SYS-023).',
+ 'Doherty threshold (results per keystroke); recognition (top results with art); Miller (grouped by kind); Jakob\'s law (QWERTY).',
+ `${sb()}<div class="topbar">${ib(I.back,'Back')}<div style="flex:1;height:40px;border-radius:999px;background:var(--active);display:flex;align-items:center;gap:8px;padding:0 14px;color:var(--text)"><span style="color:var(--muted);display:flex">${I.search.replace('class="i"','class="i" style="width:18px;height:18px"')}</span>stro<span style="width:1px;height:18px;background:var(--focus)"></span></div><span style="width:8px"></span></div>
+  <div class="content">
+   <div class="label" style="margin-top:6px">Artists</div>
+   <div class="row" style="padding:0">${art(0,40,20)}<span class="t"><div class="t1">The Strokes</div><div class="t2">3 albums</div></span></div>
+   <div class="label">Songs</div>
+   <div class="row" style="padding:0">${art(1,40,6)}<span class="t"><div class="t1">Strobe</div><div class="t2">deadmau5</div></span></div>
+  </div>
+  <div class="kb" aria-label="Keyboard">
+   <div class="cand"><span>strokes</span><span>strobe</span><span>strong</span></div>
+   ${['qwertyuiop','asdfghjkl','zxcvbnm'].map((r,i)=>`<div class="kr">${i==2?'<span class="k w" style="width:48px"><span>⇧</span></span>':''}${r.split('').map(c=>`<span class="k"><span>${c}</span></span>`).join('')}${i==2?'<span class="k w" style="width:48px"><span>⌫</span></span>':''}</div>`).join('')}
+   <div class="kr"><span class="k w" style="width:64px"><span style="font-size:12px">123</span></span><span class="k w" style="width:160px"><span style="width:152px;font-size:12px;color:var(--muted)">English</span></span><span class="k w" style="width:96px"><span style="background:var(--text);color:var(--on-brand);font-size:12px;font-weight:600">Search</span></span></div>
+  </div>`),
+S('Playlists','The owner\'s lists and smart lists together; smart ones say their rule. New playlist is a visible action, not hidden in a menu.',
+ 'Recognition over recall (rules shown); Jakob\'s law (playlist conventions); consistency (same rows as the rest of the library).',
+ `${sb()}${topbar('Playlists',true,ib(I.plus,'New playlist'))}
+  <div class="content">
+  <div class="card">
+   ${row(art(3,40,6),'Running','42 songs · 2 h 51 min')}
+   ${row(art(5,40,6),'Late nights','18 songs · 1 h 12 min')}
+   ${row(art(6,40,6),'Recently added','Smart · added in the last 30 days')}
+   ${row(art(7,40,6),'Most played','Smart · top 50 by plays')}
+  </div></div>${mini()}`),
+S('Audiobook','Spoken word gets its own transport: back 15 s and forward 30 s, chapters and speed, and resume a few seconds earlier (2026-10-22 research, §4.1).',
+ 'Jakob\'s law (podcast-app conventions); Fitts\'s law (skip buttons 52 px); error tolerance (rewind on resume).',
+ `${sb()}<div class="topbar" style="justify-content:space-between">${ib(I.down,'Minimise')}${ib(I.queue,'Chapters')}</div>
+  <div style="display:flex;justify-content:center;margin-top:4px">${art(4,184,16)}</div>
+  <div class="content" style="margin-top:14px"><div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">Chapter 7: The harbour</div><div style="color:var(--text2)">The Sea, The Sea</div></div>
+  <div class="content" style="margin-top:12px"><div style="height:3px;border-radius:2px;background:var(--active)"><div style="width:58%;height:3px;background:var(--text);border-radius:2px"></div></div><div class="mono" style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px"><span>18:04</span><span>1.0×</span><span>−13:10</span></div></div>
+  <div style="display:flex;justify-content:center;align-items:center;gap:20px" data-a="1;margin-top:10px"><span class="tg big" style="color:var(--text)" role="button" aria-label="Back 15 seconds">${I.rew}</span><span class="pp" role="button" aria-label="Pause">${F.pause}</span><span class="tg big" style="color:var(--text)" role="button" aria-label="Forward 30 seconds">${I.fwd}</span></div>`),
+]]);
+
+/* ---------- Now Playing ---------- */
+G.push(['Now Playing','The concept art\'s player: the music first, the format quiet, the transport in the thumb zone. Its companions follow the edges: the queue enters from the trailing edge, More rises from the bottom (SYS-039), each with a visible control too.',[
+S('Now Playing','Title, artist and a quiet format line; the seek bar; shuffle, previous, play/pause, next, repeat. The colour field comes from the artwork (design system §4.3) and falls back to flat in reduced-effects mode.',
+ 'Von Restorff (one orange control, also the Action button); Fitts\'s law (68 px play/pause at the bottom); Hick\'s law (five controls in a row, the limit); aesthetic-usability.',
+ `<div class="ambient" aria-hidden="true"></div>${sb()}<div class="topbar" style="justify-content:space-between">${ib(I.down,'Minimise')}<span style="display:flex">${ib(I.devices,'Play on')}${ib(I.heart,'Like')}${ib(I.queue,'Queue')}</span></div>
+  <div style="position:absolute;left:24px;right:24px;top:270px;z-index:1">
+   <div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">You Only Live Once</div>
+   <div style="color:var(--text2)">The Strokes</div>
+   <div class="mono" style="font-size:11px;line-height:14px;color:var(--muted);margin-top:4px;display:flex;justify-content:space-between"><span>FLAC · 16 bit · 44.1 kHz → 4.4 mm</span><span style="color:var(--text2)">Direct</span></div>
+   <div style="margin-top:14px;height:3px;border-radius:2px;background:var(--active);position:relative"><div style="width:42%;height:3px;background:var(--text);border-radius:2px"></div><div style="position:absolute;left:42%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--text)"></div></div>
+   <div class="mono" style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:7px"><span>1:19</span><span>−1:50</span></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:26px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;z-index:1"><span class="tg" role="button" aria-label="Shuffle off">${I.shuffle}</span><span class="sk" role="button" aria-label="Previous">${F.prev}</span><span class="pp" role="button" aria-label="Pause">${F.pause}</span><span class="sk" role="button" aria-label="Next">${F.next}</span><span class="tg" role="button" aria-label="Repeat off">${I.repeat}</span></div>`),
+S('Queue','The companion screen, entering from the trailing edge or the queue control. Up next is reorderable by its handle; removing shows Undo.',
+ 'Law of common region (the playing item stands apart); Fitts\'s law (handles 48 px); forgiveness (Undo, SYS-050).',
+ `${sb()}${topbar('Queue',true)}
+  <div class="content">
+   <div class="label" style="margin-top:2px">Now playing</div>
+   <div class="card">${row(art(0,40,6),'You Only Live Once','The Strokes')}</div>
+   <div class="label">Up next · from First Impressions of Earth</div>
+   <div class="card">
+   ${['Juicebox','Heart in a Cage','Razorblade'].map(t=>row('',t,'The Strokes',`<span class="ib" style="color:var(--muted);margin-right:-12px" role="button" aria-label="Reorder ${t}">${sv('<path d="M5 9h14M5 15h14"/>')}</span>`)).join('')}
+   </div></div>
+  <div class="toast" style="bottom:12px" role="status">Removed “Killing Lies”<span class="u" role="button">Undo</span></div>`),
+S('More: signal path','Swipe up, or the More control: the engineer\'s view one step away (SYS-041). Every stage of the path, and whether it is bit-perfect (audio profiles spec §3).',
+ 'Progressive disclosure; Tesler\'s law (the complexity is here, not on the player); tabs keep lyrics and credits at the same depth.',
+ `${sb()}${topbar('You Only Live Once',true)}
+  <div class="tabs" role="tablist"><span class="on" role="tab">Signal path</span><span role="tab">Lyrics</span><span role="tab">Credits</span></div>
+  <div class="content" style="margin-top:14px">
+   <div style="display:flex;align-items:center;gap:8px"><span class="chip" style="color:var(--success)">● Bit-perfect</span><span class="chip">Profile: Direct</span></div>
+   <div class="card" style="margin-top:12px">
+    ${[['Source','FLAC · 16 bit · 44.1 kHz'],['Decoder','PCM 16/44.1, untouched'],['DSP','Off'],['Volume','In the DAC · −18.5 dB'],['DAC','CS43198 · Fast roll-off'],['Output','4.4 mm balanced']].map(([a,b])=>`<div class="row" style="min-height:44px"><span class="t"><div class="t2" style="color:var(--muted)">${a}</div><div class="mono" style="font-size:12px;line-height:16px;color:var(--text)">${b}</div></span></div>`).join('')}
+   </div></div>`),
+S('Volume overlay','A volume press shows the level large for a second, in the status bar\'s semantic colour, and the dose state when it matters (SYS-012). It never blocks the screen under it.',
+ 'Feedback within 50 ms (T1-057); calm technology (appears, then leaves); semantic colour plus a label (never colour alone).',
+ `${sb()}<div style="filter:brightness(.45)"><div class="ambient" aria-hidden="true" style="position:absolute"></div></div>
+  <div style="position:absolute;left:24px;right:24px;top:150px;background:var(--raised);border-radius:var(--r-panel);padding:16px 20px;z-index:3" role="status" aria-label="Volume 64, above the safe level">
+   <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="display:flex;gap:8px;align-items:center;color:var(--warning)">${I.sound}<span style="font-size:var(--fs-label);color:var(--text2)">Volume</span></span><span class="mono" style="font-size:var(--fs-display);line-height:var(--lh-display);color:var(--warning)">64</span></div>
+   <div style="margin-top:10px;height:6px;border-radius:3px;background:var(--active)"><div style="width:64%;height:6px;border-radius:3px;background:var(--warning)"></div></div>
+   <div style="margin-top:10px;font-size:12px;line-height:16px;color:var(--text2)">Above the safe level for this headphone. At this level the weekly dose lasts about 6 h.</div>
+  </div>`),
+]]);
+
+/* ---------- Sound ---------- */
+G.push(['Sound','Profiles sit on one axis, from the audiophile to the engineer (SYS-041). Direct is the default; Calibrated is offered, never applied on its own; Monitor brings the engineering tools (audio profiles spec).',[
+S('Profiles','The four kinds of profile in one list, with the one in use marked and whether it is bit-perfect. Switching is instant and glitch-free.',
+ 'Hick\'s law (four kinds, personal ones grouped); recognition (each says what it does); consistency with the quick settings tile.',
+ `${sb()}${topbar('Profiles',true,ib(I.plus,'New profile'))}
+  <div class="content">
+  <div class="card">
+   ${row('','Direct','The music as recorded · Bit-perfect',`<span class="ic" style="color:var(--text)">${I.check}</span>`,'style="background:var(--active);border-radius:16px 16px 0 0"')}
+   ${row('','Calibrated','HD 800 S to the Harman target',I.chev)}
+   ${row('','Warm evening','Personal · warmer, more bass',I.chev)}
+   ${row('','Monitor','Flat, with meters and A/B',I.chev)}
+  </div>
+  <div class="label">For this headphone</div>
+  <div class="card">${row(I.head,'Sennheiser HD 800 S','4.4 mm · starts on Direct',I.chev)}</div>
+  </div>`),
+S('Calibrated, offered','A known headphone with a published measurement: the T1 offers correction in one tap and never applies it by itself (audio profiles spec §1).',
+ 'Choice architecture without nudging (E18: no default change); peak moment ("opening up"); explicit reversibility.',
+ `${sb()}<div class="content" style="padding-top:36px;text-align:center">
+  <div style="width:72px;height:72px;margin:0 auto;border-radius:50%;background:var(--surface);display:grid;place-items:center;color:var(--text2)">${I.head}</div>
+  <div style="margin-top:16px;font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">Sennheiser HD 800 S</div>
+  <div style="margin-top:8px;color:var(--text2)">A measurement is available. Calibrated corrects this headphone to the Harman target. Direct stays untouched.</div>
+  <div style="margin-top:12px;font-size:12px;line-height:16px;color:var(--muted)">Measurement: oratory1990 via AutoEq · you can compare both.</div>
+  </div>
+  <div class="content" style="position:absolute;left:0;right:0;bottom:16px;display:flex;flex-direction:column;gap:16px"><div class="btn ghost" role="button">Keep Direct</div><div class="btn primary" role="button">Try Calibrated</div></div>`),
+S('Personal: colour and texture','Tone in words, on top of the EQ, which stays visible on demand (audio profiles spec §2). Each slider has a reset and a precise value.',
+ 'Mental model (words, not frequencies); Fitts\'s law (48 px slider rows, 20 px thumbs); progressive disclosure (EQ curve behind "Show EQ").',
+ `${sb()}${topbar('Warm evening',true)}
+  <div class="content">
+   ${[['Temperature','Warm','30%'],['Bass extension','+2.0 dB','62%'],['Bass texture','Full','58%'],['Presence','0.0 dB','50%'],['Air','−1.0 dB','44%']].map(([a,v,p])=>`<div style="display:flex;justify-content:space-between;font-size:12px;line-height:16px;margin-top:8px"><span style="color:var(--text2)">${a}</span><span class="mono" style="color:var(--muted)">${v}</span></div><div class="slider" role="slider" aria-label="${a}" style="height:32px"><div class="trk"><i style="width:${p}"></i><b style="left:${p}"></b></div></div>`).join('')}
+   <div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center"><span class="chip" style="color:var(--processing)">DSP</span><span style="color:var(--focus);font-weight:500;font-size:14px;height:48px;display:flex;align-items:center">Show EQ</span></div>
+  </div>`),
+S('A/B compare','Two profiles at the same loudness, switched instantly, the active one marked; blind on request (E12, Toole and Olive).',
+ 'Level matching and blinding against bias; Fitts\'s law (two 64 px halves); immediate feedback (switch under 50 ms).',
+ `${sb()}${topbar('Compare',true)}
+  <div class="content">
+   <div style="font-size:12px;line-height:16px;color:var(--muted)">Level-matched to <span class="mono">−18.0 LUFS</span> · switches without a gap</div>
+   <div class="seg" style="margin-top:16px"><span class="on" style="height:96px;flex-direction:column;gap:2px" role="button"><span class="mono" style="font-size:24px;line-height:30px">A</span><span style="font-size:12px;font-weight:500">Direct</span></span><span style="height:96px;flex-direction:column;gap:2px" role="button"><span class="mono" style="font-size:24px;line-height:30px;color:var(--text2)">B</span><span style="font-size:12px;font-weight:400;color:var(--text2)">Calibrated</span></span></div>
+   <div class="card" style="margin-top:16px">${row('','Blind','Hides A and B until you pick','<span class="chip">Off</span>')}${row('','Meters','Loudness and true peak','<span class="chip">On</span>')}</div>
+  </div>`),
+S('Outputs','Every output with what it is set to and its profile. A safety limit, when it applies, is shown and explained, never silent (T1-045).',
+ 'Visibility of system status; consistency (same rows as profiles); semantic states with labels.',
+ `${sb()}${topbar('Outputs',true)}
+  <div class="content">
+  <div class="card">
+   ${row(I.jack,'4.4 mm balanced','In use · HD 800 S · Direct',`<span class="ic" style="color:var(--text)">${I.check}</span>`)}
+   ${row(I.jack,'3.5 mm','Last: IEMs · Calibrated',I.chev)}
+   ${row(I.bt,'Bluetooth','WH-1000XM5 · LDAC',I.chev)}
+   ${row(I.usb,'USB','External DAC or USB DAC mode',I.chev)}
+   ${row(I.sound,'Speaker','Only when chosen',I.chev)}
+  </div>
+  <div class="card" style="margin-top:12px">${row('','DAC filter','Fast roll-off · keeps the path bit-perfect',I.chev)}</div>
+  </div>`),
+]]);
+
+/* ---------- System ---------- */
+G.push(['System','Status in the periphery, decisions in the centre (E11). Quick settings and notifications come down from the status bar; Settings is a short grouped list; system layers are brief and reversible.',[
+S('Quick settings','The status bar pulled down: radios, profile and output as tiles, brightness, sleep timer, the sync line and notifications.',
+ 'Jakob\'s law (phone quick settings); Fitts\'s law (52 px tiles); calm technology (sync is one line).',
+ `${sb()}<div class="content" style="padding-top:8px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+   ${[[I.wifi,'Wi-Fi','Home'],[I.bt,'Bluetooth','WH-1000XM5'],[I.sound,'Profile','Direct'],[I.moon,'Sleep','Off']].map(([ic,t,v],k)=>`<div role="button" style="height:56px;border-radius:var(--r-card);background:${k<3?'var(--sep)':'var(--active)'};display:flex;align-items:center;gap:10px;padding:0 12px"><span style="color:var(--text)">${ic}</span><span style="min-width:0"><div style="font-size:12px;line-height:16px;font-weight:500">${t}</div><div style="font-size:11px;line-height:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v}</div></span></div>`).join('')}
+  </div>
+  <div class="slider" style="margin-top:4px" role="slider" aria-label="Brightness"><span style="color:var(--muted)">${I.sun}</span><div class="trk"><i style="width:55%"></i><b style="left:55%"></b></div></div>
+  <div class="card">${row(`<span style="color:var(--success)">${I.check}</span>`,'Synced 2 min ago','MacBook · over USB',I.chev)}</div>
+  <div class="label">Notifications</div>
+  <div class="card">${row(I.update,'Update ready','Installs tonight while charging',I.chev)}</div>
+  </div>`),
+S('Settings','Nine groups, one line each, in the order people need them: Sound first; Language, Software Update and About follow below. Nothing is locked: every setting the hardware supports is here (T1-045).',
+ 'Hick\'s law (short grouped list); serial position (Sound first); consistency (one row pattern everywhere).',
+ `${sb()}${topbar('Settings',true,ib(I.search,'Search settings'))}
+  <div class="content">
+  <div class="card">
+   ${row(I.sound,'Sound','Profiles, outputs, hearing',I.chev)}${row(I.song,'Library','Folders, sorting, indexing',I.chev)}${row(I.devices.replace('class="i"','class="i"'),'Devices','3 paired',I.chev)}${row(I.storage,'Storage','318 of 512 GB',I.chev)}${row(I.display,'Display and controls','Brightness, Action button',I.chev)}${row(I.access,'Accessibility','Text size, contrast, motion',I.chev)}
+  </div></div>`),
+S('Hearing','The weekly dose of SYS-012 (EN 50332, rolling 7 days), shown calmly with what it means, per headphone, never as a silent cap.',
+ 'Calibrated trust (what the number means); semantic colour plus words; calm technology (no nagging).',
+ `${sb()}${topbar('Hearing',true)}
+  <div class="content">
+   <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:var(--fs-bl)">This week</span><span class="mono" style="font-size:var(--fs-title);line-height:var(--lh-title);color:var(--success)">38%</span></div>
+   <div class="dose" style="margin-top:8px" role="meter" aria-valuenow="38" aria-label="Weekly sound dose"><i style="width:38%"></i></div>
+   <div style="margin-top:8px;font-size:12px;line-height:16px;color:var(--text2)">Within the safe weekly dose. It resets day by day over a rolling 7 days.</div>
+   <div class="card" style="margin-top:16px">${row(I.head,'HD 800 S','Sensitivity from its profile',I.chev)}${row(I.ear,'Warnings','At 80% and 100%','<span class="chip">On</span>')}${row('','Volume limit','None · optional','<span class="chip">Off</span>')}</div>
+  </div>`),
+S('Headphones unplugged','Unplugging pauses; music never moves to the speaker by itself (T1-053). A short, dismissable note says what happened.',
+ 'Error prevention (no blast from the speaker); visibility of status; forgiveness (resume in one tap).',
+ `<div class="ambient" aria-hidden="true"></div>${sb()}<div class="topbar" style="justify-content:space-between">${ib(I.down,'Minimise')}<span style="display:flex">${ib(I.devices,'Play on')}${ib(I.heart,'Like')}${ib(I.queue,'Queue')}</span></div>
+  <div style="position:absolute;left:24px;right:24px;top:270px;z-index:1"><div style="font-size:var(--fs-title);line-height:var(--lh-title);font-weight:600">You Only Live Once</div><div style="color:var(--text2)">The Strokes</div></div>
+  <div style="position:absolute;left:0;right:0;bottom:26px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;z-index:1"><span class="tg">${I.shuffle}</span><span class="sk">${F.prev}</span><span class="pp" role="button" aria-label="Play">${F.play}</span><span class="sk">${F.next}</span><span class="tg">${I.repeat}</span></div>
+  <div class="toast" style="bottom:110px" role="status"><span style="color:var(--info)">${I.head}</span>Paused: headphones unplugged<span class="u" role="button" style="min-width:48px;justify-content:center">OK</span></div>`),
+S('Power menu','Main, long press (controls spec §1.3). Three actions, with the destructive ones apart from Cancel, also reachable with the screen off.',
+ 'Fitts\'s law (64 px rows); separation of opposite actions (16 px); Hick\'s law (three choices).',
+ `${sb()}<div style="position:absolute;inset:28px 0 0;background:rgba(0,0,0,.6)"></div>
+  <div class="sheet" style="padding-bottom:16px" role="dialog" aria-label="Power">
+   <div class="grab"></div>
+   <div style="padding:0 12px;display:flex;flex-direction:column;gap:8px">
+    ${[[I.power,'Power off'],[I.restart,'Restart'],[I.restart,'Restart to recovery']].map(([ic,t])=>`<div class="row" style="min-height:64px;background:var(--active);border-radius:var(--r-card)"><span class="ic">${ic}</span><span class="t"><div class="t1">${t}</div></span></div>`).join('')}
+   </div>
+   <div style="padding:16px 12px 0"><div class="btn ghost" role="button">Cancel</div></div>
+  </div>`),
+S('Low battery','Amber at 15 %, with what remains in listening time and the one useful action. Red and critical only at the end (controls spec §2.2).',
+ 'Semantic colour plus words (IEC 60073 families); calm (a notice, not a modal); a time, not only a percentage.',
+ `${sb().replace('<span>82%</span>','<span style="color:var(--warning)">15%</span>').replace('<svg viewBox="0 0 20 14" style="width:20px"','<svg viewBox="0 0 20 14" style="width:20px;color:var(--warning)"').replace('width="11"','width="2"')}<div class="content" style="padding-top:8px">
+  <div class="card" style="padding:14px 16px;display:flex;gap:12px;align-items:flex-start" role="status"><span style="color:var(--warning);flex:none">${I.battery}</span><span><div style="font-size:var(--fs-bl);line-height:var(--lh-bl)">Battery low</div><div style="font-size:12px;line-height:16px;color:var(--text2);margin-top:2px">About <span class="mono">1 h 40 min</span> of listening left at this volume.</div><div style="margin-top:8px;color:var(--focus);font-weight:500;height:32px;display:flex;align-items:center">Battery settings</div></span></div>
+  </div>${mini()}`),
+]]);
+
+const root=document.getElementById('groups');
+let n=0;
+G.forEach(([title,intro,screens])=>{
+  const h=document.createElement('h2');h.className='group';h.textContent=title;root.appendChild(h);
+  const p=document.createElement('p');p.className='group';p.textContent=intro;root.appendChild(p);
+  const grid=document.createElement('div');grid.className='grid';root.appendChild(grid);
+  screens.forEach(s=>{n++;
+    const f=document.createElement('figure');
+    f.innerHTML=`<div class="screen" role="img" aria-label="${s.title}">${s.html}</div><figcaption><b>${n}. ${s.title}</b>${s.cap}<span class="laws"><em>Applies:</em> ${s.laws}</span></figcaption>`;
+    grid.appendChild(f);
+  });
+});
+</script>
+</body>
+</html>

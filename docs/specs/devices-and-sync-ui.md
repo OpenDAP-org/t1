@@ -23,7 +23,7 @@ Everything here works with no account and no online service (SYS-047). Every tou
 | Place | What it holds | Reached from |
 |---|---|---|
 | **Quick settings** (status bar, swipe down) | One sync line: "Synced 2 min ago" / "Syncing…" / "Waiting for charging" / "Can't sync", tap for detail; the **devices** shortcut | The status bar (SYS-039) |
-| **Now Playing** | The **devices** button: where music plays | Bottom row of Now Playing, beside the queue |
+| **Now Playing** | The **devices** button: where music plays | Top row of Now Playing, beside like and the queue (the transport row keeps its five controls) |
 | **Settings → Devices** | Paired devices, household members, pairing, links in use | Settings |
 | **Settings → Storage** | The storage bar by category; Recently Deleted | Settings |
 | **Settings → Software Update** | Version, update, return to the previous version | Settings |
