@@ -404,16 +404,16 @@ async function drawScreen() {
     { const x = 290;                                                              // playlist: three lines and a play mark, 16 × 11
       [[-5, 14], [0, 14], [5, 7]].forEach(([dy, w]) => { g.beginPath(); g.moveTo(x - 8, y + dy); g.lineTo(x - 8 + w, y + dy); g.stroke(); });
       g.fillStyle = '#F5F6F4'; g.beginPath(); g.moveTo(x + 2, y + 2); g.lineTo(x + 8, y + 5); g.lineTo(x + 2, y + 8); g.closePath(); g.fill(); } }
-  g.fillStyle = '#F5F6F4'; g.font = '600 20px "IBM Plex Sans", sans-serif'; g.fillText('Riptide', 24, 304);
-  g.fillStyle = '#C6CBD0'; g.font = '400 14px "IBM Plex Sans", sans-serif'; g.fillText('Vance Joy', 24, 325);
-  g.fillStyle = '#939BA3'; g.font = '400 11px "IBM Plex Mono", monospace'; g.fillText('FLAC · 16 bit · 44.1 kHz → 4.4 mm', 24, 347);
-  const px0 = 24, px1 = 296, py = 368, p = 0.42;
+  g.fillStyle = '#F5F6F4'; g.font = '600 20px "IBM Plex Sans", sans-serif'; g.fillText('You Only Live Once', 24, 296);
+  g.fillStyle = '#C6CBD0'; g.font = '400 14px "IBM Plex Sans", sans-serif'; g.fillText('The Strokes', 24, 317);
+  g.fillStyle = '#939BA3'; g.font = '400 11px "IBM Plex Mono", monospace'; g.fillText('FLAC · 16 bit · 44.1 kHz → 4.4 mm', 24, 339);
+  const px0 = 24, px1 = 296, py = 358, p = 0.42;
   g.fillStyle = '#292E33'; g.beginPath(); g.roundRect(px0, py - 1.5, px1 - px0, 3, 1.5); g.fill();
   g.fillStyle = '#F5F6F4'; g.beginPath(); g.roundRect(px0, py - 1.5, (px1 - px0) * p, 3, 1.5); g.fill();
   g.beginPath(); g.arc(px0 + (px1 - px0) * p, py, 5.5, 0, Math.PI * 2); g.fill();
   g.fillStyle = '#939BA3'; g.font = '400 11px "IBM Plex Mono", monospace';
-  g.fillText('1:26', 24, 388); g.textAlign = 'right'; g.fillText('−1:58', 296, 388); g.textAlign = 'left';
-  const ty = 428;   // 26 px radius: bottom at 454, 26 px above the screen edge
+  g.fillText('1:19', 24, 377); g.textAlign = 'right'; g.fillText('−1:50', 296, 377); g.textAlign = 'left';
+  const ty = 420;   // 34 px radius (68 px, about 10.4 mm on the 166 ppi panel): bottom at 454, 26 px above the screen edge
   const skip = (cx, dir) => { g.fillStyle = '#F5F6F4'; g.beginPath(); g.moveTo(cx - 7 * dir, ty); g.lineTo(cx + 6 * dir, ty - 8); g.lineTo(cx + 6 * dir, ty + 8); g.closePath(); g.fill(); g.fillRect(dir > 0 ? cx - 9.5 : cx + 7.5, ty - 8, 2, 16); };
   // transport row, evenly spaced: shuffle · previous · play/pause · next · repeat (secondary toggles muted when off)
   skip(98, 1); skip(222, -1);
@@ -428,8 +428,8 @@ async function drawScreen() {
     head(x + 4, y - 8, x + 7, y - 5, x + 4, y - 2);
     g.beginPath(); g.moveTo(x + 8, y - 1); g.lineTo(x + 8, y + 2); g.arcTo(x + 8, y + 5, x + 5, y + 5, 3); g.lineTo(x - 7, y + 5); g.stroke();
     head(x - 4, y + 2, x - 7, y + 5, x - 4, y + 8); }
-  g.fillStyle = '#FF6A2A'; g.beginPath(); g.arc(160, ty, 26, 0, Math.PI * 2); g.fill();
-  g.fillStyle = '#111315'; g.beginPath(); g.roundRect(151, ty - 9, 6, 18, 1.5); g.roundRect(163, ty - 9, 6, 18, 1.5); g.fill();
+  g.fillStyle = '#FF6A2A'; g.beginPath(); g.arc(160, ty, 34, 0, Math.PI * 2); g.fill();
+  g.fillStyle = '#111315'; g.beginPath(); g.roundRect(148.5, ty - 11.5, 8, 23, 2); g.roundRect(163.5, ty - 11.5, 8, 23, 2); g.fill();
   window.__screenTex.dispose(); window.__screenTex.image = c; window.__screenTex.needsUpdate = true;   // new size: reallocate, don't sub-copy
   window.__backTex.draw();
 }
