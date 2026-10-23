@@ -91,18 +91,21 @@ Listed by priority: when several states apply, the highest one is shown.
 | 2 | Battery critically low | Red | Slow blink | Danger, action required |
 | 3 | Update or flashing in progress: do not power off | Blue | Breathing | Action required (do not interrupt) |
 | 4 | Recovery mode | Blue | Solid | Mandatory action context |
-| 5 | Battery low | Amber | Slow blink | Warning |
-| 6 | Charging | Amber | Solid | Abnormal (not yet ready) |
-| 7 | Charged, still on external power | Green | Solid | Normal |
-| 8 | Bluetooth pairing | Blue | Fast blink | Action required (pair now) |
-| 9 | Booting | White | Breathing | Neutral information |
-| 10 | Developer control (FPT-016) | Any | Any | Defined by the developer |
+| 5 | Music volume handed to a computer: eject before unplugging (blackbird-os ADR 0013) | Blue | Slow blink | Action required (eject first) |
+| 6 | Battery low | Amber | Slow blink | Warning |
+| 7 | Charging | Amber | Solid | Abnormal (not yet ready) |
+| 8 | Charged, still on external power | Green | Solid | Normal |
+| 9 | Pairing: Bluetooth, or another device through the OpenDAP Protocol | Blue | Fast blink | Action required (pair now) |
+| 10 | Syncing or transferring with the screen off | White | Single pulse every 3 s | Neutral information (activity) |
+| 11 | Booting | White | Breathing | Neutral information |
+| 12 | Developer control (FPT-016) | Any | Any | Defined by the developer |
 | — | Normal operation | Off | — | The screen carries normal feedback; the LED stays dark to save power |
 
 **Rules:**
 
-- Priorities 1–4 cannot be overridden by developer control. Below them, a developer may take the LED through the Linux LED class (`/sys/class/leds`, triggers such as `heartbeat` or `timer`).
-- With a single-colour LED (if RGB is not fitted), the base set keeps its meaning through patterns only: fast blink = fault, slow blink = low battery, breathing = busy/booting, solid = charging or charged.
+- Priorities 1–5 cannot be overridden by developer control. Below them, a developer may take the LED through the Linux LED class (`/sys/class/leds`, triggers such as `heartbeat` or `timer`).
+- With a single-colour LED (if RGB is not fitted), the base set keeps its meaning through patterns only: fast blink = fault or pairing, slow blink = low battery or eject first, breathing = busy/booting, single pulse = activity, solid = charging or charged.
+- Device-to-device states (5, 9, 10) follow the [OpenDAP Protocol](https://github.com/opendap-project/rfcs/blob/main/text/0004-opendap-protocol.md) and the [user-facing conventions](https://github.com/opendap-project/system/blob/main/docs/specs/user-facing-conventions.md): the screen says the same in words whenever it is on. Activity (10) is shown only with the screen off, and the listener can turn it off; calm first (ecosystem research E11).
 - MaskROM cannot drive the LED, because no software runs on the SoC; the host tool reports MaskROM instead (`opendap device wait --mode maskrom`).
 - The microphone privacy LED is separate, hardware-tied to the microphone power (BRD-027), and never part of this code.
 
