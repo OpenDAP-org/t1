@@ -15,7 +15,7 @@
   - [`board/docs/research/2026-10-high-speed-io-topology.md`](../../../board/docs/research/2026-10-high-speed-io-topology.md)
   - [`board/docs/research/2026-10-battery-selection.md`](../../../board/docs/research/2026-10-battery-selection.md) (revised for the 62.5 × 93.75 × 25 mm body: candidates, pocket arithmetic)
   - [`faceplates/touch/docs/adr/0001-focus-lcds-e35gh-display.md`](../../../faceplates/touch/docs/adr/0001-focus-lcds-e35gh-display.md) and [`faceplates/touch/docs/research/2026-10-display-selection.md`](../../../faceplates/touch/docs/research/2026-10-display-selection.md)
-  - [`opendap-os/docs/research/2026-10-image-composition.md`](../../../opendap-os/docs/research/2026-10-image-composition.md) (§5.6 and §8, power)
+  - [`blackbird-os/docs/research/2026-10-image-composition.md`](../../../blackbird-os/docs/research/2026-10-image-composition.md) (§5.6 and §8, power)
   - [`system/docs/adr/0002-system-architecture.md`](../../../system/docs/adr/0002-system-architecture.md)
   - [`t1/docs/requirements/README.md`](../requirements/README.md)
   - [`toolkit/verify/docs/research/2026-10-verification-instrumentation.md`](../../../toolkit/docs/research/2026-10-verification-instrumentation.md) (P7, battery verification)
@@ -178,14 +178,14 @@ States are for **screen-off playback** (scenario 1) unless a row says otherwise.
 | ADI MAX98357A speaker amp | SD_MODE low, or rail gated | µA range (**UNVERIFIED**) | ≈ 0 | — |
 | Murata Type 2EL (IW612) | Off: PDn low, rfkill | µA range (**UNVERIFIED**, NDA datasheet) | 0.05 / 0.1 / 0.5 mW [EST] | — |
 | GT911 touch | Sleep (command 0x05), or rail gated | Mode behaviour [DS]; current **UNVERIFIED** (≈ 70 µA recalled) | 0 / 0.2 / 0.3 mW | [DS] GT911 programming guide |
-| Focus E35GH panel and backlight | DPMS off, VCI and backlight gated | — | 0 | [DOC] opendap-os §8.4 |
+| Focus E35GH panel and backlight | DPMS off, VCI and backlight gated | — | 0 | [DOC] blackbird-os §8.4 |
 | **Subtotal, "misc"** | | | **≈ 1 / 2.5 / 6 mW** | |
 
 ### 4.2 Compute, memory and storage
 
 | Part | State | Basis | Battery-side power (min / typ / max) |
 |---|---|---|---|
-| **RK3566** + **DDR PHY/DMC** + **LPDDR4X 4 GB** | Runtime idle between decode bursts. CPU at the lowest OPP with PSCI cpuidle. GPU, NPU, VOP2 and PIPE power domains off. DDR at its fixed boot frequency (no RK356x DMC devfreq in mainline, [DOC] opendap-os §8.3) | **[EST], UNVERIFIED.** Rockchip publishes no power data. Bottom-up: vdd_cpu 20–60 mW; vdd_logic 60–150 mW; DDR PHY 30–100 mW; LPDDR4X 5–60 mW (self-refresh or power-down when the DMC idles it); IO and PLLs 10–40 mW; then buck losses | **200 / 320 / 550 mW** |
+| **RK3566** + **DDR PHY/DMC** + **LPDDR4X 4 GB** | Runtime idle between decode bursts. CPU at the lowest OPP with PSCI cpuidle. GPU, NPU, VOP2 and PIPE power domains off. DDR at its fixed boot frequency (no RK356x DMC devfreq in mainline, [DOC] blackbird-os §8.3) | **[EST], UNVERIFIED.** Rockchip publishes no power data. Bottom-up: vdd_cpu 20–60 mW; vdd_logic 60–150 mW; DDR PHY 30–100 mW; LPDDR4X 5–60 mW (self-refresh or power-down when the DMC idles it); IO and PLLs 10–40 mW; then buck losses | **200 / 320 / 550 mW** |
 | Samsung KLMBG2JETD eMMC | Sleep or idle, with a read burst every few minutes (≈ 0.9 Mb/s) | Active reads of ~100–200 mW for well under 1 % of the time (**UNVERIFIED**) | 1 / 2 / 5 mW |
 | microSD (if the library is on it) | Same pattern | Idles at 0.3–1 mA at 3.3 V (**UNVERIFIED**) | +1 / +3 / +10 mW over eMMC |
 
@@ -335,9 +335,9 @@ Same as scenario 1, except the amplifier row (§5): 142 / 316 / 524 mW. The tota
 | Source of the difference | 24/192 FLAC | DSD128 DoP | DSD128 native | Basis |
 |---|---|---|---|---|
 | File rate | ≈ 4–5 Mb/s (vs 0.9) | 11.3 Mb/s (DSF) | 11.3 Mb/s | Arithmetic |
-| CPU | FLAC decode ≈ 4–5× the 16/44.1 work; still a few % of one A55 | No decode; DoP packing is trivial, but there is more memory traffic | No decode, no packing | [DOC] opendap-os §5.6; [EST] |
+| CPU | FLAC decode ≈ 4–5× the 16/44.1 work; still a few % of one A55 | No decode; DoP packing is trivial, but there is more memory traffic | No decode, no packing | [DOC] blackbird-os §5.6; [EST] |
 | Storage reads | +1–3 mW (eMMC) | +3–15 mW (microSD libraries) | Same as DoP | [EST] |
-| I2S BCLK | 12.288 MHz (vs 2.822 MHz) | 352.8 kHz frames → 22.58 MHz | 176.4 kHz DSD_U32 frames → 11.29 MHz | Arithmetic; opendap-os ADR 0006 |
+| I2S BCLK | 12.288 MHz (vs 2.822 MHz) | 352.8 kHz frames → 22.58 MHz | 176.4 kHz DSD_U32 frames → 11.29 MHz | Arithmetic; blackbird-os ADR 0006 |
 | DAC | Higher-rate PCM path (**UNVERIFIED**, +0–10 mW per chip) | DSD path; the interpolator is bypassed (**UNVERIFIED** sign) | Same | Datasheet table not readable |
 | MCLK | 49.152 MHz family: same NDK part, same 15 mA max | 45.1584 MHz family | Same | [DS] NDK |
 | **Total adder (min / typ / max)** | **+10 / +25 / +60 mW** | **+15 / +35 / +90 mW** | **+10 / +25 / +70 mW** | [EST] |
@@ -383,7 +383,7 @@ The adder at typical brightness is 300 / 400 / 550 mW (§4.5). At 10 % duty, eac
 
 | Sub-scenario | Adder (min / typ / max, mW) | Basis |
 |---|---|---|
-| 5a. Wi-Fi associated, idle, power save | +10 / +30 / +70 | [EST]. IW612 figures are under NDA. opendap-os §8.4 |
+| 5a. Wi-Fi associated, idle, power save | +10 / +30 / +70 | [EST]. IW612 figures are under NDA. blackbird-os §8.4 |
 | 5b. Wi-Fi streaming (FLAC, buffered in bursts) | +70 / +170 / +400 | [EST]. Radio bursts, networking and TLS on the SoC, SDIO interrupts |
 | 5c. LE Audio **receiver** (sink) playing to the wired output | +35 / +70 / +160 | [EST]. Continuous isochronous stream, LC3 decode, HCI UART. Readiness depends on `BT_NXPUART` and BlueZ BAP sink support (**UNVERIFIED**) |
 | 5d. LE Audio **source** to earbuds (DACs, MCLK and OPA1622 off) | Replaces the audio chain with +50 / +110 / +250 | [EST]. LC3 encode plus radio transmit |
@@ -423,7 +423,7 @@ With the screen on, the display becomes the largest single block: ≈ 38 % of 1.
 
 | # | Lever | Typical saving (battery-side) | Cost or risk |
 |---|---|---|---|
-| 1 | **Display fully off during playback.** Backlight and VCI gated; VOP2, DSI and GPU off through genpd; GT911 asleep; UI frozen | 300–550 mW against screen-on | Already the target in opendap-os §8.5. Verify per power domain |
+| 1 | **Display fully off during playback.** Backlight and VCI gated; VOP2, DSI and GPU off through genpd; GT911 asleep; UI frozen | 300–550 mW against screen-on | Already the target in blackbird-os §8.5. Verify per power domain |
 | 2 | **OPA1622 EN gating per output.** Jack detect drives DAPM, which drives the EN GPIOs. Shutdown is 5 µA per channel [DS] | 100–135 mW | One GPIO per output group. The part handles pop on enable [DS] |
 | 3 | **Runtime-idle quality.** 0.5–2 s ALSA buffer; ≤ 2–4 period wakeups per second (against ≈ 20–50 with a small PipeWire quantum); burst decode; lowest OPP; `workqueue.power_efficient=1`; no polling; frozen UI cgroups | 50–200 mW (**UNVERIFIED**) | Engineering only. Guard with xrun counters and bit-perfect captures |
 | 4 | **DDR operating point.** Choose a lower fixed DDR frequency in the rkbin configuration; enable the DMC's auto power-down and self-refresh idle timers | 20–80 mW (**UNVERIFIED**) | UI smoothness and HAT bandwidth. Measure it |
@@ -441,8 +441,8 @@ With the screen on, the display becomes the largest single block: ≈ 38 % of 1.
 - **Suspend-to-RAM or s2idle during playback.**
   - The I2S DMA must keep running from DRAM, and s2idle freezes the playback engine.
   - Suspend belongs to **paused** playback, after a policy timeout.
-  - Deep "mem" suspend depends on BL31 `SYSTEM_SUSPEND` support (**UNVERIFIED** for mainline TF-A, [DOC] opendap-os §8.1).
-- **RP2350 feeding I2S while the SoC sleeps** (opendap-os Q10).
+  - Deep "mem" suspend depends on BL31 `SYSTEM_SUSPEND` support (**UNVERIFIED** for mainline TF-A, [DOC] blackbird-os §8.1).
+- **RP2350 feeding I2S while the SoC sleeps** (blackbird-os Q10).
   - It conflicts with **BRD-005** (a helper MCU in the data path).
   - Its 520 KB SRAM holds only ≈ 3 s of 16/44.1 stereo, so the SoC would wake every few seconds anyway.
 
@@ -450,7 +450,7 @@ With the screen on, the display becomes the largest single block: ≈ 38 % of 1.
 
 ## 9. What the architecture must do
 
-These follow from [system ADR 0002](../../../system/docs/adr/0002-system-architecture.md) and opendap-os §8.
+These follow from [system ADR 0002](../../../system/docs/adr/0002-system-architecture.md) and blackbird-os §8.
 
 1. **Screen-off is a transition owned by the orchestrator.**
    - Freeze every UI activity's cgroup (cgroup freezer).
@@ -681,7 +681,7 @@ Each step ends in a matrix row: case | steps | expected | observed | evidence.
 5. **Fuel-gauge logging during rundowns.**
    - Log MAX17055 `AvgCurrent`, `VCell`, `RepSOC`, `RepCap` and `TTE` every 60 s while the screen is off (slow, alert-driven reads).
    - Compare with the Joulescope to calibrate TTE (the user-facing "hours left").
-   - The gauge shows trends; mW-level differences need the external analyser ([DOC] opendap-os §8.6).
+   - The gauge shows trends; mW-level differences need the external analyser ([DOC] blackbird-os §8.6).
 6. **Captured samples alongside power.**
    - Capture I2S passively on the BRD-040 pads during each optimised run.
    - Validate bit-perfect output with the toolkit's validators (PCM compare, `dop-check`) and count xruns.

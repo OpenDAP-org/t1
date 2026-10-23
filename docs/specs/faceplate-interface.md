@@ -27,7 +27,7 @@ Logic levels: 3.3 V for the low-speed groups, 1.8 V for PDM; a faceplate whose p
 
 ## Control commands
 
-Physical controls on a faceplate (buttons, switches, dials) reach OpenDAP OS as standardized binary commands, not raw signals (T1-023, T1-024), through **HID over I2C** ([ADR 0002](../adr/0002-faceplate-controls-use-hid-over-i2c.md)). The faceplate's controller presents one HID device; Linux's mainline `i2c-hid` driver turns its reports into standard input events.
+Physical controls on a faceplate (buttons, switches, dials) reach Blackbird OS as standardized binary commands, not raw signals (T1-023, T1-024), through **HID over I2C** ([ADR 0002](../adr/0002-faceplate-controls-use-hid-over-i2c.md)). The faceplate's controller presents one HID device; Linux's mainline `i2c-hid` driver turns its reports into standard input events.
 
 ### Core set (Draft)
 
@@ -66,7 +66,7 @@ USB-IF HID Usage Tables. The Linux event is what mainline `drivers/hid/hid-input
 
 ### Extensions
 
-New commands go in an **OpenDAP vendor-defined usage page** (0xFF00–0xFFFF; the exact page is not assigned yet), read by OpenDAP OS through `hidraw`. A command moves to the core set only through an RFC. Candidates that are not decided: hold / lock switch, output select, gain, DAC filter, A–B repeat, like.
+New commands go in an **OpenDAP vendor-defined usage page** (0xFF00–0xFFFF; the exact page is not assigned yet), read by Blackbird OS through `hidraw`. A command moves to the core set only through an RFC. Candidates that are not decided: hold / lock switch, output select, gain, DAC filter, A–B repeat, like.
 
 ### Identification
 

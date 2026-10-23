@@ -3,7 +3,7 @@
 - **Date:** 2026-10-22
 - **Status:** Desk research. Nothing here is a decision. The "The T1 shall …" lines are **candidate** functional requirements for the maintainers to accept, change or drop; none of them is in a requirements table yet.
 - **Requirements served:** T1-008 (audio quality first), T1-009 (battery), T1-026 (every promise verified), T1-040 (the audiophile experience at 100 %), T1-045 (100 % of the hardware, limits only for safety and visible), OS-020 (bit-perfect scope), SYS-012 (hearing-safety dose).
-- **Inputs read:** [T1 requirements](../../requirements/README.md), [controls and status LED](../../specs/controls-and-status-led.md), [OpenDAP OS requirements](https://github.com/opendap-project/opendap-os/blob/main/docs/requirements/README.md), [DSD512 research](https://github.com/opendap-project/opendap-os/blob/main/docs/research/2026-10-dsd512.md), [system requirements](https://github.com/opendap-project/system/blob/main/docs/requirements/README.md), [board ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md), [board requirements](https://github.com/opendap-project/board/blob/main/docs/requirements/README.md).
+- **Inputs read:** [T1 requirements](../../requirements/README.md), [controls and status LED](../../specs/controls-and-status-led.md), [Blackbird OS requirements](https://github.com/opendap-project/blackbird-os/blob/main/docs/requirements/README.md), [DSD512 research](https://github.com/opendap-project/blackbird-os/blob/main/docs/research/2026-10-dsd512.md), [system requirements](https://github.com/opendap-project/system/blob/main/docs/requirements/README.md), [board ADR 0012](https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md), [board requirements](https://github.com/opendap-project/board/blob/main/docs/requirements/README.md).
 
 ## 0. Method and limits
 
@@ -18,7 +18,7 @@
 | Name | What it is |
 |---|---|
 | Rockbox | Open-source firmware for older DAPs; exists because of "severe limitations in the manufacturer-supplied user interface" ([Wikipedia: Rockbox][wp-rockbox]) |
-| MPD | Music Player Daemon, open-source Linux player; its manual and issue tracker document Linux/ALSA behaviour directly relevant to OpenDAP OS |
+| MPD | Music Player Daemon, open-source Linux player; its manual and issue tracker document Linux/ALSA behaviour directly relevant to Blackbird OS |
 | NW-A100 | Sony Walkman NW-A100 series; its online help guide is the only Sony source that loaded |
 | FiiO changelogs | FiiO's official firmware notes on forum.fiio.com |
 
@@ -242,8 +242,8 @@ Every source below was fetched on 2026-10-22, except the OpenDAP repository link
 - `spotify-hw`: <https://developer.spotify.com/documentation/commercial-hardware>
 - `librespot`: <https://github.com/librespot-org/librespot>
 - `wp-mtp`: <https://en.wikipedia.org/wiki/Media_Transfer_Protocol>
-- `os-req`: <https://github.com/opendap-project/opendap-os/blob/main/docs/requirements/README.md>
-- `os-dsd512`: <https://github.com/opendap-project/opendap-os/blob/main/docs/research/2026-10-dsd512.md>
+- `os-req`: <https://github.com/opendap-project/blackbird-os/blob/main/docs/requirements/README.md>
+- `os-dsd512`: <https://github.com/opendap-project/blackbird-os/blob/main/docs/research/2026-10-dsd512.md>
 - `brd-0012`: <https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md>
 
 [wp-rockbox]: https://en.wikipedia.org/wiki/Rockbox
@@ -345,6 +345,6 @@ Every source below was fetched on 2026-10-22, except the OpenDAP repository link
 [spotify-hw]: https://developer.spotify.com/documentation/commercial-hardware
 [librespot]: https://github.com/librespot-org/librespot
 [wp-mtp]: https://en.wikipedia.org/wiki/Media_Transfer_Protocol
-[os-req]: https://github.com/opendap-project/opendap-os/blob/main/docs/requirements/README.md
-[os-dsd512]: https://github.com/opendap-project/opendap-os/blob/main/docs/research/2026-10-dsd512.md
+[os-req]: https://github.com/opendap-project/blackbird-os/blob/main/docs/requirements/README.md
+[os-dsd512]: https://github.com/opendap-project/blackbird-os/blob/main/docs/research/2026-10-dsd512.md
 [brd-0012]: https://github.com/opendap-project/board/blob/main/docs/adr/0012-headphone-output-stage.md

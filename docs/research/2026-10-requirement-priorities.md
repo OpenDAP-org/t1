@@ -2,7 +2,7 @@
 
 - **Date:** 2026-10-22
 - **Status:** Proposal. No requirements file was edited. Every change to a **Confirmed** requirement is a proposal for the maintainers, because confirmed priorities change only with their decision. Changes to **Draft** requirements are proposed more freely.
-- **Scope:** every requirement with status Confirmed or Draft in the public requirements files: `t1`, `board`, `case`, `faceplate-touch`, `faceplate-cassette`, `faceplate-classic`, `hat-standard`, the seven product HATs, `system`, `opendap-os`, `desktop`, `ui-components`, the four libraries and the four toolkit repositories (`toolkit/host` has no requirements yet; `rfcs` has none). Requirements with status Moved or Withdrawn are listed per repository but not audited. Private repositories are out of scope.
+- **Scope:** every requirement with status Confirmed or Draft in the public requirements files: `t1`, `board`, `case`, `faceplate-touch`, `faceplate-cassette`, `faceplate-classic`, `hat-standard`, the seven product HATs, `system`, `blackbird-os`, `desktop`, `ui-components`, the four libraries and the four toolkit repositories (`toolkit/host` has no requirements yet; `rfcs` has none). Requirements with status Moved or Withdrawn are listed per repository but not audited. Private repositories are out of scope.
 - **Inputs:** the workspace rule on priorities, the T1 product rules ([T1 requirements](../requirements/README.md), T1-040 to T1-048), the [UX research](ux/) (persona, jobs to be done and moments of truth in [`2026-10-persona-jtbd-journey.md`](ux/2026-10-persona-jtbd-journey.md) §6, and the [candidate requirements](ux/2026-10-candidate-requirements.md)), and the [experience budgets](../specs/experience-budgets.md).
 
 ## Definition applied
@@ -33,7 +33,7 @@ Requirements that only block one component (a HAT, an optional faceplate) were j
 | `hat-standard` | 20 | 19 | 0 | 1 |
 | Product HATs (7) | 36 | 36 | 0 | 0 |
 | `system` | 31 | 25 | 6 | 0 |
-| `opendap-os` | 27 | 25 | 1 | 1 |
+| `blackbird-os` | 27 | 25 | 1 | 1 |
 | `desktop` | 8 | 5 | 3 | 0 |
 | `ui-components` | 3 | 3 | 0 | 0 |
 | Libraries (4) | 7 | 6 | 1 | 0 |
@@ -347,7 +347,7 @@ Not audited: SYS-013 to SYS-016 (Withdrawn).
 | SYS-034 | must | C | keep | Endurance rule (T1-047). |
 | SYS-035 | must | C | keep | Own ecosystem; scope boundary. |
 
-### `opendap-os`
+### `blackbird-os`
 
 | ID | Now | Status | Proposal | Reason |
 |---|---|---|---|---|
