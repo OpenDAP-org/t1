@@ -231,7 +231,7 @@ Persona: curator-buyer. The journey crosses the most surfaces and has the most b
 | Find | Desktop | Search across the enabled providers, with editions, formats and resolutions side by side, and what is already owned marked | Clarity | Hick's law (grouped choices); Miller (chunks by edition) |
 | Choose | Desktop | Compare editions; see the provider, price, format, region; no default provider imposed | Fairness | E18 (no interface interference); E5 |
 | Buy | Provider's own checkout | The listener pays on the provider's site or flow; OpenDAP never handles payment for a third party | Trust | E17, E18; the store-side reality of §4 |
-| Arrive | Desktop | The download is found and imported, tagged from the provider's metadata and MusicBrainz; provenance kept (provider, order, date) | "It just arrived" | Tesler's law: the system carries the complexity |
+| Arrive | Desktop | The download is found and imported, tagged from the file's own tags and, if the listener enabled them, metadata providers (SYS-045); provenance kept (provider, order, date) | "It just arrived" | Tesler's law: the system carries the complexity |
 | Reach the T1 | Background | At the next meeting of the two devices (cable, LAN or, if chosen, the internet) | Anticipation | E8 (shown as "on its way to the T1") |
 | First play | T1 | "New" on the T1's home; first play at the right profile | Delight | Peak-end |
 
@@ -433,9 +433,9 @@ From [Laws of UX](https://lawsofux.com/). The T1-only applications are in the [c
 
 | Class | Attributes |
 |---|---|
-| **Must-be** (absence fails, presence unnoticed) | Gapless and bit-perfect playback; no clicks or pops; works with no other device; no data ever lost; files never changed silently; sync that is correct; resume exactly where left; updates that can be undone; private by default |
+| **Must-be** (absence fails, presence unnoticed) | Gapless and bit-perfect playback; playback in sync across every device in real time (SYS-042); no clicks or pops; works with no other device; no data ever lost; files never changed silently; sync that is correct; resume exactly where left; updates that can be undone; private by default |
 | **One-dimensional** (more is better) | Battery hours; library size handled without slowing; sync and transfer speed; search speed; how much of the library fits (card capacity, optional transcoding per device) |
-| **Attractive** (delight, no penalty when absent) | "Continue here" handoff; Calibrated offered for a known headphone; collection health view; a purchase that arrives by itself; a wish list captured on the T1; "on this day" and rediscovery from the owner's own history; level-matched blind A/B; notes on a mix |
+| **Attractive** (delight, no penalty when absent) | Calibrated offered for a known headphone; collection health view; a purchase that arrives by itself; a wish list captured on the T1; "on this day" and rediscovery from the owner's own history; level-matched blind A/B; notes on a mix |
 | **Indifferent** (for most) | Social feeds; badges; listening "streaks" |
 | **Reverse** (presence dissatisfies) | A mandatory account; telemetry by default; engagement notifications; automatic library reorganisation; a default store; ads |
 
@@ -451,7 +451,7 @@ Front stage is what the listener sees; back stage is what runs behind the line o
 |---|---|---|---|---|---|
 | **Listener** | Searches, compares editions | Pays on the provider's checkout | Sees "Downloading", then "In library" | Sees "On its way to the T1", then "On the T1" | Plays |
 | **Front stage** | Desktop: results across providers, owned items marked | Provider's site or flow | Desktop: import progress, tags, art | Desktop and T1: one-line sync state | T1: "New" |
-| **Back stage** | Provider adapters: search | Provider: order, entitlement | Download; verify; identify (provider metadata, MusicBrainz, AcoustID); write tags only to the library copy; record provenance | Sync service: plan per device rules; transfer resumable and verified; T1 indexer adds it in the background | Audio engine: profile for the output |
+| **Back stage** | Provider adapters: search | Provider: order, entitlement | Download; verify; identify (tags; metadata providers if enabled, SYS-045); write tags only to the library copy; record provenance | Sync service: plan per device rules; transfer resumable and verified; T1 indexer adds it in the background | Audio engine: profile for the output |
 | **Support** | Provider availability; regional catalogue | Payment (the provider's) | Metadata services; storage | Protocol; links (USB, LAN, relay) | — |
 | **Fail points** | A provider's search fails: show results from the others | A failed payment is the provider's: say so | Incomplete download: retry, resume; unidentified: queue for review | No link: "Waiting for the T1"; no space: say how much and offer choices | A format the path converts: say so |
 
@@ -556,28 +556,36 @@ Public principle only:
 
 ### 12.8 The phone
 
-No OpenDAP phone app is decided. Until one is, the phone works through standards:
+An OpenDAP phone app will exist, after OpenDAP Desktop (T1-068). Until then, the phone works through standards:
 
 - Bluetooth source and remote;
 - UPnP control points;
 - OpenSubsonic clients, if the T1 or the desktop serves that API.
 
-The journeys show where a phone remote would add most: the home listener's remote (§7.6), the guest queue (§7.11) and the wish list (§7.3). Whether to build one is for the maintainers.
+The journeys show where a phone remote would add most: the home listener's remote (§7.6), the guest queue (§7.11) and the wish list (§7.3). Its scope is to be defined from these journeys.
 
 ## 13. Open questions and next steps
 
-### 13.1 For the maintainers
+### 13.1 Decided by the maintainers (2026-10-23)
 
-1. **Copying music without vendor software on macOS** (§4; protocol research §8.7): USB networking with a standard file protocol, a card-only mass-storage mode, or the desktop only.
-2. **What the T1 does with providers:** only the wish list (recommended by E3 and E18), or also purchases on the device.
-3. **Transcoding on sync** for space: offered per device as an option (as researched), or not at all.
-4. **A phone remote:** build one, or rely on standards.
-5. **The household model:** shared collection with personal state, from the first version of the data model.
-6. **Metadata licences:**
-   - MusicBrainz core data is CC0, but its supplementary data is non-commercial ([licence](https://musicbrainz.org/doc/About/Data_License)).
-   - AcoustID is free for non-commercial use only ([AcoustID](https://acoustid.org/webservice)).
-   - Whether their use in a product that is sold needs agreements is to be asked to their owners.
-7. **Hardware options:** NFC and haptics (§12.3), each against its BOM cost.
+The questions first raised here were answered; the requirements are recorded in each repository.
+
+| Question | Decision | Recorded |
+|---|---|---|
+| Copying music to the T1 without vendor software | Plain files: over USB the T1 appears by default as a standard storage device with an organised directory tree; OpenDAP Desktop and the CLI are recommended | T1-065 (Draft: the layout is to define) |
+| The T1 without the desktop, and purchases | The T1 is fully useful without the desktop: files bought (for example FLAC) and loaded by any means simply play. On the device, a wish list; a provider may offer one-action purchase, opt-in in that provider's settings | T1-066, T1-067 |
+| Transcoding on sync | Offered, per device, optional | DESK-010 |
+| A phone app | Yes; OpenDAP Desktop comes first | T1-068 |
+| The household | A must: one shared collection with each member's personal state; family members in the manner of streaming services' profiles | SYS-043, SYS-044 |
+| Playback across devices | Real-time sync of playback across all of the listener's devices is a must | SYS-042 |
+| Third parties (MusicBrainz, AcoustID, stores, streaming, scrobbling) | All can be integrated, always as opt-in providers, never in the core | SYS-045 |
+| NFC and haptics | Yes, when suitable parts are available | BRD-057, BRD-058 |
+
+**What changes in this research:**
+
+- **Identification and enrichment are providers** (SYS-045). The core reads identifiers already in the files' tags (a MusicBrainz ID, an ISRC) and the listener's own data. Lookups against MusicBrainz, AcoustID, Discogs or a store happen only through providers the listener enables. With none enabled, the library works from the tags as they are. This also settles the licence question: each provider follows its service's terms.
+- **Real-time playback sync is a must** (SYS-042). Handoff (§7.6) and "now playing" are no longer attractive extras (§10). They become must-be: the queue, the position and the state are live on every device, and any device takes over.
+- **The household is in the data model from the start** (SYS-043): the collection and the personal state are separate objects (desktop research §3.1).
 
 ### 13.2 Validation with people
 
