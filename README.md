@@ -1,5 +1,7 @@
 # T1
 
+![OpenDAP T1 concept art: the T1 in graphite with its orange Action button, playing music on Blackbird OS. Concept art, not a real device.](docs/concept-art/concept.png)
+
 Product integration of the OpenDAP T1: product requirements, the complete assembly and system simulations, built from the exports of every component.
 
 ## Layout
