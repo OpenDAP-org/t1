@@ -42,15 +42,17 @@ Contradictions are fixed before anything is built on them. The governing source 
 | E1.1 | Pinout v1: check every pin of the v0 plan against the full RK3566 datasheet (IO domains, muxing, boot strapping) | board | todo |
 | E1.2 | Faceplate contact positions on the FH35C-51S from pinout v1 (RFC 0001 group order) | t1, board | blocked (E1.1) |
 | E1.3 | HAT DF40 100-pin and 50-pin contact numbering, pull-up ownership and power classes (interface v1 §10) | hat-standard | blocked (E1.1) |
-| E1.4 | BOM §7.22: BQ28Z610-R1 gauge-only configuration from TI's reference manual | board | todo |
-| E1.5 | BOM §7.28: effective output capacitance of the 5.1 V TPS62903 (≥ 12 µF after DC bias) | board | todo |
-| E1.6 | BOM §7.1: SPICE of the master-clock attenuator into the CS43198 clock input | board | todo |
+| E1.4 | BOM §7.22: BQ28Z610-R1 gauge-only configuration from TI's reference manual | board | doing: narrowed (board `4cf3306`, parts-lib `a2f1dfc`); open: PACK tied to BAT+ without FETs (gauge never shuts down above 3.0 V), 5 mΩ sense resistor outside TI's 1–3 mΩ, defaults to read back from a chip |
+| E1.5 | BOM §7.28: effective output capacitance of the 5.1 V TPS62903 (≥ 12 µF after DC bias) | board | done: one GRM32ER71E226KE15L keeps ≥ 13.9 µF at 5.1 V worst tolerance (board `4cf3306`) |
+| E1.6 | BOM §7.1: SPICE of the master-clock attenuator into the CS43198 clock input | board | doing: study `sim/mclk-attenuator` (board `4cf3306`); passes with a typical oscillator, fails with the weakest output NDK allows (`xo-load`); see E1.14 |
 | E1.7 | RK809-5 power-up defaults and RK860-0 data: ask Rockchip, else follow the ROCK 3C reference and plan a power-up capture | board | todo: measured on M-CORE (V2-C01) instead of asked; the ROCK 3C reference meanwhile |
 | E1.8 | Flat-cable specification board ↔ HAT device-side piece (BRD-013): stack-up, impedance, length, bend, stiffeners | board | blocked (E2, E1.3) |
 | E1.9 | Faceplate flex specification: FH35C tail (0.2 ± 0.03 mm, 15.6 ± 0.05 mm), DSI pairs, stiffener | faceplate-touch | blocked (E1.2) |
 | E1.11 | Retrieve the Rockchip RK3566 hardware design guide and the Murata Type 2EL hardware design guide (constraints §9 items 2 and 3) | parts-lib | done: Rockchip (parts-lib `9be21a0`, board `7be75ba`), Murata notes (parts-lib `c65b1bb`, board `3b4e1fd`); the 2EL datasheet is still missing |
 | E1.12 | Power tree: a 1.8 V power rail for the radio module (AVDD18, peaks above 1 A) and the LPDDR4X 1.10 V VDD2 at the SoC; check against power tree v0 and the BOM | board | todo |
 | E1.13 | Antennas from Murata's certified lists for the target regions (the Molex 146187 is on Japan's only), and the SAR / permissive-change path for handheld use | board, t1 | todo |
+| E1.14 | Master-clock duty: the NSC5083D symmetry spec (40–60 %) is wider than the CS43198's 45–55 % whatever the attenuator does, and two DAC pins can exceed the oscillator's 15 pF load. Options to study and decide: an oscillator with a 45–55 % symmetry spec, a buffer per DAC, or an oscillator at twice the frequency divided by two (exact 50 %), each with its phase-noise and jitter budget against ADR 0010 | board | todo |
+| E1.15 | Feature-block gaps G1–G21 of the [block catalog](https://github.com/opendap-project/board/blob/main/docs/specs/feature-blocks.md) (IMU wake rail, DAC I2C back-powering, MCLK into an unpowered DAC, RP2354A taps, TPM and NFC supplies, PN7160 supply, faceplate pull-ups, per-block measurement points) into the power tree and the schematic | board | todo |
 | E1.10 | Battery pack quotes from two makers (ADR 0014 item 2) | board | deferred: vendor contact after the engineering work (maintainers, 2026-10-24) |
 
 ### E2. PCB design constraints
@@ -143,8 +145,8 @@ Every function is a feature block that can be enabled, disabled, swapped or meas
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E10.1 | T1 block catalog: interface, power domain and switch, absent state, measurement point, alternates, software description per block; gaps for the schematic | board | doing |
-| E10.2 | Variant files: `full` (prototype 1), `production`, `lite` (proposal) | board | doing |
+| E10.1 | T1 block catalog: interface, power domain and switch, absent state, measurement point, alternates, software description per block; gaps for the schematic | board | done: 49 blocks, gaps G1–G21 (board `8ead864`) |
+| E10.2 | Variant files: `full` (prototype 1), `production`, `lite` (proposal) | board | done: `full`, `production`, `lite` (proposal) (board `8ead864`) |
 | E10.3 | Moved: system plan HW2.8 (`odapkit variant`) | toolkit-hardware, toolkit-hooks | todo |
 | E10.4 | Moved: system plan HW2.9 (virtual variants) | virtual-devices | todo |
 | E10.5 | Verification per variant in the integration matrices | t1 | todo |
