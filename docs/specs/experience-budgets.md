@@ -50,6 +50,26 @@ Noise floor into sensitive IEMs, distortion and output power are set from the fi
 | Playback autonomy (core session) | > 12 h | < 8 h | < 6 h | T1-039 |
 | Standby drain | ≤ 1 % per day | > 3 % per day | > 5 % per day | Proposal |
 
+## Radio
+
+Draft until calibrated on the first prototype and on the benchmark set. Courses (LOS, W1, W2, BODY, COEX), dropout detection and latency loopback follow the [radio performance method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-radio-performance-methods.md); values, basis and levers in the [T1 radio research](../research/2026-10-radio-performance-t1.md) §6. Every row also holds against the median of the dated benchmark set (commercial Digital Audio Players, phones as a reference) measured on the same course: ideal ≥ 2× (latency ≤ 0.5×), warning below 1.5× (latency above 0.67×), hard limit at or below 1.0× (latency at or above 1.0×). Results state the variant and its regional transmit-power table (T1-075).
+
+| Metric | Ideal | Warning | Hard limit | Basis |
+|---|---|---|---|---|
+| Bluetooth audio on the body: T1 in a front, then back, trouser pocket, reference headphones worn, 30 min each, LDAC 990 kb/s held (BODY) | 0 dropouts | any dropout | > 3 dropouts in 30 min | Proposal; a phone in a pocket swings 15–20 dB with body orientation (T1 radio research §2.1) |
+| Bluetooth range, line of sight, LDAC 990 kb/s held, no dropout (LOS) | ≥ 15 m | < 10 m | < 5 m | Proposal; LDAC 990 and 660 kb/s need about −60 dBm at the headphones |
+| Bluetooth range, line of sight, LDAC adaptive, no dropout (LOS) | ≥ 40 m | < 25 m | < 15 m | Proposal; 330 kb/s holds to about −80 dBm |
+| Bluetooth range through one interior wall, LDAC adaptive, no dropout (W1) | ≥ 20 m | < 12 m | < 8 m | Proposal; wall loss measured and recorded |
+| Bluetooth range through two interior walls, LDAC adaptive, no dropout (W2) | ≥ 12 m | < 8 m | < 5 m | Proposal; wall losses measured and recorded |
+| Bluetooth audio with Wi-Fi streaming 20 Mb/s on the same T1, LDAC 990 kb/s, 3 m, 60 min, Wi-Fi on 2.4 then 5 GHz (COEX) | 0 dropouts | — | any dropout | Board ADR 0018 coexistence gate |
+| Wi-Fi TCP downlink, 5 GHz 80 MHz, 1 m line of sight | ≥ 350 Mb/s | < 250 Mb/s | < 150 Mb/s | Murata: 384 Mb/s TCP at about 0.9 m (E2B-09-1413 Table 25); SDIO 3.0 bound |
+| Wi-Fi TCP downlink, 10 m through one wall (W1) | ≥ 200 Mb/s | < 120 Mb/s | < 60 Mb/s | Proposal |
+| Wi-Fi TCP downlink, 15 m through two walls (W2) | ≥ 100 Mb/s | < 50 Mb/s | < 25 Mb/s | Proposal; 2×2 phones carry 150–160 Mb/s at 15 m through walls (reference, not target) |
+| Range with sustained TCP ≥ 20 Mb/s, two-wall course extended (W2) | ≥ 25 m | < 18 m | < 12 m | Proposal; lossless hi-res streaming with margin |
+| Bluetooth audio latency, A2DP (SBC, AAC, LDAC), reference headphones | ≤ 150 ms | > 200 ms | > 300 ms | Android phones average 308–369 ms by codec (SoundGuys) |
+| Bluetooth audio latency, LE Audio (LC3), when supported | ≤ 60 ms | > 100 ms | > 150 ms | Proposal |
+| Wi-Fi round trip to the access point under load, 99th percentile | ≤ 20 ms | > 50 ms | > 150 ms | Proposal |
+
 ## Endurance
 
 | Metric | Ideal | Warning | Hard limit | Basis |
