@@ -103,7 +103,7 @@ Row format and IDs per the [method](https://github.com/opendap-project/toolkit-h
 | V2-A05 | M-AUD | Pops at power, play, pause, seek, rate change, PCM/DSD change, output change, gain change, plug and unplug | None audible (T1-049); measured peak at the jack recorded |
 | V2-A06 | M-AUD | Both clock families, every sample rate, PCM and DSD | Bit-perfect (OS-020); DAC locked; no resampling (BRD-023) |
 | V2-A07 | M-AUD | Boost, inverter and LDO bench items | Closes BOM §7.29–§7.31 |
-| V2-R01 | M-RF | Throughput and range per band, Bluetooth audio stability | Murata reference figures **UNVERIFIED** until E1.11 |
+| V2-R01 | M-RF | Throughput, range and Bluetooth audio stability per band, shared and dedicated antenna configurations | The Radio targets of the [experience budgets](experience-budgets.md#radio); the measured configuration decides board ADR 0018's production choice |
 | V2-R02 | M-RF | Layout against Murata's reference design | No deviation (BRD-025) |
 | V2-U01 | M-UI | Display at full frame rate, touch report rate and latency | T1-056 and the experience budgets |
 | V2-U02 | M-UI | Faceplate identification, controls over HID, LED states | Faceplate interface v0, controls and status LED spec |
@@ -135,7 +135,7 @@ Every L2 and L3 row is repeated on the board (the L2/L3 values become the refere
 | ID | Case | Expected |
 |---|---|---|
 | V4-01 | Audio noise and THD+N with every other domain active (radio transmitting, display on, HAT loaded, charging) | Within the T1-048 thresholds set at L2; no spur above the warning value |
-| V4-02 | Radio sensitivity with the board's own noise (desense), per band | Within Murata's figures minus a documented margin **UNVERIFIED** |
+| V4-02 | Radio sensitivity with the board's own noise (desense), per band, in both antenna configurations | Desense ≤ the budget set at L2; the Radio targets of the experience budgets still met on the board |
 | V4-03 | Thermal map at the full budget and at playback | Measured part temperatures; data handed to the out-of-scope thermal work (E4.10) |
 | V4-04 | Power by use case on the board | Updates the battery-life model; T1-039 evaluated |
 | V4-05 [Q2] | ESD at every connector on the bare board | ±4 kV contact, ±8 kV air (IEC 61000-4-2): no damage, criterion B |
@@ -151,7 +151,7 @@ Every L2 and L3 row is repeated on the board (the L2/L3 values become the refere
 
 | ID | Level | Case | Expected |
 |---|---|---|---|
-| V5-01 | L5 | Radio range and throughput in the case | Within the L4 values minus the enclosure loss, recorded |
+| V5-01 | L5 | Radio range, throughput, latency and Bluetooth dropouts in the case, on body and through walls, per the method of toolkit-hardware's radio-performance research | The Radio targets of the experience budgets; each must also beat the measured benchmark median |
 | V5-02 [Q2] | L5 | ESD at the product surface (cover, buttons, jacks, USB-C) | ±4 kV contact, ±8 kV air, criterion B; no audible event beyond a recovery |
 | V5-03 | L5 | Audio rows of L4 with the final jacks and ground | No change beyond measurement repeatability |
 | V6-01 | L6 | Core audiophile session autonomy | T1-039: > 12 h ideal, < 8 h warning, < 6 h hard limit |
