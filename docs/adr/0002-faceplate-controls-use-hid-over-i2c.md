@@ -13,3 +13,7 @@ Faceplate controls (buttons, switches, dials) must reach Blackbird OS as standar
 - Commands are **usages from the USB-IF HID Usage Tables**. The core set is defined in the [faceplate interface](../specs/faceplate-interface.md#control-commands).
 - New commands go in an **OpenDAP vendor-defined usage page**, read by Blackbird OS services through `hidraw`.
 - The faceplate's HID descriptor (vendor ID, product ID, version) identifies the faceplate and its controls.
+
+## Notes
+
+- Note (2026-10-24): [ADR 0004](0004-faceplate-identity-and-hid-transport.md) (Accepted) sets the transport parameters, the vendor page (0xFF00) and the identity numbers. Because mainline `i2c-hid` does not pass `wVersionID` to userspace, the faceplate's hardware revision is also carried in a vendor identity report. The decision above is unchanged.
