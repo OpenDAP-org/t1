@@ -9,6 +9,10 @@
 
 The electronics exist as documents: board BOM v1.7, power tree v0, a v0 pin plan, 15 board ADRs, HAT interface v1 with 4 ADRs, 128 parts-lib spec sheets and three ngspice studies (board `sim/`). There is no KiCad project, no symbol or footprint, no fab rule set for HDI or flex and no `component.yaml` yet. The BOM lists items it must close before schematic capture (§7.22, §7.28) and before layout (§7.1, §7.29–§7.31).
 
+## Quality levels
+
+Every rule, check, verification row and certification item carries the level at which it becomes mandatory, from Q0 (bench-safe) to Q4 (reference), per [RFC 0010](https://github.com/opendap-project/rfcs/blob/main/text/0010-quality-levels.md). A build passes everything at its target level; what lies above is visible debt, not a blocker, and a level reached is never lost. Targets: risk-reduction modules and prototype 1 at **Q1**; pilot units and the DIY kit at **Q2**; the Commercial edition at **Q3**; every revision moves toward **Q4**.
+
 ## Critical path
 
 1. **Battery:** two pack makers quote the 2S pack (board ADR 0014) → battery connector and pocket edge freeze → board outline.
@@ -119,6 +123,16 @@ Specialised modules per domain, with the integration verified level by level and
 | E7.1 | Placement against the outline, keep-outs and height zones | board | blocked (E6.1, board outline) |
 | E7.2 | Routing: LPDDR4X, eMMC, SD, USB 3 and PCIe to the DF40, DSI, audio partition | board | blocked (E7.1) |
 | E7.3 | SI and power-integrity sign-off against E2 | board | blocked (E7.2) |
+
+### E9. Benchmarks and compliance
+
+| ID | Task | Repository | Status |
+|---|---|---|---|
+| E9.1 | Expert DFM, mechanical and reliability rules in the product DRC (holes, edges, assembly, routing hygiene, voltage spacing, thermal placement) | board | doing |
+| E9.2 | OpenDAP PCB craft standard with its rule set and check script, shared by every board | kicad-lib, toolkit-hardware | doing |
+| E9.3 | Industry wisdom benchmark and the phase-staged design-review checklist | toolkit-hardware, board | doing |
+| E9.4 | Design for compliance: regimes, conflicts and the path through Q1–Q4 | t1 | doing |
+| E9.5 | Tag every existing item with its quality level as each document is next edited (RFC 0010) | all | todo |
 
 ### E8. Prototype 1
 
