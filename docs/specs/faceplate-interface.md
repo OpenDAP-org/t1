@@ -6,7 +6,7 @@ Faceplates are not meant to be swapped regularly, so this interface is kept to t
 
 ## Flat-cable connector, interface v0
 
-Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)). The board maps its SoC pins onto these groups; no SoC pin is part of the interface. Connector: Hirose FH35C-51S, 0.3 mm pitch, 51 contacts: 46 used, 5 reserved ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md); the spare count meets the "at least about 10 %" of [board ADR 0006](https://github.com/opendap-project/board/blob/main/docs/adr/0006-pin-plan-decisions.md)). Contact positions are fixed in pinout v1.
+Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)). The board maps its SoC pins onto these groups; no SoC pin is part of the interface. Connector: Hirose FH35C-51S, 0.3 mm pitch, 51 contacts: 46 used, 5 reserved ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md); the spare count meets the "at least about 10 %" of [board ADR 0006](https://github.com/opendap-project/board/blob/main/docs/adr/0006-pin-plan-decisions.md)). Contact positions are in the table below ([board pinout v1 §8](https://github.com/opendap-project/board/blob/main/docs/specs/pinout-v1.md)).
 
 | Group | Lines | Contacts | Notes |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/mai
 | SPI/DBI | SCLK, MOSI, MISO, CS, D/C | 5 | Panels and displays driven over SPI or MIPI DBI |
 | Touch | INT, RST | 2 | |
 | Panel | RST, TE | 2 | |
-| Interrupts | HID_INT, ALS_INT | 2 | Open-drain on the faceplate side; wake sources |
+| Interrupts | HID_INT, ALS_INT | 2 | Open-drain on the faceplate side, pulled up on the board to FP_3V3; HID_INT is a wake source, ALS_INT is not |
 | Status LED | LED_R, LED_G, LED_B | 3 | Anodes, driven by constant-current sources on the board (≤ 20 mA each); cathodes to faceplate ground (FPT-016, FPT-025) |
 | Microphone | PDM_CLK, PDM_DATA | 2 | |
 | Detect and spare GPIO | FP_DET#, GPIO ×2 | 3 | Slow lines |
@@ -24,6 +24,63 @@ Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/mai
 | Reserved | — | 5 | For later revisions |
 
 Logic levels: 3.3 V for the low-speed groups, 1.8 V for PDM; a faceplate whose parts need other levels translates on its side.
+
+### Contact positions, pinout v1 (Draft)
+
+The groups above in [RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)'s group order (display, I2C, SPI/DBI, touch, panel, interrupts, status LED, microphone, detect and spare GPIO, power, reserved), with each DSI pair between two grounds and lane 0 next to the clock, so a single-lane panel uses contacts 10–16 only. Numbering follows the Hirose drawing. Source: [board pinout v1 §8](https://github.com/opendap-project/board/blob/main/docs/specs/pinout-v1.md).
+
+| Contact | Line | Group |
+|---|---|---|
+| 1 | GND | Ground |
+| 2 | DSI_D3+ | Display |
+| 3 | DSI_D3− | Display |
+| 4 | GND | Ground |
+| 5 | DSI_D2+ | Display |
+| 6 | DSI_D2− | Display |
+| 7 | GND | Ground |
+| 8 | DSI_D1+ | Display |
+| 9 | DSI_D1− | Display |
+| 10 | GND | Ground |
+| 11 | DSI_D0+ | Display |
+| 12 | DSI_D0− | Display |
+| 13 | GND | Ground |
+| 14 | DSI_CLK+ | Display |
+| 15 | DSI_CLK− | Display |
+| 16 | GND | Ground |
+| 17 | I2C_SCL | I2C |
+| 18 | I2C_SDA | I2C |
+| 19 | SPI_SCLK | SPI/DBI |
+| 20 | SPI_MOSI | SPI/DBI |
+| 21 | SPI_MISO | SPI/DBI |
+| 22 | SPI_CS# | SPI/DBI |
+| 23 | DBI_D/C | SPI/DBI |
+| 24 | TP_INT | Touch |
+| 25 | TP_RST# | Touch |
+| 26 | LCD_RST# | Panel |
+| 27 | LCD_TE | Panel |
+| 28 | HID_INT# | Interrupts |
+| 29 | ALS_INT# | Interrupts |
+| 30 | LED_R | Status LED |
+| 31 | LED_G | Status LED |
+| 32 | LED_B | Status LED |
+| 33 | GND | Ground |
+| 34 | PDM_CLK | Microphone |
+| 35 | PDM_DATA | Microphone |
+| 36 | FP_DET# | Detect |
+| 37 | GPIO0 | Spare GPIO |
+| 38 | GPIO1 | Spare GPIO |
+| 39 | GND | Ground |
+| 40 | MIC_1V8 | Power |
+| 41 | FP_1V8 | Power |
+| 42 | FP_3V3 | Power |
+| 43 | FP_3V3 | Power |
+| 44 | FP_VCI | Power |
+| 45 | BL_LEDK | Power |
+| 46 | BL_LEDA | Power |
+| 47 | Reserved | Reserved |
+| 48–51 | Reserved | Reserved |
+
+Contact 47, next to BL_LEDA, stays reserved or becomes a ground; it never carries a logic line.
 
 ## Control commands
 
@@ -74,7 +131,7 @@ The HID descriptor's vendor ID, product ID and version identify the faceplate an
 
 ### Not defined yet
 
-I2C address and HID descriptor register, interrupt line, report descriptor layout, and power behavior during suspend.
+I2C address and HID descriptor register, report descriptor layout, and power behavior during suspend.
 
 ## Dimensions
 
