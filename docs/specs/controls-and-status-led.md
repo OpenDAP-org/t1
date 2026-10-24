@@ -35,7 +35,7 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 | **Main + Volume −**, hold | Power menu (same as Main long), also reachable when the screen is off | maintainers' choice (2026-10-22) |
 | **Main**, held until forced power-off | Hardware power-off, works even if the OS is unresponsive | Android forced restart; implemented by the PMIC |
 | **Volume + / −**, short | One volume step while sound is playing or the active activity asks for the volume; otherwise they move the focus: Volume − to the next element, like Tab, Volume + to the previous one, like Shift+Tab (system views such as the power menu included); held, the focus keeps moving, accelerating, and stops where it is released | Android (T1-062); the rule set by the maintainers (2026-10-23) |
-| **Volume + / −**, long | Next / previous track while they are the volume (sound playing, the activity asking, or the screen off); no auto-repeat. In focus navigation, held keeps moving the focus instead (the row above): one meaning per context, never both. **For the maintainers' review:** this split resolves the two rules of 2026-10-23, which both claim a held volume button | Android music apps with the screen off (T1-062) |
+| **Volume + / −**, long | Next / previous track while they are the volume (sound playing, the activity asking, or the screen off); no auto-repeat. In focus navigation, held keeps moving the focus instead (the row above): one meaning per context, never both. This split resolves the two rules of 2026-10-23, which both claim a held volume button (decided by Claude under the maintainers' delegation, best UX (2026-10-24): a held button keeps the meaning its short press has there) | Android music apps with the screen off (T1-062) |
 | **Action**, short | Follows the focus, which lands on the screen's primary action whenever a screen comes to the foreground, or on its first element where it has none: so the primary action by default; the element the volume buttons moved the focus to once they did; with the focus hidden after a touch, the primary action again where there is one. With the screen off, play / pause of the active media. Action never repeats | The orange primary action on screen (T1-061); focus on entry and the focused-element rule set by the maintainers (2026-10-23) |
 | **Action**, long | A direct action the user chooses; default none | T1-061; developer-accessible (BRD-036) |
 
@@ -88,11 +88,11 @@ Listed by priority: when several states apply, the highest one is shown.
 | Priority | State | Colour | Pattern | IEC 60073 meaning |
 |---|---|---|---|---|
 | 1 | Hardware or thermal fault, unsafe condition | Red | Fast blink | Danger / fault |
-| 2 | Battery critically low | Red | Slow blink | Danger, action required |
+| 2 | Battery critically low (5 % or less, discharging) | Red | Slow blink | Danger, action required |
 | 3 | Update or flashing in progress: do not power off | Blue | Breathing | Action required (do not interrupt) |
 | 4 | Recovery mode | Blue | Solid | Mandatory action context |
 | 5 | Music volume handed to a computer: eject before unplugging (blackbird-os ADR 0013) | Blue | Slow blink | Action required (eject first) |
-| 6 | Battery low | Amber | Slow blink | Warning |
+| 6 | Battery low (15 % or less, discharging) | Amber | Slow blink | Warning |
 | 7 | Charging | Amber | Solid | Abnormal (not yet ready) |
 | 8 | Charged, still on external power | Green | Solid | Normal |
 | 9 | Pairing: Bluetooth, or another device through the OpenDAP Protocol | Blue | Fast blink | Action required (pair now) |
@@ -103,6 +103,7 @@ Listed by priority: when several states apply, the highest one is shown.
 
 **Rules:**
 
+- Battery thresholds: 15 % and 5 %, Android's defaults, the same for the status bar's warnings (decided by Claude under the maintainers' delegation, best UX (2026-10-24)).
 - Priorities 1–5 cannot be overridden by developer control. Below them, a developer may take the LED through the Linux LED class (`/sys/class/leds`, triggers such as `heartbeat` or `timer`).
 - With a single-colour LED (if RGB is not fitted), the base set keeps its meaning through patterns only: fast blink = fault or pairing, slow blink = low battery or eject first, breathing = busy/booting, single pulse = activity, solid = charging or charged.
 - Device-to-device states (5, 9, 10) follow the [OpenDAP Protocol](https://github.com/opendap-project/rfcs/blob/main/text/0004-opendap-protocol.md) and the [user-facing conventions](https://github.com/opendap-project/system/blob/main/docs/specs/user-facing-conventions.md): the screen says the same in words whenever it is on. Activity (10) is shown only with the screen off, and the listener can turn it off; calm first (ecosystem research E11).
