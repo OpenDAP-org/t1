@@ -136,6 +136,18 @@ Specialised modules per domain, with the integration verified level by level and
 | E9.4 | Design for compliance: regimes, conflicts and the path through Q1–Q4 | t1 | done: research (t1 `3c19e1c`); T1-071 to T1-086 (t1 `62f5cfc`), SYS-012 (system `1b916a2`), board constraints v0.5 (board `2dc4c59`), verification rows (t1 `9f9469d`) |
 | E9.5 | Tag every existing item with its quality level as each document is next edited (RFC 0010) | all | todo |
 
+### E10. Feature blocks and variants
+
+Every function is a feature block that can be enabled, disabled, swapped or measured alone; prototype 1 is the full variant, and every other variant is derived from it as data ([RFC 0011](https://github.com/opendap-project/rfcs/blob/main/text/0011-feature-blocks-and-variants.md)).
+
+| ID | Task | Repository | Status |
+|---|---|---|---|
+| E10.1 | T1 block catalog: interface, power domain and switch, absent state, measurement point, alternates, software description per block; gaps for the schematic | board | doing |
+| E10.2 | Variant files: `full` (prototype 1), `production`, `lite` (proposal) | board | doing |
+| E10.3 | `odapkit variant`: per-variant BOM, pick-and-place, devicetree overlays and device description; absent-state check and its hook | toolkit-hardware, toolkit-hooks | todo |
+| E10.4 | Virtual variants from the same files | virtual-devices | todo |
+| E10.5 | Verification per variant in the integration matrices | t1 | todo |
+
 ### E8. Prototype 1
 
 | ID | Task | Repository | Status |
