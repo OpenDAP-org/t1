@@ -2,7 +2,7 @@
 
 | Folder | Contents |
 |---|---|
-| [`specs/`](specs/) | T1 specifications: interfaces between components, such as the [faceplate interface](specs/faceplate-interface.md), and the T1's own behaviour and values, such as [controls and the status LED](specs/controls-and-status-led.md) and the [experience budgets](specs/experience-budgets.md). Generic software specifications (audio profiles, devices and sync) are in [system](https://github.com/opendap-project/system/tree/main/docs/specs), and the interface mockups in [blackbird-ui](https://github.com/opendap-project/blackbird-ui/tree/main/renders/web) (RFC 0008). |
+| [`specs/`](specs/) | T1 specifications: interfaces between components, such as the [faceplate interface](specs/faceplate-interface.md), and the T1's own behaviour and values, such as [controls and the status LED](specs/controls-and-status-led.md) the [experience budgets](specs/experience-budgets.md), and the [electronics integration and verification](specs/electronics-integration-verification.md) levels. Generic software specifications (audio profiles, devices and sync) are in [system](https://github.com/opendap-project/system/tree/main/docs/specs), and the interface mockups in [blackbird-ui](https://github.com/opendap-project/blackbird-ui/tree/main/renders/web) (RFC 0008). |
 | [`plans/`](plans/) | Work plans with their task lists, such as the [electronics plan](plans/2026-10-electronics-plan.md). |
 | [`adr/`](adr/) | Architecture Decision Records: decisions already taken. |
 | [`research/`](research/) | Research that informs requirements and decisions. |

@@ -28,7 +28,7 @@ Contradictions are fixed before anything is built on them. The governing source 
 | E0.1 | Board: bring BOM §7 and §9, the power tree, ADR 0008/0009/0010 notes, the pin plan header and the 2S study up to ADR 0014 and ADR 0015 (unused TPS65131 inverter, BQ25798 driver state, DF40 power pin count, FH35C-51S, stale line references) | board | done (board `9498a39`) |
 | E0.2 | Product, case and touch notes: body 59.5 × 94.3 mm (t1 ADR 0003) where 91.5 mm remains; battery basis in t1 ADR 0003 after board ADR 0014; stale "Draft" notes in case and faceplate-touch requirements | t1, case, faceplate-touch | done (t1 `5147da8`, faceplate-touch `ab8c492`); case notes left, out of this scope |
 | E0.3 | HAT standard: one contact field everywhere (4 × 25 at 2.54 mm, Harwin P70, Mill-Max 0965; hat-standard ADR 0004) in interface v1, the requirements and board BOM line 67 | hat-standard, board | done (hat-standard `42fcf14`, board `9498a39`) |
-| E0.4 | List what needs a maintainers' call: requirements still Draft behind Accepted ADRs (BRD-020, BRD-022, BRD-024, BRD-037, FPT-008), BRD-001 against the kernel configuration in BOM v1.7, the LP5521 drive direction against the faceplate interface | all | done: see "Decisions for the maintainers" |
+| E0.4 | List what needs a maintainers' call: requirements still Draft behind Accepted ADRs (BRD-020, BRD-022, BRD-024, BRD-037, FPT-008), BRD-001 against the kernel configuration in BOM v1.7, the LP5521 drive direction against the faceplate interface | all | done: resolved on 2026-10-24 (board `6e4d540`, faceplate-touch `aee106a`) |
 
 ### E1. Freeze the inputs to the schematic
 
@@ -40,11 +40,11 @@ Contradictions are fixed before anything is built on them. The governing source 
 | E1.4 | BOM §7.22: BQ28Z610-R1 gauge-only configuration from TI's reference manual | board | todo |
 | E1.5 | BOM §7.28: effective output capacitance of the 5.1 V TPS62903 (≥ 12 µF after DC bias) | board | todo |
 | E1.6 | BOM §7.1: SPICE of the master-clock attenuator into the CS43198 clock input | board | todo |
-| E1.7 | RK809-5 power-up defaults and RK860-0 data: ask Rockchip, else follow the ROCK 3C reference and plan a power-up capture | board | decision (contacting Rockchip) |
+| E1.7 | RK809-5 power-up defaults and RK860-0 data: ask Rockchip, else follow the ROCK 3C reference and plan a power-up capture | board | todo: measured on M-CORE (V2-C01) instead of asked; the ROCK 3C reference meanwhile |
 | E1.8 | Flat-cable specification board ↔ HAT device-side piece (BRD-013): stack-up, impedance, length, bend, stiffeners | board | blocked (E2, E1.3) |
 | E1.9 | Faceplate flex specification: FH35C tail (0.2 ± 0.03 mm, 15.6 ± 0.05 mm), DSI pairs, stiffener | faceplate-touch | blocked (E1.2) |
 | E1.11 | Retrieve the Rockchip RK3566 hardware design guide and the Murata Type 2EL hardware design guide (constraints §9 items 2 and 3) | parts-lib | todo |
-| E1.10 | Battery pack quotes from two makers (ADR 0014 item 2) | board | decision (outward contact) |
+| E1.10 | Battery pack quotes from two makers (ADR 0014 item 2) | board | deferred: vendor contact after the engineering work (maintainers, 2026-10-24) |
 
 ### E2. PCB design constraints
 
@@ -55,7 +55,7 @@ One specification per board, deriving every limit from the product requirements,
 | E2.1 | Main board constraints: outline and keep-outs taken from the product, height zones per side, stackup and build, impedance classes, length matching, current capacity, audio partition and grounding, clocks, RF keep-out, power integrity, ESD and protection, test access, assembly and DFM, variants | board | doing: Draft v0.1 (board `6b0d1bc`, BRD-060); open items in its §9 |
 | E2.2 | Flat-cable and HAT device-side piece constraints | board, hat-standard | blocked (E1.3) |
 | E2.3 | Touch-faceplate electronics constraints | faceplate-touch | blocked (E1.2) |
-| E2.5 | Front-side height under the display (constraints PCB-Z-03, §9 item 1): grow the gap, single-sided under the display, or a recess | board, t1 | decision |
+| E2.5 | Front-side height under the display (constraints PCB-Z-03, §9 item 1): grow the gap, single-sided under the display, or a recess | board, t1 | doing: decision delegated to Claude (2026-10-24) |
 | E2.4 | Machine-readable form of the constraints (one data file per board) so rule sets, net classes and checks are generated from it, not copied | board | done: `hardware/rules/netclasses.toml` (board `46c3a66`); project generation in E4.1 |
 
 ### E3. Design rules (DRC)
@@ -69,7 +69,7 @@ The fab rule sets live in kicad-lib (KLIB-002), one per PCBWay process. The prod
 | E3.3 | `pcbway-multilayer` fab rule set and test board (device-side piece, rigid faceplate boards) | kicad-lib | done (kicad-lib `bec830a`, 13/13 at 18 µm and at 35 µm) |
 | E3.4 | T1 main-board product rules (from E2.1) and test board | board | done: v0.1, 21 rules, 21/21 fire (board `46c3a66`) |
 | E3.5 | Composition tool and check: project `.kicad_dru` = fab set + product rules, with a stale-file check in pre-commit | toolkit-hardware, toolkit-hooks | done: `odapkit dru`, hook `kicad-dru-composed` (toolkit-hooks `f5edd58`, `e540f4e`) |
-| E3.6 | Ask PCBWay for the HDI and flex stackups and the unpublished limits (microvia land, flex with stiffener tolerance, pogo pin placement) | kicad-lib | decision (outward contact) |
+| E3.6 | Ask PCBWay for the HDI and flex stackups and the unpublished limits (microvia land, flex with stiffener tolerance, pogo pin placement) | kicad-lib | deferred: published capabilities used meanwhile (maintainers, 2026-10-24) |
 
 ### E4. Engineering cycle tooling (electronics)
 
@@ -90,12 +90,19 @@ Each design iteration runs the same local loop: constraints → ERC/DRC → simu
 | E4.12 | Sim inputs: `--json` output for `vsys-bucks/run.py`, parts-lib SPICE model entries (SLVMC09, SBOM958, SNVMBG5) and the extracted model hashes for the OPA1622 and LMR33630C | board, parts-lib | todo |
 | E4.10 | Power and dissipation data per part and per use case, exported for the out-of-scope thermal work and the battery-life model | board | todo |
 
-### E5. Risk-reduction boards
+### E5. Modules and integration levels
+
+Specialised modules per domain, with the integration verified level by level and never inferred from the parts: [electronics integration and verification](../specs/electronics-integration-verification.md) (levels L0–L6, modules, interaction matrix, evaluation matrices).
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E5.1 | Signal-integrity coupon: DF40 at 5 Gb/s and the pogo field (required by hat-standard ADR 0004 before the pad map freezes) | hat-standard | decision (build it) |
-| E5.2 | Power and audio test board: TPS65131 boost at ≈ 99 %, LMR33630C idle and heat, LDO current sharing, VSYS_LV ripple into the DAC (BOM §7.29–§7.31) | board | decision (build it) |
+| E5.0 | Integration levels, modules, interaction matrix and evaluation matrices | t1 | doing: Draft v0.1 |
+| E5.1 | M-SI coupons: main-board stackup and both flat cables; with M-HAT, the hat-standard ADR 0004 coupon | board, hat-standard | blocked (E2.1, E3.6 stackup) |
+| E5.2 | M-AUD: audio, clocks, rails and jacks (BOM §7.1, §7.29–§7.31) | board | blocked (E1.6, E6.1 audio sheets) |
+| E5.3 | M-PWR: charging, power path, converters, eFuses | board | blocked (E1.4, E1.5, E6.1 power sheets) |
+| E5.4 | M-CORE: SoC, LPDDR4X, eMMC, PMIC, boot; the hub of the module stack and the first SoC power measurement | board | blocked (E1.1, E1.11, E6.1 core sheets) |
+| E5.5 | M-RF, M-UI, M-IO, M-HAT | board, faceplate-touch, hat-standard | blocked (E1.11, E1.2, E1.3) |
+| E5.6 | Module connector maps as interface files checked against the main-board netlist (rule M3) | board | blocked (E4.6, E6.1) |
 
 ### E6. Schematics
 
@@ -122,9 +129,6 @@ Each design iteration runs the same local loop: constraints → ERC/DRC → simu
 
 ## Decisions for the maintainers
 
-1. Contacting Rockchip (E1.7), the pack makers (E1.10) and PCBWay (E3.6).
-2. Front-side height under the display (E2.5).
-3. Whether to build the risk-reduction boards (E5) before the full board.
-4. Requirements still Draft behind Accepted ADRs: BRD-020, BRD-022, BRD-024 (also: Pentaconn as a format or as a brand, while the BOM primary is G-Switch), BRD-037, FPT-008. BRD-001 (no custom kernel) against the kernel configuration BOM v1.7 relies on. ADR 0008 allows 4.45 V cells while BOM line 39 stops at 2 × 4.40 V. The LP5521 drive direction matches the faceplate interface (current sources on the anodes; datasheet SNVS441I), so there is nothing to decide there.
-5. Priorities set by Claude on 2026-10-24, to confirm: BRD-060 and PLIB-003 as must.
-6. HCS-012: whether the HAT device-side piece is fitted in every T1 (board ADR 0013).
+Delegated to Claude on 2026-10-24: front-side height (E2.5), the requirement mismatches (resolved in E0.4), and modules before the full board (yes, with the integration levels of E5). Vendor contacts (E1.7, E1.10, E3.6) wait until the engineering work needs them. Still open:
+
+1. HCS-012: whether the HAT device-side piece is fitted in every T1 (board ADR 0013).
