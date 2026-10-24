@@ -47,7 +47,9 @@ Contradictions are fixed before anything is built on them. The governing source 
 | E1.7 | RK809-5 power-up defaults and RK860-0 data: ask Rockchip, else follow the ROCK 3C reference and plan a power-up capture | board | todo: measured on M-CORE (V2-C01) instead of asked; the ROCK 3C reference meanwhile |
 | E1.8 | Flat-cable specification board ↔ HAT device-side piece (BRD-013): stack-up, impedance, length, bend, stiffeners | board | blocked (E2, E1.3) |
 | E1.9 | Faceplate flex specification: FH35C tail (0.2 ± 0.03 mm, 15.6 ± 0.05 mm), DSI pairs, stiffener | faceplate-touch | blocked (E1.2) |
-| E1.11 | Retrieve the Rockchip RK3566 hardware design guide and the Murata Type 2EL hardware design guide (constraints §9 items 2 and 3) | parts-lib | todo |
+| E1.11 | Retrieve the Rockchip RK3566 hardware design guide and the Murata Type 2EL hardware design guide (constraints §9 items 2 and 3) | parts-lib | done: Rockchip (parts-lib `9be21a0`, board `7be75ba`), Murata notes (parts-lib `c65b1bb`, board `3b4e1fd`); the 2EL datasheet is still missing |
+| E1.12 | Power tree: a 1.8 V power rail for the radio module (AVDD18, peaks above 1 A) and the LPDDR4X 1.10 V VDD2 at the SoC; check against power tree v0 and the BOM | board | todo |
+| E1.13 | Antennas from Murata's certified lists for the target regions (the Molex 146187 is on Japan's only), and the SAR / permissive-change path for handheld use | board, t1 | todo |
 | E1.10 | Battery pack quotes from two makers (ADR 0014 item 2) | board | deferred: vendor contact after the engineering work (maintainers, 2026-10-24) |
 
 ### E2. PCB design constraints
