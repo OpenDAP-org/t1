@@ -133,7 +133,7 @@ Specialised modules per domain, with the integration verified level by level and
 | E9.1 | Expert DFM, mechanical and reliability rules in the product DRC (holes, edges, assembly, routing hygiene, voltage spacing, thermal placement) | board | doing |
 | E9.2 | OpenDAP PCB craft standard with its rule set and check script, shared by every board | kicad-lib, toolkit-hardware | doing |
 | E9.3 | Industry wisdom benchmark and the phase-staged design-review checklist | toolkit-hardware, board | doing |
-| E9.4 | Design for compliance: regimes, conflicts and the path through Q1–Q4 | t1 | doing |
+| E9.4 | Design for compliance: regimes, conflicts and the path through Q1–Q4 | t1 | done: research (t1 `3c19e1c`); T1-071 to T1-086 (t1 `62f5cfc`), SYS-012 (system `1b916a2`), board constraints v0.5 (board `2dc4c59`), verification rows (t1 `9f9469d`) |
 | E9.5 | Tag every existing item with its quality level as each document is next edited (RFC 0010) | all | todo |
 
 ### E8. Prototype 1
