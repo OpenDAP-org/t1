@@ -1,6 +1,7 @@
 # Electronics integration and verification
 
 - **Status:** Draft v0.1 (2026-10-24), decided by Claude under the maintainers' delegation: specialised modules per domain are built, provided the integration is verified as well and never inferred from the parts. Task E5 of the [electronics plan](../plans/2026-10-electronics-plan.md).
+- **Levels:** `[Qn]` after a row ID is the RFC 0010 quality level at which the row becomes mandatory; a row without it is Q1. Compliance rows come from the [design-for-compliance research](../research/2026-10-design-for-compliance.md) §5.3 and §6.
 - **Scope:** the T1's electronics, from parts to the assembled product. Case, mechanical and physical-simulation work is out of scope; the levels that need it (L5, L6) list only their electrical evaluations.
 
 ## 0. Principles
@@ -143,19 +144,35 @@ Every L2 and L3 row is repeated on the board (the L2/L3 values become the refere
 | V4-02 | Radio sensitivity with the board's own noise (desense), per band | Within Murata's figures minus a documented margin **UNVERIFIED** |
 | V4-03 | Thermal map at the full budget and at playback | Measured part temperatures; data handed to the out-of-scope thermal work (E4.10) |
 | V4-04 | Power by use case on the board | Updates the battery-life model; T1-039 evaluated |
-| V4-05 | ESD at every connector on the bare board | No damage, no lock-up |
+| V4-05 [Q2] | ESD at every connector on the bare board | ±4 kV contact, ±8 kV air (IEC 61000-4-2): no damage, criterion B |
 | V4-06 | USB DAC mode connected to a computer | Bit-perfect, no added noise (T1-054); ground-loop noise recorded |
+| V4-07 [Q2] | Near-field scan and radiated pre-scan, every domain active; spread spectrum on and off; harmonics of every switching frequency listed against the radio bands | Peaks recorded; no harmonic in a radio channel above the desense budget of V4-02 |
+| V4-09 [Q2] | Conducted transmit power per band, rate and regulatory domain with the shipped driver and firmware | At or below Murata's certified values for each domain (T1-075) |
+| V4-10 [Q2] | Maximum wide-band output voltage per EN 50332-2 on each output, gain and load; 1 kHz full-scale sine for reference | Recorded; sets the dose calibration (T1-072, T1-074) |
+| V4-11 [Q2] | Battery single faults: charger misprogrammed, pack NTC open and shorted, cell imbalance, output short | Cell limits never exceeded; the PCM or charger hardware stops each fault (T1-086) |
+| V4-12 [Q3] | HAT and USB-C source outputs with the eFuse shorted | Available power after 3 s ≤ 15 W (PCB-P-11) |
+| V4-13 [Q2] | USB Type-C and PD with a PD analyser: 5 V and 9 V sink, 5 V 1.5 A source, dead battery, OS not running, hot plug, legacy and non-PD chargers | Charges in every case; no back-feed (T1-081) |
 
 ### 4.6 L5 Product assembly and L6 in use (electrical rows only)
 
 | ID | Level | Case | Expected |
 |---|---|---|---|
 | V5-01 | L5 | Radio range and throughput in the case | Within the L4 values minus the enclosure loss, recorded |
-| V5-02 | L5 | ESD at the product surface (cover, buttons, jacks, USB-C) | No damage, no lock-up, no audible event beyond a recovery |
+| V5-02 [Q2] | L5 | ESD at the product surface (cover, buttons, jacks, USB-C) | ±4 kV contact, ±8 kV air, criterion B; no audible event beyond a recovery |
 | V5-03 | L5 | Audio rows of L4 with the final jacks and ground | No change beyond measurement repeatability |
 | V6-01 | L6 | Core audiophile session autonomy | T1-039: > 12 h ideal, < 8 h warning, < 6 h hard limit |
 | V6-02 | L6 | Endurance and scale | T1-046, T1-047, experience budgets |
-| V6-03 | L6 | Compliance pre-scans (conducted and radiated emissions) | Below the applicable limits with margin, recorded |
+| V6-03 [Q2] | L6 | Compliance pre-scans repeated on each release candidate in the V5-04 configurations | No regression beyond 2 dB from the last pass |
+| V5-04 [Q2] | L5 | Radiated emissions pre-scan in the case, 30 MHz–6 GHz: no HAT, representative HAT, charging, USB device mode, playback on both jacks, radios transmitting | ≥ 6 dB below FCC 15.109 / CISPR 32 Class B in every configuration |
+| V5-05 [Q2] | L5 | Headphone output during ESD at every discharge point, with a sensitive IEM load (±8 / ±15 kV at Q4) | No transient above the RS2 equivalent (value set with the lab) |
+| V5-06 [Q2] | L5 | RF exposure pre-assessment with and without the representative HAT | Below the FCC, EU and ISED limits with margin; fixes PCB-R-05 (T1-076) |
+| V5-07 [Q2] | L5 | Radiated spurious emissions of the radio in the case | ≥ 6 dB margin |
+| V5-08 [Q2] | L5 | Surface temperatures in the worst case of T1-083, 2 h at 25 °C | Within the IEC 62368-1 TS1 limits |
+| V5-09 [Q3] | L5 | Battery replacement with the manual and commercially available tools | Completed without heat, solvents or special tools; time recorded (T1-055, T1-080) |
+| V6-04 [Q2] | L6 | Sound dose against EN 50332-3 test signals; warnings; gradual return to RS1; persistence across power-off, crash and battery cut-off; every output and USB DAC mode | Within the standard's tolerance (T1-072, T1-073) |
+| V6-05 [Q3] | L6 | EN 18031-1/-2 assessment | Every applicable requirement met (T1-078) |
+| V6-06 [Q2] | L6 | Regulatory domain: a country change applies channels, power and access-point restrictions, and shows the domain | As T1-075 |
+| V6-07 [Q3] | L6 | Formal tests at accredited labs for the declared markets | Passed; reports in the technical file (T1-071) |
 
 ## 5. Gates between levels
 
