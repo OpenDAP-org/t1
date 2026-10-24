@@ -13,3 +13,7 @@ The body should be as close to a credit card as possible, keep its proportions a
 - The tentative body is **59.5 × 94.3 × 24 mm** (credit-card proportions at the display's width), to be tightened around the off-the-shelf battery (board ADR 0007, about 88 % of the category's average audiophile runtime). Quote-only cells are excluded (T1-038).
 - The design does not wait for a development kit (T1-042). Until real measurements exist, the body stays at the conservative **24 mm** and is not shrunk, so a larger off-the-shelf pack can still fit if the estimate turns out pessimistic; power-saving levers (gating the unused output's amplifiers, large audio buffers, clock and block gating) are designed in from the start.
 - When measurements exist (a Radxa ZERO 3 is planned, or the prototype itself), apply T1-037 and T1-039: the measured pessimistic runtime must clear the 6 h red line, and the thickness shrinks toward 20 mm only while runtime stays around the category average.
+
+## Notes
+
+- Note (2026-10-24): the battery basis above is superseded. Board ADR 0007 (off-the-shelf Adafruit 328) was superseded by board ADR 0011, and [board ADR 0014](https://github.com/opendap-project/board/blob/main/docs/adr/0014-two-cell-battery.md) (Accepted) moves the T1 to a quoted 2S pack of catalog cells, admitted as a T1-038 exception like the cover glass. "Quote-only cells are excluded" no longer holds for that pack. The body size and the measurement gate of this decision are unchanged; the 2S pack is sized to the battery pocket of this body.

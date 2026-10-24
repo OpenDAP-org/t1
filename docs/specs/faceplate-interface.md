@@ -2,11 +2,11 @@
 
 How a faceplate attaches to the core. Every faceplate (touch, cassette, classic, …) meets this interface; its own mechanics live in its repository, and the case provides the mount.
 
-Faceplates are not meant to be swapped regularly, so this interface is kept to the minimum below. Requirements: CASE-008 to T1-019. Decision: [ADR 0001](../adr/0001-faceplate-interface-lives-in-t1.md).
+Faceplates are not meant to be swapped regularly, so this interface is kept to the minimum below. Requirements: T1-003, T1-018 and T1-019 (formerly CASE-008 to CASE-010). Decision: [ADR 0001](../adr/0001-faceplate-interface-lives-in-t1.md).
 
 ## Flat-cable connector, interface v0
 
-Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)). The board maps its SoC pins onto these groups; no SoC pin is part of the interface. Connector: Hirose FH35C-51S, 0.3 mm pitch, 51 contacts: 46 used, 5 reserved (board ADR 0006, "about 10 %" spare). Contact positions are fixed in pinout v1.
+Defined by function ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md)). The board maps its SoC pins onto these groups; no SoC pin is part of the interface. Connector: Hirose FH35C-51S, 0.3 mm pitch, 51 contacts: 46 used, 5 reserved ([RFC 0001](https://github.com/opendap-project/rfcs/blob/main/text/0001-faceplate-interface-v0-pinout.md); the spare count meets the "at least about 10 %" of [board ADR 0006](https://github.com/opendap-project/board/blob/main/docs/adr/0006-pin-plan-decisions.md)). Contact positions are fixed in pinout v1.
 
 | Group | Lines | Contacts | Notes |
 |---|---|---|---|
