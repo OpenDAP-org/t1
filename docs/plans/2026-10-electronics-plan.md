@@ -25,10 +25,10 @@ Contradictions are fixed before anything is built on them. The governing source 
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E0.1 | Board: bring BOM §7 and §9, the power tree, ADR 0008/0009/0010 notes, the pin plan header and the 2S study up to ADR 0014 and ADR 0015 (unused TPS65131 inverter, BQ25798 driver state, DF40 power pin count, FH35C-51S, stale line references) | board | todo |
-| E0.2 | Product, case and touch notes: body 59.5 × 94.3 mm (t1 ADR 0003) where 91.5 mm remains; battery basis in t1 ADR 0003 after board ADR 0014; stale "Draft" notes in case and faceplate-touch requirements | t1, case, faceplate-touch | todo |
-| E0.3 | HAT standard: one contact field everywhere (4 × 25 at 2.54 mm, Harwin P70, Mill-Max 0965; hat-standard ADR 0004) in interface v1, the requirements and board BOM line 67 | hat-standard, board | todo |
-| E0.4 | List what needs a maintainers' call: requirements still Draft behind Accepted ADRs (BRD-020, BRD-022, BRD-024, BRD-037, FPT-008), BRD-001 against the kernel configuration in BOM v1.7, the LP5521 drive direction against the faceplate interface | all | todo |
+| E0.1 | Board: bring BOM §7 and §9, the power tree, ADR 0008/0009/0010 notes, the pin plan header and the 2S study up to ADR 0014 and ADR 0015 (unused TPS65131 inverter, BQ25798 driver state, DF40 power pin count, FH35C-51S, stale line references) | board | done (board `9498a39`) |
+| E0.2 | Product, case and touch notes: body 59.5 × 94.3 mm (t1 ADR 0003) where 91.5 mm remains; battery basis in t1 ADR 0003 after board ADR 0014; stale "Draft" notes in case and faceplate-touch requirements | t1, case, faceplate-touch | done (t1 `5147da8`, faceplate-touch `ab8c492`); case notes left, out of this scope |
+| E0.3 | HAT standard: one contact field everywhere (4 × 25 at 2.54 mm, Harwin P70, Mill-Max 0965; hat-standard ADR 0004) in interface v1, the requirements and board BOM line 67 | hat-standard, board | done (hat-standard `42fcf14`, board `9498a39`) |
+| E0.4 | List what needs a maintainers' call: requirements still Draft behind Accepted ADRs (BRD-020, BRD-022, BRD-024, BRD-037, FPT-008), BRD-001 against the kernel configuration in BOM v1.7, the LP5521 drive direction against the faceplate interface | all | done: see "Decisions for the maintainers" |
 
 ### E1. Freeze the inputs to the schematic
 
@@ -43,6 +43,7 @@ Contradictions are fixed before anything is built on them. The governing source 
 | E1.7 | RK809-5 power-up defaults and RK860-0 data: ask Rockchip, else follow the ROCK 3C reference and plan a power-up capture | board | decision (contacting Rockchip) |
 | E1.8 | Flat-cable specification board ↔ HAT device-side piece (BRD-013): stack-up, impedance, length, bend, stiffeners | board | blocked (E2, E1.3) |
 | E1.9 | Faceplate flex specification: FH35C tail (0.2 ± 0.03 mm, 15.6 ± 0.05 mm), DSI pairs, stiffener | faceplate-touch | blocked (E1.2) |
+| E1.11 | Retrieve the Rockchip RK3566 hardware design guide and the Murata Type 2EL hardware design guide (constraints §9 items 2 and 3) | parts-lib | todo |
 | E1.10 | Battery pack quotes from two makers (ADR 0014 item 2) | board | decision (outward contact) |
 
 ### E2. PCB design constraints
@@ -51,10 +52,11 @@ One specification per board, deriving every limit from the product requirements,
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E2.1 | Main board constraints: outline and keep-outs taken from the product, height zones per side, stackup and build, impedance classes, length matching, current capacity, audio partition and grounding, clocks, RF keep-out, power integrity, ESD and protection, test access, assembly and DFM, variants | board | todo |
+| E2.1 | Main board constraints: outline and keep-outs taken from the product, height zones per side, stackup and build, impedance classes, length matching, current capacity, audio partition and grounding, clocks, RF keep-out, power integrity, ESD and protection, test access, assembly and DFM, variants | board | doing: Draft v0.1 (board `6b0d1bc`, BRD-060); open items in its §9 |
 | E2.2 | Flat-cable and HAT device-side piece constraints | board, hat-standard | blocked (E1.3) |
 | E2.3 | Touch-faceplate electronics constraints | faceplate-touch | blocked (E1.2) |
-| E2.4 | Machine-readable form of the constraints (one data file per board) so rule sets, net classes and checks are generated from it, not copied | board | todo |
+| E2.5 | Front-side height under the display (constraints PCB-Z-03, §9 item 1): grow the gap, single-sided under the display, or a recess | board, t1 | decision |
+| E2.4 | Machine-readable form of the constraints (one data file per board) so rule sets, net classes and checks are generated from it, not copied | board | done: `hardware/rules/netclasses.toml` (board `46c3a66`); project generation in E4.1 |
 
 ### E3. Design rules (DRC)
 
@@ -62,11 +64,11 @@ The fab rule sets live in kicad-lib (KLIB-002), one per PCBWay process. The prod
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E3.1 | `pcbway-hdi` fab rule set and test board, from the published capabilities (research 2026-10 PCBWay) | kicad-lib | todo |
-| E3.2 | `pcbway-flex` fab rule set and test board | kicad-lib | todo |
-| E3.3 | `pcbway-multilayer` fab rule set and test board (device-side piece, rigid faceplate boards) | kicad-lib | todo |
-| E3.4 | T1 main-board product rules (from E2.1) and test board | board | blocked (E2.1) |
-| E3.5 | Composition tool and check: project `.kicad_dru` = fab set + product rules, with a stale-file check in pre-commit | toolkit-hardware, toolkit-hooks | todo |
+| E3.1 | `pcbway-hdi` fab rule set and test board, from the published capabilities (research 2026-10 PCBWay) | kicad-lib | done (kicad-lib `bec830a`, 16/16 rules fire) |
+| E3.2 | `pcbway-flex` fab rule set and test board | kicad-lib | done (kicad-lib `bec830a`, 6/6) |
+| E3.3 | `pcbway-multilayer` fab rule set and test board (device-side piece, rigid faceplate boards) | kicad-lib | done (kicad-lib `bec830a`, 13/13 at 18 µm and at 35 µm) |
+| E3.4 | T1 main-board product rules (from E2.1) and test board | board | done: v0.1, 21 rules, 21/21 fire (board `46c3a66`) |
+| E3.5 | Composition tool and check: project `.kicad_dru` = fab set + product rules, with a stale-file check in pre-commit | toolkit-hardware, toolkit-hooks | done: `odapkit dru`, hook `kicad-dru-composed` (toolkit-hooks `f5edd58`, `e540f4e`) |
 | E3.6 | Ask PCBWay for the HDI and flex stackups and the unpublished limits (microvia land, flex with stiffener tolerance, pogo pin placement) | kicad-lib | decision (outward contact) |
 
 ### E4. Engineering cycle tooling (electronics)
@@ -77,13 +79,15 @@ Each design iteration runs the same local loop: constraints → ERC/DRC → simu
 |---|---|---|---|
 | E4.1 | Board KiCad project skeleton: kicad-lib as a pinned submodule, stackup, net classes and rules generated from E2.4, hierarchical sheets per subsystem | board | blocked (E2.1, E3.4) |
 | E4.2 | Symbols, footprints and 3D models for the critical parts first: RK3566, RK809-5, LPDDR4X, eMMC, CS43198, OPA1622, RP2354A, DF40, FH35C, USB4105, jacks, Micro-Fit, P70 | kicad-lib | todo |
-| E4.3 | Availability field in the parts-lib spec-sheet template (T1-010, T1-029), with date and source | parts-lib | todo |
-| E4.4 | Simulation regression: one runner for the ngspice studies with pass/fail thresholds taken from the constraints and ADRs, vendor models fetched by script, never committed | board, toolkit-hardware | todo |
+| E4.3 | Availability field in the parts-lib spec-sheet template (T1-010, T1-029), with date and source | parts-lib | done: PLIB-003 (parts-lib `a3afb78`); existing sheets migrate when edited |
+| E4.4 | Simulation regression: one runner for the ngspice studies with pass/fail thresholds taken from the constraints and ADRs, vendor models fetched by script, never committed | board, toolkit-hardware | done: `odapkit sim`; board checks 15 pass, 1 blocked on the LMR33630C model (board `ddaf1d5`) |
 | E4.5 | Signal-integrity loop: stackup impedance calculation, length and skew reports from the layout, checked against E2 | toolkit-hardware | todo |
 | E4.6 | Machine-readable interface files (faceplate, HAT, battery connector, board ↔ case envelope) with checkers that both sides match | t1, hat-standard, board | todo |
-| E4.7 | `component.yaml` schema of the component export contract | toolkit-hardware | todo |
+| E4.7 | `component.yaml` schema of the component export contract | toolkit-hardware | done: schema and validator (toolkit-hardware `6860055`); open points in the contract |
 | E4.8 | Fab pipeline dry run: run `fab-package` on a rule-set test board end to end | toolkit-hardware | blocked (E3.1) |
 | E4.9 | Board export for integration: STEP and glTF per the export contract | board | blocked (E4.1) |
+| E4.11 | Tag toolkit-hooks v0.4.0 and move the hardware repos to it, so `kicad-dru-composed` runs on commit | toolkit-hooks | todo |
+| E4.12 | Sim inputs: `--json` output for `vsys-bucks/run.py`, parts-lib SPICE model entries (SLVMC09, SBOM958, SNVMBG5) and the extracted model hashes for the OPA1622 and LMR33630C | board, parts-lib | todo |
 | E4.10 | Power and dissipation data per part and per use case, exported for the out-of-scope thermal work and the battery-life model | board | todo |
 
 ### E5. Risk-reduction boards
@@ -119,6 +123,8 @@ Each design iteration runs the same local loop: constraints → ERC/DRC → simu
 ## Decisions for the maintainers
 
 1. Contacting Rockchip (E1.7), the pack makers (E1.10) and PCBWay (E3.6).
-2. Whether to build the risk-reduction boards (E5) before the full board.
-3. The requirement and ADR mismatches listed by E0.4.
-4. HCS-012: whether the HAT device-side piece is fitted in every T1 (board ADR 0013).
+2. Front-side height under the display (E2.5).
+3. Whether to build the risk-reduction boards (E5) before the full board.
+4. Requirements still Draft behind Accepted ADRs: BRD-020, BRD-022, BRD-024 (also: Pentaconn as a format or as a brand, while the BOM primary is G-Switch), BRD-037, FPT-008. BRD-001 (no custom kernel) against the kernel configuration BOM v1.7 relies on. ADR 0008 allows 4.45 V cells while BOM line 39 stops at 2 × 4.40 V. The LP5521 drive direction matches the faceplate interface (current sources on the anodes; datasheet SNVS441I), so there is nothing to decide there.
+5. Priorities set by Claude on 2026-10-24, to confirm: BRD-060 and PLIB-003 as must.
+6. HCS-012: whether the HAT device-side piece is fitted in every T1 (board ADR 0013).
