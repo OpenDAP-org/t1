@@ -43,7 +43,7 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 
 - System combinations (with **Main**) cannot be reassigned. The Action long press can.
 - Every button works with the screen off, with the same response as with it on (T1-060).
-- **Touch with the screen off** (maintainers, 2026-10-24; T1-087): the screen takes no touch, except a double tap, which turns it on (Android's and iOS's tap to wake). Nothing of either tap reaches an activity. Unlocking, where a lock is set, comes after it in the shell. On a touch controller with a low-power gesture mode the double tap can be detected by the controller itself, so the screen's scanning need not stay at full rate; whether the T1's faceplate has one is **UNVERIFIED**.
+- **Touch with the screen off** (maintainers, 2026-10-24; T1-087): the screen takes no touch, except a double tap, which turns it on (Android's and iOS's tap to wake). Nothing of either tap reaches an activity. Unlocking, where a lock is set, comes after it in the OS Shell. On a touch controller with a low-power gesture mode the double tap can be detected by the controller itself, so the screen's scanning need not stay at full rate; whether the T1's faceplate has one is **UNVERIFIED**.
 - No double or triple press on Action or volume: a single press never waits for a second one (T1-063). Research: [buttons, gestures and touch on a small screen](../research/ux/2026-10-controls-gestures-small-screen.md).
 - Safety-related functions never depend only on software: forced power-off (PMIC) and MaskROM entry (hardware circuit) work with any OS state.
 - Volume limits and the hearing-safety dose (SYS-012) apply to button volume changes like any other.

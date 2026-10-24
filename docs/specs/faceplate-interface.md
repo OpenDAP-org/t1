@@ -228,7 +228,7 @@ The report descriptor is self-describing, so the interface fixes the collections
 | 0x11–0x1F | any | OpenDAP faceplate | Extension commands, assigned only through an RFC | — |
 | 0x20–0xFF | — | — | Reserved | — |
 
-The controller reports raw states only: press, release, position, detents. Long press, hold, repeat and chords are the shell's (system input events spec §3.3); the controller never synthesizes them, and never emits double or triple presses (T1-063).
+The controller reports raw states only: press, release, position, detents. Long press, hold, repeat and chords are the composer's (system input events spec §3.3); the controller never synthesizes them, and never emits double or triple presses (T1-063).
 
 Example (informative), a faceplate with play/pause, next, previous, volume up and down and a dial:
 
@@ -536,7 +536,7 @@ All decided by Claude under the maintainers' delegation on 2026-10-24, except D6
 | D8 | Identity device on every faceplate, I2C 0x2C, descriptor register 0x0001, no reset contact, ready ≤ 20 ms, reset ack ≤ 50 ms | Identification without probing; T1-020 without an EEPROM; `i2c-hid` behaviour | ADR 0004 |
 | D9 | Vendor page 0xFF00 | Ignored by mainline `hid-input`; any other vendor page leaks `*_MISC` events | ADR 0004 |
 | D10 | VID 0x1209 through pid.codes, one PID per model; test PIDs up to Q1; `wVersionID` = hardware revision; identity feature report 0x10 | No OpenDAP VID; Linux hides `wVersionID` | ADR 0004 |
-| D11 | Report IDs: 0x01 buttons, 0x02 relative axes, 0x10 identity, 0x11–0x1F extensions; raw states only | Stable layout; long press and repeat belong to the shell (T1-063) | §4.2 |
+| D11 | Report IDs: 0x01 buttons, 0x02 relative axes, 0x10 identity, 0x11–0x1F extensions; raw states only | Stable layout; long press and repeat belong to the composer (T1-063) | §4.2 |
 | D12 | Event latency ≤ 10 ms (5 ms at Q4) | Volume input to audible change ≤ 20 ms ideal | §4.1 |
 | D13 | Capabilities only in the description | Hardware support §3; one source of truth | §6 |
 | D14 | Identity invariant; minor revisions only add; reserved floor 5 contacts (8 %), so v1.x never assigns one | HAT standard's 8 % rule; any body can always identify any faceplate | §7 |
