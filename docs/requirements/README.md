@@ -90,6 +90,7 @@ Product requirements (PRD) for the OpenDAP T1. Component requirements live in ea
 | T1-084 | A regulatory-information screen should show the certification identifiers and marks the authorities accept as an electronic label. Level Q3. | should | Confirmed |
 | T1-085 | The HAT standard shall state host and accessory compliance responsibilities: limited-power host outputs, ESD at the pogo field, the emission budget at the flat cable, the antenna keep-out, and that each HAT carries its own declaration. Level Q3. | must | Confirmed |
 | T1-086 | No safety function shall depend on software alone (battery charging, acoustic output at power-on); the hazard analysis shows it. Level Q2. | must | Confirmed |
+| T1-087 | With the screen off, a double tap on a touch screen shall turn the screen on; no other touch shall act while it is off. Unlocking, where a lock is set, comes after it. | should | Confirmed |
 
 ## Context
 
