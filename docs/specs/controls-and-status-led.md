@@ -34,7 +34,7 @@ The T1 has four body buttons (T1-014, T1-015): **Main** (right edge) and **Actio
 | **Main + Volume −**, short | Screenshot | Android |
 | **Main + Volume −**, hold | Power menu (same as Main long), also reachable when the screen is off | maintainers' choice (2026-10-22) |
 | **Main**, held until forced power-off | Hardware power-off, works even if the OS is unresponsive | Android forced restart; implemented by the PMIC |
-| **Volume + / −**, short | One volume step while sound is playing or the active activity asks for the volume; otherwise they move the focus: Volume − to the next element, like Tab, Volume + to the previous one, like Shift+Tab (system views such as the power menu included) | Android (T1-062); the rule set by the maintainers (2026-10-23) |
+| **Volume + / −**, short | One volume step while sound is playing or the active activity asks for the volume; otherwise they move the focus: Volume − to the next element, like Tab, Volume + to the previous one, like Shift+Tab (system views such as the power menu included); held, the focus keeps moving, accelerating, and coasts to a stop once released | Android (T1-062); the rule set by the maintainers (2026-10-23) |
 | **Volume + / −**, long | Next / previous track, screen on or off; no auto-repeat | Android music apps with the screen off (T1-062) |
 | **Action**, short | The current screen's primary action; where the screen has none, the focused element is activated, as a tap on it would; with the screen off, play / pause of the active media | The orange primary action on screen (T1-061); the focused-element fallback set by the maintainers (2026-10-23) |
 | **Action**, long | A direct action the user chooses; default none | T1-061; developer-accessible (BRD-036) |
