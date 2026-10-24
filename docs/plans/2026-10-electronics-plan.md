@@ -1,6 +1,7 @@
 # T1 electronics work plan
 
 - **Date:** 2026-10-24
+- **Applies:** the [hardware engineering system plan](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/plans/2026-10-hardware-engineering-system-plan.md) (toolkit-hardware): the methods, standards and tools every OpenDAP device is built with. This plan keeps only the T1's own tasks; tasks moved to the system plan on 2026-10-24 keep their line here, pointing to their new ID.
 - **Status:** Active. Tasks change status as work lands; the plan itself changes only with the maintainers.
 - **Scope:** the T1's electronics: main board, touch-faceplate electronics, HAT device-side piece and the flat cables (board, faceplate-touch, hat-standard), with their libraries (kicad-lib, parts-lib) and tools (toolkit-hardware, toolkit-hooks).
 - **Out of scope:** the case, mechanical CAD and physical simulations (thermal, structural, acoustic), the other faceplates and the HATs themselves. The electronics still own what those need from them, as data: board outline and keep-outs taken in, height zones per side, board STEP and per-part dissipation handed out (E4.9, E4.10).
@@ -11,7 +12,7 @@ The electronics exist as documents: board BOM v1.7, power tree v0, a v0 pin plan
 
 ## Quality levels
 
-Every rule, check, verification row and certification item carries the level at which it becomes mandatory, from Q0 (bench-safe) to Q4 (reference), per [RFC 0010](https://github.com/opendap-project/rfcs/blob/main/text/0010-quality-levels.md). A build passes everything at its target level; what lies above is visible debt, not a blocker, and a level reached is never lost. Targets: risk-reduction modules and prototype 1 at **Q1**; pilot units and the DIY kit at **Q2**; the Commercial edition at **Q3**; every revision moves toward **Q4**.
+Levels per [RFC 0010](https://github.com/opendap-project/rfcs/blob/main/text/0010-quality-levels.md), as in the [system plan](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/plans/2026-10-hardware-engineering-system-plan.md#quality-levels). T1 targets: risk-reduction modules and prototype 1 at **Q1**; pilot units and the DIY kit at **Q2**; the Commercial edition at **Q3**; every revision moves toward **Q4**.
 
 ## Critical path
 
@@ -54,7 +55,7 @@ Contradictions are fixed before anything is built on them. The governing source 
 
 ### E2. PCB design constraints
 
-One specification per board, deriving every limit from the product requirements, the parts and the fab. Each constraint has an ID, a target, a hard limit, its source, and the rule or check that enforces it. Values without a source are marked **UNVERIFIED**.
+One specification per board, deriving every limit from the product requirements, the parts and the fab, per the [PCB design constraints method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/pcb-design-constraints-method.md) (system plan HW3.5). Each constraint has an ID, a target, a hard limit, its source, and the rule or check that enforces it. Values without a source are marked **UNVERIFIED**.
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
@@ -66,43 +67,43 @@ One specification per board, deriving every limit from the product requirements,
 
 ### E3. Design rules (DRC)
 
-The fab rule sets live in kicad-lib (KLIB-002), one per PCBWay process. The product rules live with each board and are composed on top of the fab set, because a KiCad project reads one `.kicad_dru` file. Every rule set has a test board that triggers every rule, checked with `kicad-cli pcb drc`.
+The fab rule sets, the composition tool and the rule test boards are system work ([system plan](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/plans/2026-10-hardware-engineering-system-plan.md) HW1, HW2.1). The T1's product rules are composed on top of the fab set.
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E3.1 | `pcbway-hdi` fab rule set and test board, from the published capabilities (research 2026-10 PCBWay) | kicad-lib | done (kicad-lib `bec830a`, 16/16 rules fire) |
-| E3.2 | `pcbway-flex` fab rule set and test board | kicad-lib | done (kicad-lib `bec830a`, 6/6) |
-| E3.3 | `pcbway-multilayer` fab rule set and test board (device-side piece, rigid faceplate boards) | kicad-lib | done (kicad-lib `bec830a`, 13/13 at 18 µm and at 35 µm) |
+| E3.1 | Moved: system plan HW1.1 (`pcbway-hdi`) | kicad-lib | done |
+| E3.2 | Moved: system plan HW1.2 (`pcbway-flex`) | kicad-lib | done |
+| E3.3 | Moved: system plan HW1.3 (`pcbway-multilayer`) | kicad-lib | done |
 | E3.4 | T1 main-board product rules (from E2.1) and test board | board | done: v0.1, 21 rules, 21/21 fire (board `46c3a66`) |
-| E3.5 | Composition tool and check: project `.kicad_dru` = fab set + product rules, with a stale-file check in pre-commit | toolkit-hardware, toolkit-hooks | done: `odapkit dru`, hook `kicad-dru-composed` (toolkit-hooks `f5edd58`, `e540f4e`) |
-| E3.6 | Ask PCBWay for the HDI and flex stackups and the unpublished limits (microvia land, flex with stiffener tolerance, pogo pin placement) | kicad-lib | deferred: published capabilities used meanwhile (maintainers, 2026-10-24) |
+| E3.5 | Moved: system plan HW2.1 (`odapkit dru`, hook `kicad-dru-composed`) | toolkit-hardware, toolkit-hooks | done |
+| E3.6 | Moved: system plan HW1.4 (PCBWay stackups and unpublished limits) | kicad-lib | deferred |
 
 ### E4. Engineering cycle tooling (electronics)
 
-Each design iteration runs the same local loop: constraints → ERC/DRC → simulation regression → checks across interfaces → exports for integration → fab package.
+Each design iteration runs the local loop of the [system plan](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/plans/2026-10-hardware-engineering-system-plan.md#the-engineering-cycle). The generic tools are system work; these are the T1's tasks.
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
 | E4.1 | Board KiCad project skeleton: kicad-lib as a pinned submodule, stackup, net classes and rules generated from E2.4, hierarchical sheets per subsystem | board | blocked (E2.1, E3.4) |
 | E4.2 | Symbols, footprints and 3D models for the critical parts first: RK3566, RK809-5, LPDDR4X, eMMC, CS43198, OPA1622, RP2354A, DF40, FH35C, USB4105, jacks, Micro-Fit, P70 | kicad-lib | todo |
-| E4.3 | Availability field in the parts-lib spec-sheet template (T1-010, T1-029), with date and source | parts-lib | done: PLIB-003 (parts-lib `a3afb78`); existing sheets migrate when edited |
-| E4.4 | Simulation regression: one runner for the ngspice studies with pass/fail thresholds taken from the constraints and ADRs, vendor models fetched by script, never committed | board, toolkit-hardware | done: `odapkit sim`; board checks 15 pass, 1 blocked on the LMR33630C model (board `ddaf1d5`) |
-| E4.5 | Signal-integrity loop: stackup impedance calculation, length and skew reports from the layout, checked against E2 | toolkit-hardware | todo |
+| E4.3 | Moved: system plan HW2.7 (parts-lib availability field, PLIB-003) | parts-lib | done |
+| E4.4 | Moved: system plan HW2.2 (`odapkit sim`); the T1 board checks (15 pass, 1 blocked, board `ddaf1d5`) are its first application | board, toolkit-hardware | done |
+| E4.5 | Moved: system plan HW2.4 (signal-integrity loop), checked against the T1 constraints (E2) | toolkit-hardware | todo |
 | E4.6 | Machine-readable interface files (faceplate, HAT, battery connector, board ↔ case envelope) with checkers that both sides match | t1, hat-standard, board | todo |
-| E4.7 | `component.yaml` schema of the component export contract | toolkit-hardware | done: schema and validator (toolkit-hardware `6860055`); open points in the contract |
-| E4.8 | Fab pipeline dry run: run `fab-package` on a rule-set test board end to end | toolkit-hardware | blocked (E3.1) |
+| E4.7 | Moved: system plan HW2.3 (`component.yaml` schema) | toolkit-hardware | done |
+| E4.8 | Moved: system plan HW2.5 (fab pipeline dry run) | toolkit-hardware | blocked (HW1.1) |
 | E4.9 | Board export for integration: STEP and glTF per the export contract | board | blocked (E4.1) |
-| E4.11 | Tag toolkit-hooks v0.4.0 and move the hardware repos to it, so `kicad-dru-composed` runs on commit | toolkit-hooks | todo |
+| E4.11 | Moved: system plan HW2.6 (toolkit-hooks v0.4.0) | toolkit-hooks | todo |
 | E4.12 | Sim inputs: `--json` output for `vsys-bucks/run.py`, parts-lib SPICE model entries (SLVMC09, SBOM958, SNVMBG5) and the extracted model hashes for the OPA1622 and LMR33630C | board, parts-lib | todo |
 | E4.10 | Power and dissipation data per part and per use case, exported for the out-of-scope thermal work and the battery-life model | board | todo |
 
 ### E5. Modules and integration levels
 
-Specialised modules per domain, with the integration verified level by level and never inferred from the parts: [electronics integration and verification](../specs/electronics-integration-verification.md) (levels L0–L6, modules, interaction matrix, evaluation matrices).
+Specialised modules per domain, with the integration verified level by level and never inferred from the parts: the T1's [electronics integration and verification](../specs/electronics-integration-verification.md) (modules, interaction matrix, evaluation matrices), applying the shared [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md) (levels L0–L6, module rules, row format, gates; system plan HW3.4).
 
 | ID | Task | Repository | Status |
 |---|---|---|---|
-| E5.0 | Integration levels, modules, interaction matrix and evaluation matrices | t1 | doing: Draft v0.1 |
+| E5.0 | T1 modules, interaction matrix and evaluation matrices (the generic method moved to system plan HW3.4) | t1 | doing: Draft v0.1 |
 | E5.1 | M-SI coupons: main-board stackup and both flat cables; with M-HAT, the hat-standard ADR 0004 coupon | board, hat-standard | blocked (E2.1, E3.6 stackup) |
 | E5.2 | M-AUD: audio, clocks, rails and jacks (BOM §7.1, §7.29–§7.31) | board | blocked (E1.6, E6.1 audio sheets) |
 | E5.3 | M-PWR: charging, power path, converters, eFuses | board | blocked (E1.4, E1.5, E6.1 power sheets) |
@@ -131,10 +132,10 @@ Specialised modules per domain, with the integration verified level by level and
 | ID | Task | Repository | Status |
 |---|---|---|---|
 | E9.1 | Expert DFM, mechanical and reliability rules in the product DRC (holes, edges, assembly, routing hygiene, voltage spacing, thermal placement) | board | doing |
-| E9.2 | OpenDAP PCB craft standard with its rule set and check script, shared by every board | kicad-lib, toolkit-hardware | doing |
-| E9.3 | Industry wisdom benchmark and the phase-staged design-review checklist | toolkit-hardware, board | doing |
-| E9.4 | Design for compliance: regimes, conflicts and the path through Q1–Q4 | t1 | done: research (t1 `3c19e1c`); T1-071 to T1-086 (t1 `62f5cfc`), SYS-012 (system `1b916a2`), board constraints v0.5 (board `2dc4c59`), verification rows (t1 `9f9469d`) |
-| E9.5 | Tag every existing item with its quality level as each document is next edited (RFC 0010) | all | todo |
+| E9.2 | Moved: system plan HW3.1 (PCB craft standard, rule set and check script) | kicad-lib, toolkit-hardware | doing |
+| E9.3 | Moved: system plan HW3.2 (industry wisdom benchmark, design-review checklist); the T1 gaps note (board `427d860`) is the T1 application | toolkit-hardware, board | doing |
+| E9.4 | Design for compliance of the T1: regimes, conflicts and the path through Q1–Q4 (the reusable regime catalog moved to system plan HW3.6) | t1 | done: research (t1 `3c19e1c`); T1-071 to T1-086 (t1 `62f5cfc`), SYS-012 (system `1b916a2`), board constraints v0.5 (board `2dc4c59`), verification rows (t1 `9f9469d`) |
+| E9.5 | Moved: system plan HW3.3 (quality-level tagging, RFC 0010) | all | todo |
 
 ### E10. Feature blocks and variants
 
@@ -144,8 +145,8 @@ Every function is a feature block that can be enabled, disabled, swapped or meas
 |---|---|---|---|
 | E10.1 | T1 block catalog: interface, power domain and switch, absent state, measurement point, alternates, software description per block; gaps for the schematic | board | doing |
 | E10.2 | Variant files: `full` (prototype 1), `production`, `lite` (proposal) | board | doing |
-| E10.3 | `odapkit variant`: per-variant BOM, pick-and-place, devicetree overlays and device description; absent-state check and its hook | toolkit-hardware, toolkit-hooks | todo |
-| E10.4 | Virtual variants from the same files | virtual-devices | todo |
+| E10.3 | Moved: system plan HW2.8 (`odapkit variant`) | toolkit-hardware, toolkit-hooks | todo |
+| E10.4 | Moved: system plan HW2.9 (virtual variants) | virtual-devices | todo |
 | E10.5 | Verification per variant in the integration matrices | t1 | todo |
 
 ### E8. Prototype 1

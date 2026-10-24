@@ -1,28 +1,27 @@
-# Electronics integration and verification
+# T1 electronics integration and verification
 
-- **Status:** Draft v0.1 (2026-10-24), decided by Claude under the maintainers' delegation: specialised modules per domain are built, provided the integration is verified as well and never inferred from the parts. Task E5 of the [electronics plan](../plans/2026-10-electronics-plan.md).
+- **Status:** Draft v0.1 (2026-10-24), decided by Claude under the maintainers' delegation: specialised modules per domain are built, provided the integration is verified as well and never inferred from the parts. Task E5.0 of the [electronics plan](../plans/2026-10-electronics-plan.md).
+- **Method:** this spec is the T1's application of the [electronics integration and verification method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md) (toolkit-hardware), which defines the principles, the integration levels L0–L6, the module rules M1–M4, the interaction-matrix method, the row format and the gates. This file holds what is specific to the T1: its modules, its interaction matrix, its evaluation rows and how its gates apply.
 - **Levels:** `[Qn]` after a row ID is the RFC 0010 quality level at which the row becomes mandatory; a row without it is Q1. Compliance rows come from the [design-for-compliance research](../research/2026-10-design-for-compliance.md) §5.3 and §6.
 - **Scope:** the T1's electronics, from parts to the assembled product. Case, mechanical and physical-simulation work is out of scope; the levels that need it (L5, L6) list only their electrical evaluations.
 
 ## 0. Principles
 
-1. **Parts passing does not make the whole pass.** An interaction between two domains is signed off only at the lowest level that reproduces its physical mechanism (conduction, proximity, shared ground, shared clock, heat, software timing). A mechanism that a level cannot reproduce is marked there as *not representative*, never as passed.
-2. **What is tested is what ships.** Every module is built from the same hierarchical schematic sheets as the main board, and its layout block is copied from or into the main board's, with the same stackup class, part numbers and values. A module that diverges from the board is re-tested after the board is laid out (§2, rule M4).
-3. **Every row traces to a requirement or a constraint.** Each evaluation row names the IDs it verifies (T1-, BRD-, PCB-, ADR, BOM §7 item) and carries the T1-048 thresholds (ideal, warning, hard limit) where the metric has them.
-4. **Regression follows the dependency graph.** A change to a block reruns its L1 and L2 rows and every L3 and L4 row of each interaction it takes part in (§3).
-5. **Measurement before shrinking.** A level's exit gate is evidence (data file, capture, photo), stored with the component that was tested; a result without evidence counts as not run.
+The five principles of the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#0-principles) apply as written. For the T1, the IDs a row names are T1-, BRD-, PCB-, ADR and BOM §7 items, and the thresholds are those of T1-048 (ideal, warning, hard limit).
 
 ## 1. Integration levels
 
-| Level | What is integrated | Where it lives | Representative for | Not representative for | Exit gate |
-|---|---|---|---|---|---|
-| **L0 Part** | One part against its datasheet | parts-lib sheet, kicad-lib symbol/footprint, fab rule test boards | Pin map, land pattern, ratings, model availability | Anything about the circuit | Sheet transcribed, footprint checked against the drawing, availability dated (PLIB-003) |
-| **L1 Block** | One circuit block (a hierarchical sheet) | `sim/` studies (`odapkit sim`), schematic review | Topology, values, margins, stability, levels | Layout parasitics, coupling, real part spread | Every `checks.toml` row passes; ERC clean; datasheet review checklist done |
-| **L2 Domain module** | One domain on its own test board, real parts and real layout block | Module boards (§2) | Layout-dependent performance of one domain, part spread, bench items of BOM §7 | Interactions with other domains | Every L2 row of the domain passes with evidence |
-| **L3 Domain pair** | Two or more modules connected through the core module | Module stack (§2.2) | Conducted coupling (supply, ground return through defined interconnect), protocol and timing, power sequencing, software bring-up | Proximity and radiated coupling, shared copper planes, thermal coupling, final ground geometry | Every L3 row of the pair passes; conducted-coupling rows recorded as upper bounds |
-| **L4 Integrated board** | Main board (prototype 1) with faceplate and HAT device-side piece on the bench | board | Everything electrical, including proximity, radiated and thermal coupling on the real board | Enclosure effects (antenna detuning, case thermal, ESD through the case) | Every L4 row passes; every interaction of §3 signed off |
-| **L5 Product assembly** | Board, faceplate, battery pack and HAT piece in the case | t1 | Electrical behaviour in the enclosure: radio in the case, ESD at the product surface, thermal at the surface, audio with the final jacks and ground | Long-term behaviour | Every L5 row passes |
-| **L6 Product in use** | The T1 running Blackbird OS through real sessions | t1, toolkit-verify | Autonomy (T1-039), endurance and scale (T1-046, T1-047), experience budgets (T1-048), compliance pre-scans | — | Release gate: no hard limit crossed |
+The levels are defined in the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#1-integration-levels). For the T1:
+
+| Level | T1 specifics |
+|---|---|
+| **L0 Part** | parts-lib sheet, kicad-lib symbol/footprint, fab rule test boards; availability dated per PLIB-003 |
+| **L1 Block** | board `sim/` studies |
+| **L2 Domain module** | Module boards of §2; the bench items of BOM §7 |
+| **L3 Domain pair** | Module stack of §2.2 |
+| **L4 Integrated board** | Main board (prototype 1) with faceplate and HAT device-side piece on the bench; lives in board |
+| **L5 Product assembly** | Board, faceplate, battery pack and HAT piece in the case; lives in t1 |
+| **L6 Product in use** | The T1 running Blackbird OS through real sessions; lives in t1 and toolkit-verify. Autonomy (T1-039), endurance and scale (T1-046, T1-047), experience budgets (T1-048), compliance pre-scans |
 
 ## 2. Domain modules (L2) and the module stack (L3)
 
@@ -39,12 +38,7 @@
 | **M-HAT** | DF40 pair, FPC, device-side piece with the pogo field, a test HAT with loopbacks for USB 3, PCIe, CSI and power classes | Signal integrity at 5 Gb/s through DF40, FPC and pogo pins (hat-standard ADR 0004 coupon); power classes and protection; conformance L1–L3 | BRD-006, BRD-013, BRD-026, BRD-044, BRD-045; hat-standard interface v1 |
 | **M-SI** | Impedance and loss coupons of the main-board HDI stackup and of the two flat cables | Impedance per class (TDR), loss, microvia reliability (cross-section) | PCB-I-01 to PCB-I-07, PCB-S |
 
-Module rules:
-
-- **M1.** Each module is a KiCad project in the repository of the component it serves, built from the same hierarchical sheets as the main board (no re-drawn copies).
-- **M2.** M-CORE uses the main board's stackup and fab process; the other modules use the cheapest stackup that keeps their critical layout identical (same layer adjacency under the block). M-AUD keeps the main board's ground and plane arrangement under the audio block.
-- **M3.** Modules connect to M-CORE through one documented module connector per boundary, carrying the nets that cross that boundary on the main board, with ground on every second contact and the supply returns sized for the full budget. The connector map is a machine-readable interface file (E4.6), checked against the main-board netlist.
-- **M4.** After the main board is laid out, a module whose layout block differs from the board's is either updated and re-tested, or its L2 results are marked *superseded by L4*.
+Module rules M1–M4 are in the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#21-modules). For the T1: M-CORE uses the main board's stackup and fab process (M2); M-AUD keeps the main board's ground and plane arrangement under the audio block (M2); the module connector maps are the interface files of E4.6, checked against the main-board netlist (M3, E5.6).
 
 ### 2.2 Module stack (L3)
 
@@ -52,7 +46,7 @@ M-CORE is the hub: every other module attaches to it, so pairs and the full stac
 
 ## 3. Interaction matrix
 
-Each cell names the coupling mechanism, the level where it is first testable, and the level where it is signed off. Domains: PWR (power and charging), CORE (SoC, memory, storage), AUD (DAC, amplifiers, clocks, jacks), RF (radio), UI (faceplate), HAT, IO (coprocessor and peripherals), EXT (USB-C and the outside world).
+Built per the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#3-interaction-matrix): each cell names the coupling mechanism, the level where it is first testable, and the level where it is signed off. Domains: PWR (power and charging), CORE (SoC, memory, storage), AUD (DAC, amplifiers, clocks, jacks), RF (radio), UI (faceplate), HAT, IO (coprocessor and peripherals), EXT (USB-C and the outside world).
 
 | | CORE | AUD | RF | UI | HAT | IO | EXT |
 |---|---|---|---|---|---|---|---|
@@ -66,7 +60,7 @@ Each cell names the coupling mechanism, the level where it is first testable, an
 
 ## 4. Evaluation matrices
 
-Columns: `ID | case | steps | expected (with thresholds) | observed | evidence`. The tables below fix the cases and their expected values; *observed* and *evidence* are filled when the level runs, stored next to the module or board that was tested. Thresholds come from the requirement, the ADR or the constraint named; where none exists yet, the case says what sets it.
+Row format and IDs per the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#41-row-format). Columns: `ID | case | steps | expected (with thresholds) | observed | evidence`. The tables below fix the cases and their expected values; *observed* and *evidence* are filled when the level runs, stored next to the module or board that was tested. Thresholds come from the requirement, the ADR or the constraint named; where none exists yet, the case says what sets it.
 
 ### 4.1 L0 Part
 
@@ -176,12 +170,12 @@ Every L2 and L3 row is repeated on the board (the L2/L3 values become the refere
 
 ## 5. Gates between levels
 
+The gates of the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#5-gates-between-levels) apply. For the T1:
+
 - A module goes to L3 only after its L2 rows pass or each failure has a recorded fix in the main-board design.
 - The main board is released for fabrication (E8.1) only after every L2 bench item of BOM §7 is closed or carried into the board with a decision, and every L3 row that can fail on the board's design (not only on the module interconnect) has passed.
 - The product enters L6 only when every interaction of §3 is signed off at its level.
 
 ## 6. Open
 
-- Instruments and their residuals (audio analyser, TDR/VNA, current probes) are chosen with the module designs; a measurement's instrument residual must sit at least 10 dB below the expected value (**UNVERIFIED** margin, to confirm with the first instrument).
-- KiCad 10 support for reusing a layout block between projects (rule M1/M4) is to be checked before the first module layout.
-- Thresholds marked "set at L2" are filled from the first measurements and confirmed by the maintainers (experience budgets).
+- The open items of the [method](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/specs/integration-and-verification.md#6-open) (instrument residuals, KiCad layout-block reuse between projects, thresholds set at L2) apply to the T1's first modules. Thresholds marked "set at L2" are filled from the first measurements and confirmed by the maintainers in the [experience budgets](experience-budgets.md).

@@ -2,6 +2,7 @@
 
 - **Date:** 2026-10-24
 - **Status:** Desk research. Engineering input only, not legal advice and not a decision. Nothing here has been tested. Task E9.4 of the [electronics plan](../plans/2026-10-electronics-plan.md). The proposals in §5 are for the main session to number and integrate; this note edits no requirement, specification or plan.
+- **Catalog:** this note is the T1's application of the shared [compliance regime catalog](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md) (toolkit-hardware), which states what each regime requires of any portable audio device, by product feature. This note keeps what the T1 does, misses or contradicts, and the proposals for the T1.
 - **Question (maintainers, 2026-10-24):** what the T1 would need to pass certification completely if it becomes a formal product. This note covers the engineering side: what each regime requires of the hardware and software, the test levels and the margins experienced teams keep in pre-compliance, the documents a technical file needs, and what the T1 already does, misses or contradicts.
 - **Product as assessed:** a portable Digital Audio Player running Linux, with Wi-Fi 6 and Bluetooth 5.4 on a pre-certified Murata Type 2EL module (IEEE 802.15.4 present in the module, not wired), an NFC dynamic tag and an optional NFC reader, a user-replaceable 2S Li-ion pack, USB-C with USB PD charging and sourcing, a 3.5 mm single-ended and a 4.4 mm balanced headphone output, a mono speaker, the touch faceplate and the HAT interface ([BOM v1.7](https://github.com/opendap-project/board/blob/main/docs/specs/bom-v1.md)).
 - **Quality levels:** every proposal carries the lowest [RFC 0010](https://github.com/opendap-project/rfcs/blob/main/text/0010-quality-levels.md) level at which it is mandatory (Q0 bench-safe, Q1 prototype, Q2 pre-compliance, Q3 compliant, Q4 reference). §6 gives the path through the levels.
@@ -20,6 +21,8 @@
 8. **Two product rules need a wording decision:** T1-045 allows limits "only for safety", but radio rules impose legal limits (TX power per country, DFS, indoor-only bands) that are not hearing or electrical safety (C2); and RFC 0010 places the DIY kit at Q2 while the regimes here apply to any product placed on the market, kit or not (C11).
 
 ## 1. Regimes at a glance
+
+Instruments, standards and the features that bring each regime: [catalog §0](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#0-features-and-the-regimes-they-bring).
 
 | Regime | Instrument and main standards | What it forces in the T1 | First level |
 |---|---|---|---|
@@ -40,15 +43,7 @@
 
 ### 2.1 EMC: FCC Part 15B, ICES-003, EN 55032 and EN 55035
 
-**What it requires.** The T1 is a Class B digital device (residential use).
-
-- Radiated emissions from 30 MHz up to the frequency the highest internal clock sets: FCC 15.33 and CISPR 32 both extend the range to 6 GHz when internal frequencies exceed 1 GHz (the LPDDR4X and the 2.4/5 GHz radio qualify; 15.33 rule **UNVERIFIED** in detail).
-- Conducted emissions apply to AC mains ports. A battery device charged over USB-C is tested on mains only through its charger, which is not part of the T1 when it ships without one (**UNVERIFIED** whether a lab tests with a representative charger in the EU).
-- Immunity (EN 55035): ESD (§2.10), radiated RF immunity 80 MHz–6 GHz at 3 V/m, and the audio-specific criterion: the acoustic output during immunity tests is judged against a demodulated-interference limit for audio functions (EN 55035 Annex for audio; value **UNVERIFIED**).
-- Radio equipment adds EN 301 489-1/-17 under RED, with the same ESD and RF immunity levels and radio-specific performance criteria.
-- FCC: Supplier's Declaration of Conformity for the host, with the compliance statement in the manual or e-label (47 CFR 2.1077, 15.19, 15.105). ISED: ICES-003 compliance label.
-
-**Margins experienced teams keep.** Pre-scans in a non-accredited setup carry several dB of uncertainty (antenna factors, site, cables), so a pre-scan peak at least 6 dB under the Class B limit is the usual go criterion (secondary, common practice; **UNVERIFIED** as a figure from a standard). Formal results with less than about 3 dB margin are treated as a production-spread risk.
+**What it requires.** The T1 is a Class B digital device (residential use). Emissions range, immunity, the audio criterion, declarations and the pre-scan margins (6 dB go criterion, about 3 dB as a production-spread risk): [catalog §1.1](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#11-emc-fcc-part-15b-ices-003-en-55032-and-en-55035).
 
 **What the T1 does.**
 
@@ -64,7 +59,7 @@
 
 ### 2.2 Radio: FCC 15C/15E, RED, ISED, Japan, Korea
 
-**Modular approval reuse (US, Canada).** 47 CFR 15.212 lets a host carry a module's grant if the module is used within its grant conditions: the listed antennas (type and gain no higher), the trace design for a limited approval, and the RF exposure conditions. The host then needs only the "Contains FCC ID: …" label, a Part 15B SDoC and a check of co-located transmitters (FCC KDB 996369 is the integration guidance, number **UNVERIFIED**). A change outside the grant is a permissive change filed by the grantee (Murata): Class I for an equivalent antenna of the same or lower gain, Class II for a new RF exposure condition (CER-0248 pp. 26–28, via the parts-lib sheet). ISED follows the same pattern with "Contains IC: …" and Class 4 changes (CER-0248 p. 35).
+**Modular approval reuse (US, Canada).** How a host carries a module's grant, and the Class I / Class II (FCC) and Class 4 (ISED) permissive changes: [catalog §2.1](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#21-modular-approval-reuse-us-canada). For Murata, the permissive-change classes are in CER-0248 pp. 26–28 and p. 35 (via the parts-lib sheet).
 
 What this means for the T1, from Murata CER-0248 Rev. 6.0 and E2B-09-1413 Rev. 9.0 (parts-lib sheet):
 
@@ -78,36 +73,26 @@ What this means for the T1, from Murata CER-0248 Rev. 6.0 and E2B-09-1413 Rev. 9
 
 **802.15.4.** The module carries an IEEE 802.15.4 radio; the T1 does not wire its SPI (BOM line 55). It stays disabled in firmware, so it adds no co-location case. Whether Murata's grants cover it is **UNVERIFIED** and only matters if a later board wires it.
 
-**NFC.**
+**NFC** ([catalog §2.4](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#24-other-radios-in-a-module-or-on-the-board)).
 
-- The NTAG I2C plus (BOM line 125) is a passive tag powered by the reader's field. Whether a passive tag in a host is radio equipment under RED is **UNVERIFIED**; it emits nothing by itself.
-- The PN7160 reader (BOM line 127) transmits at 13.56 MHz and is chip-down. Fitted, it needs its own authorisation: FCC 15.225 (certification), EN 300 330 and EN 301 489-3 under RED, ISED RSS-210 (**UNVERIFIED** annex), and the Japanese and Korean equivalents. It is already a population option (BRD-053), so the certified variant can leave it unfitted (C5).
+- The NTAG I2C plus (BOM line 125) is a passive tag powered by the reader's field; it emits nothing by itself.
+- The PN7160 reader (BOM line 127) transmits at 13.56 MHz and is chip-down, so fitted it needs its own authorisation. It is already a population option (BRD-053), so the certified variant can leave it unfitted (C5).
 
-**EU (RED).** There is no modular grant. Murata provides conducted test reports (EN 300 328, EN 301 893, EN 300 440, EN 62311); radiated measurements and the declaration of conformity are the product maker's (CER-0248 §2.3, p. 59). Points that touch the T1's design and software:
+**EU (RED).** There is no modular grant ([catalog §2.2](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#22-eu-red)). Murata provides conducted test reports (EN 300 328, EN 301 893, EN 300 440, EN 62311); radiated measurements and the declaration of conformity are the product maker's (CER-0248 §2.3, p. 59). For the T1:
 
-- **Adaptivity and receiver category (EN 300 328 V2.2.2, EN 301 893 V2.1.1):** they are properties of the module firmware; the T1 must ship the firmware Murata tested with, or retest.
-- **DFS and indoor-only bands at 5 GHz:** the 5150–5350 MHz band is indoor-only in the EU, and a device acting as an access point on DFS channels must detect radar. A general-purpose Linux device can be put in access-point mode, so Blackbird OS has to restrict access-point channels to what the module is certified for (C2). The indoor-only restriction is stated on the packaging and in the manual (RED Art. 10(10)).
-- **Regulatory domain:** Linux `cfg80211` with the wireless regulatory database sets the allowed channels and power per country. The country is a setting of the device, not of the user's network, and must not be set to a less restrictive domain than where the device is.
+- **Adaptivity and receiver category:** the T1 must ship the module firmware Murata tested with, or retest.
+- **DFS and indoor-only bands at 5 GHz:** the T1 is a general-purpose Linux device that can be put in access-point mode, so Blackbird OS has to restrict access-point channels to what the module is certified for (C2). The indoor-only restriction is stated on the packaging and in the manual.
+- **Regulatory domain:** set per country by `cfg80211` and the wireless regulatory database, applied and shown by the device (V6-06).
 
-**Canada.** RSS-247 Issue 3 for 2.4 and 5 GHz, RSS-Gen Issue 5 for labelling and receiver rules, ICES-003 for the host (**UNVERIFIED** editions). The bilingual RSS-Gen statement goes in the manual or e-label.
-
-**Japan.** The Radio Act requires the technical conformity mark with the module's certification number, and the module used within its certification conditions (antenna and cable as registered). VCCI is voluntary. Whether the mark may be shown only on screen is **UNVERIFIED**.
-
-**Korea.** KC under the Radio Waves Act: radio conformity, KC EMC (KS C 9832 and KS C 9835, the CISPR 32/35 equivalents) and the KC battery scheme. Whether a module's KC certificate removes the host's radio tests is **UNVERIFIED**; plan for host testing.
+**Canada, Japan, Korea:** [catalog §2.3](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#23-other-markets).
 
 ### 2.3 RF exposure
 
-**FCC.** The T1 is a portable device (47 CFR 2.1093: used within 20 cm of the body). A portable device is exempt from SAR evaluation only below the threshold of 47 CFR 1.1307(b)(3)(i): 1 mW at any distance, or Pth from the formula of 1.1307(b)(3)(i)(B) (transcribed here, **UNVERIFIED** against the eCFR text in this pass):
+**FCC.** The T1 is a portable device (47 CFR 2.1093: used within 20 cm of the body). The SAR exemption threshold of 47 CFR 1.1307(b)(3)(i) at 5 mm is about **2.7 mW** at 2.45 GHz and **1.4 mW** at 5.5 GHz (arithmetic and formula in [catalog §2.5](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#25-rf-exposure)).
 
-- Pth = ERP20cm × (d / 20 cm)^x, with x = −log10(60 / (ERP20cm × √f)), f in GHz, ERP20cm = 3060 mW for 1.5–6 GHz, d ≥ 0.5 cm.
-- At 2.45 GHz and d = 0.5 cm (arithmetic): √f = 1.565; x = −log10(60 / 4,790) = 1.90; Pth = 3060 × 0.025^1.90 ≈ **2.7 mW**.
-- At 5.5 GHz and d = 0.5 cm (arithmetic): √f = 2.345; x = −log10(60 / 7,177) = 2.08; Pth = 3060 × 0.025^2.08 ≈ **1.4 mW**.
+Murata measures 18 dBm (63 mW) for 802.11b and 13 dBm (20 mW) for Bluetooth, conducted, before antenna gain (E2B-09-1413 Tables 18 and 20). SAR testing is needed. A T1 in a pocket during playback is a body-worn case; a T1 in the hand is an extremity case (limits in the catalog).
 
-Murata measures 18 dBm (63 mW) for 802.11b and 13 dBm (20 mW) for Bluetooth, conducted, before antenna gain (E2B-09-1413 Tables 18 and 20). SAR testing is needed. Limits: 1.6 W/kg over 1 g for the body, 4 W/kg over 10 g for extremities (2.1093(d)). A T1 in a pocket during playback is a body-worn case; a T1 in the hand is an extremity case.
-
-**EU.** EN 62479:2010 exempts equipment below a low-power level (20 mW average for the general public, **UNVERIFIED** value); the T1 is above it. EN 50663:2017 is the generic assessment and EN 50566:2017 the product standard for hand-held and body-mounted devices, with SAR measured per EN IEC/IEEE 62209-1528:2021. The basic restrictions of Council Recommendation 1999/519/EC are 2 W/kg over 10 g for head and trunk and 4 W/kg for limbs.
-
-**Canada.** RSS-102 has its own exemption thresholds, different from the FCC's (**UNVERIFIED** values for Issue 6).
+**EU and Canada.** The T1 is above the EN 62479 low-power level, so EN 50566 SAR evaluation applies; RSS-102 has its own thresholds ([catalog §2.5](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#25-rf-exposure)).
 
 **Design levers.**
 
@@ -117,16 +102,16 @@ Murata measures 18 dBm (63 mW) for 802.11b and 13 dBm (20 mW) for Bluetooth, con
 
 ### 2.4 Product safety: IEC 62368-1
 
-**Energy source classes (IEC 62368-1:2018).**
+**Energy source classes (IEC 62368-1:2018)**, as defined in [catalog §1.3](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#13-product-safety-iec-62368-1), applied to the T1:
 
 - **Electrical (clause 5):** every voltage in the T1 is ES1: USB PD at 9 V maximum (TPS2121 OV at 11.1–12.6 V, power tree), VSYS 6.0–8.8 V, amplifier rails ±7 V. No basic safeguard against electric shock is needed.
-- **Fire (clause 6):** power sources are classed by the power available after 3 s into a worst-case load: PS1 ≤ 15 W, PS2 ≤ 100 W, PS3 above. The pack's PCM trips at 4.0–5.0 A (ADR 0014), about 34–42 W at 8.4 V (arithmetic), so the battery circuit is PS2 at most if the PCM is a reliable limiter (**UNVERIFIED** that the PCM qualifies; otherwise PS3). PS2 circuits need V-1 or better materials near potential ignition sources, or the clearances of clause 6.4. The PCB laminate is FR-4 V-0; evidence that the fab's laminate is UL-recognised is **UNVERIFIED**.
+- **Fire (clause 6):** PS1 ≤ 15 W, PS2 ≤ 100 W, PS3 above, after 3 s into a worst-case load. The pack's PCM trips at 4.0–5.0 A (ADR 0014), about 34–42 W at 8.4 V (arithmetic), so the battery circuit is PS2 at most if the PCM is a reliable limiter (**UNVERIFIED** that the PCM qualifies; otherwise PS3). PS2 circuits need V-1 or better materials near potential ignition sources, or the clearances of clause 6.4. The PCB laminate is FR-4 V-0; evidence that the fab's laminate is UL-recognised is **UNVERIFIED**.
 - **HAT and USB-C source outputs:** 5.1 V at the 1.66 A eFuse ceiling is 8.5 W, and 3.3 V at 1.15 A is 3.8 W (arithmetic, BOM line 44): PS1 while the eFuse works. Under a single fault (eFuse shorted), the TPS62903's high-side limit of up to 5.5 A gives about 28 W at 5.1 V (arithmetic, power tree §4.6): PS2. A HAT fed from a PS2 output needs fire-enclosure evaluation of its own; a PS1 output frees every HAT from it. A second, independent limiter per output (a fuse or a PTC sized to open within 3 s at the buck's limit) keeps the outputs PS1 under a single fault (PCB-P-11). This makes the HAT ecosystem much simpler to certify (§2.11).
-- **Thermal (clause 9):** accessible surfaces stay within the TS1 limits of IEC 62368-1 Table 38, which depend on material and contact time; a surface held continuously for long periods is limited to about 43 °C for any material (**UNVERIFIED** value and row). The worst case is charging at 15 W with full-scale headphone output, a HAT drawing its full budget and Wi-Fi transmitting (V5-08).
+- **Thermal (clause 9):** accessible surfaces stay within the TS1 limits (catalog §1.3). The worst case is charging at 15 W with full-scale headphone output, a HAT drawing its full budget and Wi-Fi transmitting (V5-08).
 - **Acoustics (clause 10.6):** §2.6.
-- **Coin cells:** none in the BOM, so the coin-cell rules (IEC 62368-1 4.8; US 16 CFR 1263) do not apply. Keep it so.
+- **Coin cells:** none in the BOM, so the coin-cell rules do not apply. Keep it so.
 
-**Annex M, batteries.** Charging stays inside the cell's specified voltage, current and temperature window, also under a single fault (M.4, **UNVERIFIED** clause numbers in ed. 3). The T1's safeguards:
+**Annex M, batteries** ([catalog §3.1](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#31-iec-62368-1-annex-m)). The T1's safeguards:
 
 - pack PCM (over-charge, over-discharge, over-current, short circuit, balancing);
 - charger thermal regulation and TS window on the pack NTC;
@@ -136,40 +121,27 @@ Murata measures 18 dBm (63 mW) for 802.11b and 13 dBm (20 mW) for Bluetooth, con
 
 ADR 0014 item 6 leaves the BQ25798 watchdog disabled and relies on safeguards that work without the OS. The hazard analysis has to state that software is not a safeguard, and show that a corrupted charger register (a single fault) is caught by the PCM; enabling the watchdog so the charger returns to its pin-set defaults if the OS stops is a Q4 option (C9). User replacement of the pack adds the IEC 62368-1 marking for replaceable batteries (risk of fire if replaced by an incorrect type) and the requirement that the replacement is safe for an ordinary person.
 
-**Documentation.** A CB test report and certificate (IECEE CB scheme) is the usual evidence, reusable across markets; the hazard-based safeguard analysis (energy sources, safeguards, single faults) goes in the technical file.
+**Documentation:** [catalog §1.3](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#13-product-safety-iec-62368-1).
 
 ### 2.5 Batteries
 
-| Item | Requirement | T1 today | Gap |
-|---|---|---|---|
-| IEC 62133-2:2017 (+A1:2021) | Cell and pack safety tests | ADR 0014: required for the Commercial edition | Every pack that ships is the same part, so require it for every pack (C7) |
-| UN 38.3 | Transport tests, test summary available down the supply chain; air transport per IATA PI 966/967 | ADR 0014: UN 38.3 report required | None; Q2 because pilot units and kits ship |
-| Regulation (EU) 2023/1542 Art. 11 | From 18 Feb 2027: portable batteries removable and replaceable by the end user with commercially available tools (or tools supplied free), no heat or solvents, instructions provided, battery available as a spare part for the period the guidelines set (Commission guidelines C/2025/214; details **UNVERIFIED**) | T1-055 (common tools, standard part); Micro-Fit connector; no glue in the plan | Pack specification published so any maker can build it, and Blackbird OS accepts any pack meeting it (OS-031); replacement procedure in the manual; V5-09 |
-| Art. 13 labelling | General information label (from 18 Aug 2026), capacity label, crossed-out bin, QR code (from 18 Feb 2027) (**UNVERIFIED** dates for each item) | Not specified | Pack label specification (C7) |
-| CE marking of the battery | A pack placed on the market as a spare is itself a product under the Regulation (DoC, technical documentation) (**UNVERIFIED** module) | Not specified | Spare pack as its own conformity item |
-| Battery passport (Art. 77) | Light means of transport, industrial over 2 kWh and EV batteries only | Portable battery | Not applicable |
-| Japan | J62133-2 for the battery under the electrical appliance safety law (PSE) (**UNVERIFIED** category for a pack sold inside a host vs as a spare) | — | Q3 if Japan is declared |
+Requirements per item: [catalog §3.2](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#32-pack-regimes).
+
+| Item | T1 today | Gap |
+|---|---|---|
+| IEC 62133-2:2017 (+A1:2021) | ADR 0014: required for the Commercial edition | Every pack that ships is the same part, so require it for every pack (C7) |
+| UN 38.3 | ADR 0014: UN 38.3 report required | None; Q2 because pilot units and kits ship |
+| Regulation (EU) 2023/1542 Art. 11 | T1-055 (common tools, standard part); Micro-Fit connector; no glue in the plan | Pack specification published so any maker can build it, and Blackbird OS accepts any pack meeting it (OS-031); replacement procedure in the manual; V5-09 |
+| Art. 13 labelling | Not specified | Pack label specification (C7) |
+| CE marking of the battery | Not specified | Spare pack as its own conformity item |
+| Battery passport (Art. 77) | Portable battery | Not applicable |
+| Japan | — | Q3 if Japan is declared |
 
 ### 2.6 Hearing safety: IEC 62368-1 clause 10.6, EN 50332
 
-**Scope.** Clause 10.6 covers personal music players: portable, intended for ordinary persons, mainly for listening with headphones or earphones. The T1 is one. The speaker output is out of scope. A line-level output that is not intended for headphones (the HAT line out, BOM line 69) is outside it as well (**UNVERIFIED** reading).
+**Scope** ([catalog §4.1](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#41-scope)). The T1 is a personal music player. The speaker output is out of scope. A line-level output that is not intended for headphones (the HAT line out, BOM line 69) is outside it as well (**UNVERIFIED** reading).
 
-**Two routes.**
-
-1. **Classification route** (IEC 62368-1 10.6.2, EN 50332-1 and EN 50332-2):
-   - by default the output stays at RS1: 85 dB(A), or 27 mV wide-band voltage for a player sold without headphones;
-   - the listener may go up to RS2 (100 dB(A), 150 mV) after acknowledging a warning;
-   - the warning returns after about 20 h of listening above RS1;
-   - RS2 is a ceiling.
-
-   Values from secondary sources (150 mV corroborated by a manufacturer's user guide; 27 mV and the 20 h re-warning **UNVERIFIED** against the standard text). Sony's EU and Korean players and Android's safe-media-volume behave this way (secondary, [community mods research](ux/2026-10-community-mods-customisation.md)).
-2. **Dose-based route** (IEC 62368-1:2018 10.6.3 and EN 50332-3:2017; the EU harmonised EN IEC 62368-1:2020+A11:2020 amends clauses 3.3.19 and 10.6 with the momentary exposure level and the calculated sound dose, secondary: standards catalogue listing):
-   - the player integrates the momentary exposure level (MEL) into a calculated sound dose (CSD) over a rolling 7-day window, where 100 % corresponds to 80 dB(A) for 40 h a week;
-   - it warns at 100 % CSD and at every further 100 %;
-   - it warns each time the MEL exceeds RS2 (100 dB(A));
-   - if the listener does not acknowledge, it lowers the level to RS1.
-
-   Android's sound-dose framework implements this route and states those rules: warning on each 100 % of CSD, reduction to RS1 if unacknowledged, a momentary warning above RS2 = 100 dB(A), and the rolling 7-day window (secondary: [AOSP sound dose](https://source.android.com/docs/core/audio/sound-dose)). Whether the dose route alone is enough in the EU, with no RS2 ceiling, is **UNVERIFIED** against the A11 text and is the first question for the test lab.
+**Two routes:** the classification route (RS1 default, RS2 = 100 dB(A) / 150 mV as a ceiling after acknowledgement) and the dose-based route (EN 50332-3: calculated sound dose over a rolling 7-day window, warnings at each 100 % and when the momentary level exceeds RS2, return to RS1 without acknowledgement, no fixed ceiling). Definitions, values and their **UNVERIFIED** marks: [catalog §4.2](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#42-two-routes). Whether the dose route alone is enough in the EU is the first question for the test lab.
 
 **The T1's output against the limits** (arithmetic from BOM line 37 and ADR 0012):
 
@@ -180,7 +152,7 @@ ADR 0014 item 6 leaves the BQ25798 watchdog disabled and relies on safeguards th
 
 EN 50332-2 measures with programme-simulation noise (IEC 60268-1), whose level at full scale is lower than a sine's, so the measured wide-band voltage is below the sine figures above (by how much is **UNVERIFIED** until V4-10). The gap remains 20 dB or more.
 
-**How compliant players handle it** (secondary, observed practice): a default safe level; a warning dialog the listener acknowledges to go above it; the warning re-armed after cumulative listening; in some EU and Korean variants, a lower maximum. A permanent lower maximum would break T1-045 and T1-040; the warning-and-acknowledgement pattern does not.
+**How compliant players handle it:** [catalog §4.3](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#43-how-compliant-players-handle-it). A permanent lower maximum would break T1-045 and T1-040; the warning-and-acknowledgement pattern does not.
 
 **Resolution that keeps the product rules** (proposed, C1):
 
@@ -201,29 +173,26 @@ EN 50332-2 measures with programme-simulation noise (IEC 60268-1), whose level a
 
 ### 2.7 Chemicals and environment
 
-- **RoHS** (2011/65/EU, Annex II as amended by (EU) 2015/863): 10 restricted substances, 0.1 % by weight per homogeneous material (cadmium 0.01 %). Exemptions such as high-melting solder or lead in glass and ceramic parts have expiry dates (**UNVERIFIED** status per exemption). Technical documentation per EN IEC 63000:2018: supplier declarations or test reports per part. For the T1: RoHS-compliant parts, lead-free assembly and a lead-free finish (ENIG, PCB-S-07) on every build that leaves the lab (Q2); a declaration per BOM line in the technical file (Q3). The BOM gains a compliance field per line (PCB-T-07).
-- **REACH:** substances of very high concern above 0.1 % w/w per article trigger the Art. 33 information duty and a SCIP notification (Waste Framework Directive 2008/98/EC Art. 9(1)(i)). Typical carriers: cable insulation, rubber parts, gaskets. The Annex XVII restrictions to check are PAHs in rubber or plastic parts in skin contact (entry 50: buttons, gaskets) and nickel release from metal parts in prolonged skin contact (entry 27) (**UNVERIFIED** entry numbers).
-- **WEEE** (2012/19/EU): crossed-out wheeled-bin mark per EN 50419 on the product, and on the pack under the Battery Regulation.
-- **California Proposition 65:** a warning is needed if a listed chemical is present above the safe harbour (for example lead in brass jack contacts or DEHP in cables); suppliers' declarations decide it (**UNVERIFIED** per part).
+RoHS, REACH, WEEE and Proposition 65: [catalog §1.4](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#14-chemicals-and-environment). For the T1: RoHS-compliant parts, lead-free assembly and a lead-free finish (ENIG, PCB-S-07) on every build that leaves the lab (Q2); a declaration per BOM line in the technical file (Q3). The BOM gains a compliance field per line (PCB-T-07).
 
 ### 2.8 USB-C, USB PD and the EU common charger
 
-**Directive (EU) 2022/2380** (amending RED, applicable since 28 Dec 2024 for the categories listed, which include portable audio and handheld devices; scope reading **UNVERIFIED** for a DAP):
+**Directive (EU) 2022/2380** ([catalog §5](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#5-usb-c-usb-pd-and-the-eu-common-charger)), applied to the T1:
 
-- a USB Type-C receptacle per EN IEC 62680-1-3 (USB4105, BOM line 61);
-- if charging needs more than 5 V, more than 3 A or more than 15 W, USB PD per EN IEC 62680-1-2, and full charging speed with any compliant charger. The T1 charges as a PD sink at 9 V (power tree), so **USB PD is mandatory**. It has it (FUSB302B with Linux TCPM);
-- the product offered without a charger, with the pictogram showing whether a charger is included;
-- a label with the minimum and maximum charging power the device needs, and "USB PD" when it supports it. For the T1 the maximum is 15 W (input cap, power tree); the minimum is the power that still charges at full speed, to be measured.
+- the USB Type-C receptacle is the USB4105 (BOM line 61);
+- the T1 charges as a PD sink at 9 V (power tree), so **USB PD is mandatory**. It has it (FUSB302B with Linux TCPM);
+- the product is offered without a charger, with the pictogram;
+- the charging-power label: the maximum is 15 W (input cap, power tree); the minimum is the power that still charges at full speed, to be measured.
 
 **Engineering points.**
 
 - The PD sink is negotiated by Linux. With the OS not running (dead battery, early boot), the T1 must still charge from a 5 V Type-C source; the dead-battery Rd (TPD8S300, BOM line 63) and the BQ25798 buck-boost from 5 V allow it (V4-13).
 - **Source role:** the T1 sources 5 V at 1.5 A on battery; the Type-C source rules (vSafe0V before attach, Rp advertisement, no back-feed through the TPS2121) are pre-tested.
-- **USB-IF certification and logos** are voluntary. Certification requires the USB-IF compliance tests (Type-C functional, PD) at an authorised lab; the logos may be used only after it. Plain technical names in text are a separate question (**UNVERIFIED** USB-IF trademark rules).
+- **USB-IF certification and logos** are voluntary (catalog §5).
 
 ### 2.9 Radio cybersecurity: RED delegated act and EN 18031
 
-Delegated Regulation (EU) 2022/30 applies since 1 Aug 2025 to radio equipment that can communicate over the internet. EN 18031-1 covers network protection (Art. 3.3(d)) and EN 18031-2 personal data (Art. 3.3(e)). EN 18031-3 covers monetary transactions (Art. 3.3(f)) and becomes relevant if T1-067's on-device purchase is ever enabled. Decision (EU) 2025/138 cites them with restrictions: a design that allows no password at all cannot rely on the default-password clauses, and the presumption of conformity is lost for those points.
+The delegated act and EN 18031-1/-2/-3 apply to the T1 as radio equipment that can communicate over the internet ([catalog §2.6](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#26-radio-cybersecurity-red-delegated-act-and-en-18031)). EN 18031-3 becomes relevant if T1-067's on-device purchase is ever enabled.
 
 | EN 18031 theme | T1 today | Gap |
 |---|---|---|
@@ -234,11 +203,11 @@ Delegated Regulation (EU) 2022/30 applies since 1 Aug 2025 to radio equipment th
 | Logging, data deletion | SYS-050 (recoverable deletion) | Factory reset that deletes personal data; security event logging documented |
 | Personal data | SYS-055 (data stays local) | Asset and threat inventory in the technical file |
 
-The UK PSTI regime and the EU Cyber Resilience Act cover the same ground with their own documents (support period, vulnerability contact); T1-070 already asks for a published support commitment.
+For the UK PSTI regime and the EU Cyber Resilience Act (catalog §2.6), T1-070 already asks for a published support commitment.
 
 ### 2.10 ESD: IEC 61000-4-2
 
-- **Levels.** EN 55035 and EN 301 489-1 test the enclosure port at ±4 kV contact and ±8 kV air (IEC 61000-4-2:2008 levels 2 and 3), performance criterion B: temporary degradation, self-recovery, no loss of stored data (levels **UNVERIFIED** against the current editions). Experienced teams pre-test handhelds at IEC 61000-4-2 level 4 (±8 kV contact, ±15 kV air) for margin (Q4).
+- **Levels and practice:** [catalog §1.2](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#12-esd-iec-61000-4-2) (±4 kV contact, ±8 kV air, criterion B; level 4 pre-tests at Q4).
 - **Discharge points:** USB-C shell, jack sleeves, button caps, the faceplate cover-glass gap, case seams, the microSD slot, and the HAT pogo field, which is user-touchable when no HAT is fitted (BOM line 68 places ESD there).
 - **T1 today:** ESD arrays per connector (PCB-E-01), VBUS TVS (PCB-E-02), button ESD (BOM line 74), headphone ESD after the OPA1622 feedback node (BOM line 36), V4-05 and V5-02.
 - **Missing:**
@@ -248,8 +217,9 @@ The UK PSTI regime and the EU Cyber Resilience Act cover the same ground with th
 
 ### 2.11 The HAT ecosystem
 
-- **Each HAT is its own product.** It carries its own declaration, tests and marks. A radio HAT is its own radio equipment, and the T1's grants never cover it.
-- **The T1 is certified in declared configurations.** The technical file lists the configurations tested: without a HAT, and with a representative HAT exercising the flat cable and pogo field (USB 3, PCIe and power at its class). EMC and SAR are tested with the worst-case representative HAT (metal near the antennas). A HAT that is not in the list does not void the T1's own compliance. It does make the combination the user's assembly, and the HAT maker carries the HAT's compliance in that combination.
+The general rules (each accessory its own product, certification in declared configurations, host and accessory responsibilities) are in [catalog §6](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#6-accessories-on-a-host-interface-hat-like). For the T1:
+
+- **Declared configurations:** without a HAT, and with a representative HAT exercising the flat cable and pogo field (USB 3, PCIe and power at its class); EMC and SAR with the worst-case representative HAT (metal near the antennas).
 - **Host responsibilities** (proposed for the [hat-standard](https://github.com/opendap-project/hat-standard)):
   - PS1 outputs under a single fault (PCB-P-11), so HATs need no fire enclosure for power drawn from the T1;
   - ESD at the pogo field;
@@ -280,7 +250,7 @@ The UK PSTI regime and the EU Cyber Resilience Act cover the same ground with th
 
 ## 4. Technical file and declarations (Q3)
 
-The documentation a formal product needs, from the regimes above:
+The documentation a formal product needs ([catalog §1.5](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#15-technical-file-and-declarations-q3)), for the T1:
 
 - **General description and variants:** models, assembly variants (BRD-053), declared configurations (faceplates, HATs), software version assessed.
 - **Standards applied**, with editions.
@@ -410,24 +380,13 @@ IDs are placeholders for the main session to assign. Level = the lowest RFC 0010
 
 ## 7. Open items
 
-1. EU: whether EN IEC 62368-1:2020+A11:2020 accepts the dose-based route without an RS2 ceiling (C1). First question for the test lab, with the A11 text in hand.
-2. EN 50332-2 measurement details (programme-noise level relative to full scale) and the exact 27 mV and 20 h figures.
-3. The FCC 1.1307(b)(3) formula transcription and the RSS-102 Issue 6 thresholds, checked against the primary texts.
-4. Murata: SAR and permissive-change procedure for a portable host; antenna fit of Molex 146153 or 219611 in the case; the module datasheet (land pattern, supply ranges), still missing.
-5. Mainline `nxpwifi` and Murata's TX-power tables (C4).
-6. Whether the pack PCM qualifies as the PS2 limiter, and the fuse or PTC part for PCB-P-11.
-7. Spread-spectrum clock support on the RK3566 DDR and display clocks.
-8. Japan e-label acceptance and the KC host-testing rule.
-9. Directive 2022/2380 scope reading for a DAP (expected in scope as a portable audio device with radio).
+1. The catalog's open items ([catalog §7](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#7-open-items)) apply: the EU acceptance of the dose route without an RS2 ceiling (C1, first question for the test lab), the EN 50332-2 measurement details, the FCC formula and RSS-102 thresholds, Japan e-label and KC host testing, and the Directive 2022/2380 scope reading for a DAP.
+2. Murata: SAR and permissive-change procedure for a portable host; antenna fit of Molex 146153 or 219611 in the case; the module datasheet (land pattern, supply ranges), still missing.
+3. Mainline `nxpwifi` and Murata's TX-power tables (C4).
+4. Whether the pack PCM qualifies as the PS2 limiter, and the fuse or PTC part for PCB-P-11.
+5. Spread-spectrum clock support on the RK3566 DDR and display clocks.
 
 ## Sources
 
-- 47 CFR 1.1307 and 2.1093: <https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-1/subpart-I/section-1.1307>, <https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-2/subpart-J/subject-group-ECFR52efa600149ef42/section-2.1093>; secondary summary of the 2021 exemption rules: [Nemko](https://www.nemko.com/blog/understanding-rule-changes-for-human-exposure-to-radiofrequency-electromagnetic-fields)
-- 47 CFR 15.23 (kits): <https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15/subpart-A/section-15.23>
+- Regime sources (eCFR, EUR-Lex, standards catalogues, AOSP): [catalog, Sources](https://github.com/opendap-project/toolkit-hardware/blob/main/docs/research/2026-10-compliance-regimes.md#sources).
 - Murata Type 2EL: CER-0248 Rev. 6.0 and E2B-09-1413 Rev. 9.0, as recorded in the [parts-lib sheet](https://github.com/opendap-project/parts-lib/blob/main/Murata/LBES5PL2EL-923.md) with their hashes
-- Decision (EU) 2025/138 (EN 18031 citation and restrictions): <https://eur-lex.europa.eu/eli/dec_impl/2025/138/oj/eng>
-- Commission guidelines on Battery Regulation Art. 11, C/2025/214: <https://eur-lex.europa.eu/eli/C/2025/214/oj/eng>
-- Directive (EU) 2022/2380: <https://eur-lex.europa.eu/eli/dir/2022/2380/oj/eng>
-- EN 50332-3:2017 scope (secondary, catalogue): <https://iteh.es/catalog/standards/sist/669af6ab-ca37-4ab1-a336-def08543a43b/sist-en-50332-3-2017>; EN IEC 62368-1:2020/A11:2020 scope (secondary, catalogue): <https://iteh.es/catalog/standards/sist/7f899651-a0c1-4092-a0d2-34161ce557d8/sist-en-iec-62368-1-2020-a11-2020>
-- AOSP sound dose (secondary, an implementation of IEC 62368-1 ed. 3 and EN 50332-3): <https://source.android.com/docs/core/audio/sound-dose>
-- 150 mV wide-band limit (secondary, a manufacturer's user guide citing EN 50332-2): <https://download.lenovo.com/pccbbs/pubs/t490/html_en/en/Using_headphones_or_earphones.html>
