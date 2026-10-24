@@ -1,149 +1,56 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OpenDAP T1</title>
-<meta name="description" content="OpenDAP T1: an open-source, open-hardware digital audio player that runs Linux. Concept art; OpenDAP is in early open development.">
-<meta name="theme-color" content="#15181b">
-<link rel="canonical" href="https://opendap.cc/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="OpenDAP">
-<meta property="og:title" content="OpenDAP T1">
-<meta property="og:description" content="OpenDAP T1: an open-source, open-hardware digital audio player that runs Linux. Concept art; OpenDAP is in early open development.">
-<meta property="og:url" content="https://opendap.cc/">
-<meta property="og:image" content="https://opendap.cc/concept.png">
-<meta property="og:image:width" content="1920">
-<meta property="og:image:height" content="1080">
-<meta property="og:image:alt" content="OpenDAP T1 concept art: the T1 in graphite with its orange Action button and silver keys. Concept art, not a real device.">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="41.6 -74.2 352 352"%3E%3Crect x="41.6" y="-74.2" width="352" height="352" rx="72" fill="%2315181b"/%3E%3Cpath fill="%23f5f6f4" transform="translate%28217.6 101.8%29 scale%280.78%29 translate%28-217.6 -101.8%29" d="M210.622 36.875L210.622 194.694C210.622 195.407 210.242 196.066 209.626 196.424L197.779 203.298C197.163 203.656 196.402 203.659 195.783 203.305L57.629 124.36C57.006 124.004 56.622 123.341 56.622 122.624L56.622 108.945C56.622 108.227 57.006 107.565 57.629 107.208L195.783 28.264C196.402 27.91 197.163 27.912 197.779 28.27L209.626 35.145C210.242 35.503 210.622 36.162 210.622 36.875ZM182.622 154.663L182.622 76.905C182.622 76.192 182.242 75.533 181.626 75.176L176.699 72.316C176.082 71.958 175.322 71.956 174.703 72.31L106.629 111.208C106.006 111.565 105.622 112.227 105.622 112.945L105.622 118.624C105.622 119.341 106.006 120.004 106.629 120.36L174.703 159.259C175.322 159.613 176.082 159.61 176.699 159.252L181.626 156.393C182.242 156.035 182.622 155.376 182.622 154.663ZM224.622 166.694L224.622 8.875C224.622 8.162 225.001 7.503 225.618 7.145L237.464 0.27C238.081 -0.088 238.841 -0.09 239.46 0.264L377.614 79.208C378.237 79.565 378.622 80.227 378.622 80.945L378.622 94.624C378.622 95.341 378.237 96.004 377.614 96.36L239.46 175.305C238.841 175.659 238.081 175.656 237.464 175.298L225.618 168.424C225.001 168.066 224.622 167.407 224.622 166.694ZM252.622 48.905L252.622 126.663C252.622 127.376 253.001 128.035 253.618 128.393L258.545 131.252C259.162 131.61 259.922 131.613 260.541 131.259L328.614 92.36C329.237 92.004 329.622 91.341 329.622 90.624L329.622 84.945C329.622 84.227 329.237 83.565 328.614 83.208L260.541 44.31C259.922 43.956 259.162 43.958 258.545 44.316L253.618 47.176C253.001 47.533 252.622 48.192 252.622 48.905Z"/%3E%3C/svg%3E">
-<!-- ?cover: the fixed 1920 × 1080 frame captured for docs/concept-art/concept.png. Without it, the responsive page. -->
-<script>if (new URLSearchParams(location.search).has('cover')) document.documentElement.classList.add('cover');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-  /* Product render on the studio backdrop. Two layouts share the scene and the type:
-     - the page (default): fills the window at any size and orientation; the device is fitted into a layout slot;
-     - the cover (?cover): a 16:9 frame like a 1080p video cover, fitted to the window and letterboxed in black,
-       the canvas always rendering at 1920 × 1080. */
+  /* Full-window product render on the studio backdrop. */
   :root { color-scheme: dark; }
-  html, body { margin: 0; }
-  body { background: #0d0f11; }
-  .stage { position: relative; overflow: hidden; }
-  #view { position: absolute; inset: 0; }
-  #view canvas { display: block; outline: none; }
-  .labels { display: none; }
-  .hero { color: #f5f6f4; pointer-events: none; }
-  .hero h1 { margin: 0; display: grid;   /* title and subtitle as wide as the bullet list */ font-family: "IBM Plex Sans", system-ui, sans-serif; font-weight: 300; line-height: 1; color: #c6cbd0; letter-spacing: -0.005em; }
-  .hero h1 b { font-weight: 600; line-height: 0.86; color: #f5f6f4; letter-spacing: -0.03em; }
-  /* Optical left alignment: cancel each glyph's left side bearing (Plex Sans SemiBold "T" 0.026 em, Light "O" 0.063 em). */
-  .hero h1 b { margin-left: -0.026em; }
-  .hero h1 span { margin-left: -0.063em; }
-  .hero ul { list-style: none; padding: 0; display: grid; font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 400; line-height: 1.2; color: #939ba3; letter-spacing: 0.01em; }   /* sentence case, no wide tracking (design system §9.2) */
-  /* The first point is active by default; hovering any point makes it the active one instead. */
-  .hero ul { pointer-events: auto; }
-  .hero li { cursor: default; transition: color 120ms cubic-bezier(0.2, 0, 0, 1); }
-  .hero li:first-child { color: #f5f6f4; }
-  @media (hover: hover) {
-    .hero ul:hover li:first-child { color: #939ba3; }
-    .hero ul:hover li:hover, .hero ul:hover li:first-child:hover { color: #f5f6f4; }
-  }
-  @media (prefers-reduced-motion: reduce) { .hero li { transition: none; } }
-  /* Open source, open hardware and GitHub marks, one colour (Simple Icons, CC0); --k: optical size per mark. */
-  .marks { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
-  .marks li { display: grid; place-items: center; }
-  .marks svg { display: block; fill: #939ba3; }
-  .marks a { display: block; color: inherit; }
-  /* the GitHub link turns white on hover and on keyboard focus, like the active point in the list */
-  .marks a svg { transition: fill 120ms cubic-bezier(0.2, 0, 0, 1); }
-  .marks a:focus-visible svg { fill: #f5f6f4; }
-  @media (hover: hover) { .marks a:hover svg { fill: #f5f6f4; } }
-  @media (prefers-reduced-motion: reduce) { .marks a svg { transition: none; } }
-  /* Soft contact shadow under the device: no floor, just enough to stop it floating. */
-  .shadow { position: absolute; transform: translate(-50%, -50%); border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(0,0,0,0.55), rgba(0,0,0,0.22) 55%, transparent); pointer-events: none; }
-  .disclaimer { margin: 0; font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 400; line-height: 1.6; letter-spacing: 0.01em; pointer-events: none; }
-  .wordmark { height: auto; display: block; pointer-events: none; }   /* vertical lockup: mark above the wordmark */
-
-  /* ---------- Cover (?cover): sized in frame units (cqw), so it scales with the 1920 × 1080 frame like video graphics ---------- */
-  .cover, .cover body { height: 100%; }
-  .cover body { background: #000; overflow: hidden; display: grid; place-items: center; }
-  .cover .stage {
-    width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; container-type: inline-size;
+  html, body { height: 100%; margin: 0; }
+  /* A 16:9 frame, like a 1080p video cover: fitted to the window, centred, letterboxed in black.
+     The canvas always renders at 1920 × 1080 whatever the frame's on-screen size. */
+  body { background: #000; overflow: hidden; display: grid; place-items: center; }
+  .stage {
+    position: relative; overflow: hidden;
+    width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9;
     background:
       radial-gradient(ellipse 28% 42% at 57.6% 46%, rgba(170,185,205,0.13), transparent 72%),   /* light pool right behind the device */
       radial-gradient(ellipse 90% 80% at 57% 46%, #1d2125 0%, #15181b 55%, #0d0f11 100%);
   }
-  .cover .slot { display: none; }
-  .cover .hero { position: absolute; left: 6.5cqw; top: 4.088cqw; }   /* T1 cap top sits 6cqw from the top, the same margin as the logo and the note at the bottom */
-  .cover .hero h1 { gap: 1.4cqw; font-size: 4.69cqw; padding-left: 0.104cqw; }   /* the list's ink starts ~0.09 em in (Plex Mono D/B); the title lines up with it */
-  .cover .hero h1 b { font-size: 17.87cqw; }
-  .cover .hero ul { margin: 3cqw 0 0; gap: 1.05cqw; font-size: 1.15cqw; }
-  /* Top right: top edge on the T1 cap top, right edge on the logo's. */
-  .cover .marks { position: absolute; right: 6cqw; top: 6cqw; gap: 1.5cqw; }
-  .cover .marks li { width: 2cqw; height: 2cqw; }
-  .cover .marks svg { width: calc(2cqw * var(--k, 1)); height: calc(2cqw * var(--k, 1)); }
-  .cover .marks a:focus-visible { outline: 0.12cqw solid #ff874d; outline-offset: 0.3cqw; border-radius: 0.3cqw; }
-  .cover .shadow { left: 57.6%; top: 84.5%; width: 22cqw; height: 2.4cqw; filter: blur(0.6cqw); }
+  #view { position: absolute; inset: 0; }
+  #view canvas { display: block; outline: none; }
+  .labels { display: none; }
+  /* Hero overlay, sized in frame units (cqw) so it scales with the 1920 × 1080 frame like video graphics. */
+  .stage { container-type: inline-size; }
+  .hero { position: absolute; left: 6.5cqw; top: 4.088cqw;   /* T1 cap top sits 6cqw from the top, the same margin as the logo and the note at the bottom */ color: #f5f6f4; pointer-events: none; }
+  .hero h1 { margin: 0; display: grid; gap: 1.4cqw;   /* title and subtitle as wide as the bullet list */ font: 300 4.69cqw/1 "IBM Plex Sans", system-ui, sans-serif; color: #c6cbd0; letter-spacing: -0.005em; }
+  .hero h1 b { font: 600 17.87cqw/0.86 "IBM Plex Sans", system-ui, sans-serif; color: #f5f6f4; letter-spacing: -0.03em; }
+  /* Optical left alignment: cancel each glyph's left side bearing (Plex Sans SemiBold "T" 0.026 em, Light "O" 0.063 em). */
+  .hero h1 b { margin-left: -0.026em; }
+  .hero h1 span { margin-left: -0.063em; }
+  .hero h1 { padding-left: 0.104cqw; }   /* the list's ink starts ~0.09 em in (Plex Mono D/B); the title lines up with it */
+  .hero ul { list-style: none; margin: 3cqw 0 0; padding: 0; display: grid; gap: 1.05cqw; font: 400 1.15cqw/1.2 "IBM Plex Mono", ui-monospace, monospace; color: #939ba3; letter-spacing: 0.01em; }   /* sentence case, no wide tracking (design system §9.2) */
+  /* The first point is active by default; hovering any point makes it the active one instead. */
+  .hero ul { pointer-events: auto; }
+  .hero li { cursor: default; transition: color 120ms cubic-bezier(0.2, 0, 0, 1); }
+  .hero li:first-child { color: #f5f6f4; }
+  .hero ul:hover li:first-child { color: #939ba3; }
+  .hero ul:hover li:hover, .hero ul:hover li:first-child:hover { color: #f5f6f4; }
+  @media (prefers-reduced-motion: reduce) { .hero li { transition: none; } }
+  /* Top right: open source, open hardware and GitHub marks, one colour, top edge on the T1 cap top, right edge on the logo's. */
+  .marks { position: absolute; right: 6cqw; top: 6cqw; display: flex; align-items: center; gap: 1.5cqw; margin: 0; padding: 0; list-style: none; }
+  .marks li { display: grid; place-items: center; width: 2cqw; height: 2cqw; }
+  .marks svg { display: block; width: calc(2cqw * var(--k, 1)); height: calc(2cqw * var(--k, 1)); fill: #939ba3; }   /* --k: optical size per mark (Simple Icons, CC0) */
+  .marks a { display: block; color: inherit; }
+  .marks a:focus-visible { outline: 0.12cqw solid #ff874d; outline-offset: 0.3cqw; border-radius: 0.3cqw; }
+  /* Soft contact shadow under the device: no floor, just enough to stop it floating. */
+  .shadow { position: absolute; left: 57.6%; top: 84.5%; width: 22cqw; height: 2.4cqw; transform: translate(-50%, -50%); border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(0,0,0,0.55), rgba(0,0,0,0.22) 55%, transparent); filter: blur(0.6cqw); pointer-events: none; }
   /* Disclaimer: aligned left with the text block and on the logo's bottom edge. */
-  .cover .disclaimer { position: absolute; left: 6.5cqw; bottom: 6cqw; font-size: 0.8cqw; color: #565e66; }   /* dimmed by request, about 2.6:1 on this backdrop: under AA for small text (design system §3.4); fine for a video frame, not for web or docs */
-  .cover .wordmark { position: absolute; right: 6cqw; bottom: 6cqw; width: 7cqw; }
-
-  /* ---------- Page (default): a grid with the same proportions as the cover at 16:9, re-flowed at other sizes ----------
-     --t is the T1 title size; every other size derives from it, with minimums for legibility and touch.
-     The device is fitted into .slot by the script, and the backdrop and the shadow follow it (--cx, --cy, --s). */
-  :root:not(.cover) {
-    --t: min(17.87vw, 31.8vh);
-    --gx: clamp(16px, 6vw, 128px);
-    --gy: clamp(16px, min(10.7vh, 6vw), 128px);
-  }
-  :root:not(.cover) .stage {
-    box-sizing: border-box; min-height: 100vh; min-height: 100dvh;
-    padding: var(--gy) max(var(--gx), env(safe-area-inset-right)) max(var(--gy), env(safe-area-inset-bottom)) max(calc(var(--gx) * 13 / 12), env(safe-area-inset-left));   /* 6.5 / 6 like the cover */
-    display: grid; column-gap: var(--gx);
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    grid-template-areas: "hero . marks" "hero . ." "disc . mark";
-    background:
-      radial-gradient(var(--pw, 28%) var(--ph, 42%) at var(--cx, 57.6%) var(--cy, 46%), rgba(170,185,205,0.13), transparent 72%),   /* light pool right behind the device */
-      radial-gradient(ellipse 90% 80% at var(--cx, 57%) var(--cy, 46%), #1d2125 0%, #15181b 55%, #0d0f11 100%);
-  }
-  /* --fx, --fy: where the device's centre sits in the slot; --fill: how much of the slot it fills (the cover's proportions at 16:9) */
-  :root:not(.cover) .slot { grid-column: 2 / 4; grid-row: 1 / 4; min-height: 160px; --fx: 0.4; --fy: 0.46; --fill: 0.97; }
-  :root:not(.cover) :is(.hero, .marks, .disclaimer, .wordmark) { position: relative; z-index: 1; }
-  :root:not(.cover) .hero { grid-area: hero; align-self: start; margin-top: calc(var(--t) * -0.107); }   /* T1 cap top on the top margin */
-  :root:not(.cover) .hero h1 { gap: calc(var(--t) * 0.0783); font-size: max(18px, calc(var(--t) * 0.2625)); padding-left: calc(var(--t) * 0.0058); }
-  :root:not(.cover) .hero h1 b { font-size: var(--t); }
-  :root:not(.cover) .hero ul { margin: calc(var(--t) * 0.168) 0 0; gap: max(6px, calc(var(--t) * 0.0588)); font-size: max(13px, calc(var(--t) * 0.0644)); }
-  :root:not(.cover) .marks { grid-area: marks; justify-self: end; align-self: start; gap: max(14px, calc(var(--t) * 0.084)); }
-  :root:not(.cover) .marks li { width: max(20px, calc(var(--t) * 0.112)); aspect-ratio: 1; }
-  :root:not(.cover) .marks svg { width: calc(100% * var(--k, 1)); height: auto; aspect-ratio: 1; }
-  :root:not(.cover) .marks a { padding: 10px; margin: -10px; }   /* at least a 40 px target around the icon */
-  :root:not(.cover) .marks a:focus-visible { outline: 2px solid #ff874d; outline-offset: -4px; border-radius: 6px; }
-  :root:not(.cover) .shadow { left: var(--shx, 57.6%); top: var(--shy, 84.5%); width: calc(422px * var(--s, 1)); height: calc(46px * var(--s, 1)); filter: blur(calc(11.5px * var(--s, 1))); }
-  :root:not(.cover) .disclaimer { grid-area: disc; align-self: end; font-size: max(11px, calc(var(--t) * 0.0448)); color: #8b939b; }   /* AA on the backdrop (about 5.5:1), unlike the cover's dimmed note */
-  :root:not(.cover) .wordmark { grid-area: mark; justify-self: end; align-self: end; width: max(56px, calc(var(--t) * 0.392)); }
-  /* Portrait: title and marks on top, the device in the middle, the note and the logo at the bottom. */
-  @media (max-aspect-ratio: 1/1) {
-    :root:not(.cover) { --t: min(40vw, 22vh); --gx: clamp(16px, 6vw, 64px); --gy: clamp(16px, 5vw, 64px); }
-    :root:not(.cover) .stage {
-      row-gap: var(--gy);
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-rows: auto minmax(160px, 1fr) auto;
-      grid-template-areas: "hero marks" ". ." "disc mark";
-    }
-    :root:not(.cover) .slot { grid-column: 1 / -1; grid-row: 2; --fx: 0.5; --fy: 0.5; --fill: 0.94; }
-    /* the marks sit over the title's row without taking a column, so the text keeps the full width */
-    :root:not(.cover) .hero { grid-column: 1 / -1; }
-    :root:not(.cover) .marks { position: absolute; top: 0; right: 0; }   /* in its grid area: top on the T1 cap top, right edge on the logo's */
-  }
+  .disclaimer { position: absolute; left: 6.5cqw; bottom: 6cqw; margin: 0; font: 400 0.8cqw/1.6 "IBM Plex Mono", ui-monospace, monospace; color: #565e66; letter-spacing: 0.01em; pointer-events: none; }   /* dimmed by request, about 2.6:1 on this backdrop: under AA for small text (design system §3.4); fine for a video frame, not for web or docs */
+  .wordmark { position: absolute; right: 6cqw; bottom: 6cqw; width: 7cqw;   /* vertical lockup: mark above the wordmark */ height: auto; display: block; pointer-events: none; }
 </style>
-</head>
-<body>
+
 <main class="stage" aria-label="OpenDAP T1 concept render">
-  <div class="slot" aria-hidden="true"></div>
   <div class="shadow" aria-hidden="true"></div>
   <div id="view" role="img" aria-label="OpenDAP T1: graphite body, touch display on the front, orange Action button on the left edge."></div>
   <header class="hero">
@@ -601,78 +508,16 @@ function stepTween(now) {
 camera.position.copy(VIEWS.three.pos); controls.target.copy(VIEWS.three.target);
 const hash = location.hash.slice(1); if (VIEWS[hash]) { camera.position.copy(VIEWS[hash].pos); controls.target.copy(VIEWS[hash].target); goTo(hash); tween = null; }
 
-const isCover = document.documentElement.classList.contains('cover');
-const stage = host.parentElement, slot = stage.querySelector('.slot');
-// Page: the device's outline as seen from the opening view, in px of a square frame 1080 high (the cover's scale),
-// measured once from the meshes; each resize fits that outline into .slot.
-let outline = null;
-function measureOutline() {
-  const home = VIEWS[location.hash.slice(1)] || VIEWS.three;
-  const cam = new THREE.PerspectiveCamera(28, 1, 8, 3000); cam.position.copy(home.pos); cam.lookAt(home.target); cam.updateMatrixWorld();
-  device.updateMatrixWorld(true);
-  const v = new THREE.Vector3(), o = { x0: Infinity, x1: -Infinity, y0: Infinity, y1: -Infinity };
-  device.traverse(m => {
-    if (!m.isMesh) return;
-    const p = m.geometry.attributes.position, step = Math.max(1, Math.floor(p.count / 6000));
-    for (let i = 0; i < p.count; i += step) {
-      v.fromBufferAttribute(p, i).applyMatrix4(m.matrixWorld).project(cam);
-      const x = (v.x + 1) * 540, y = (1 - v.y) * 540;
-      o.x0 = Math.min(o.x0, x); o.x1 = Math.max(o.x1, x); o.y0 = Math.min(o.y0, y); o.y1 = Math.max(o.y1, y);
-    }
-  });
-  return o;
-}
 function resize() {
   const w = host.clientWidth, h = host.clientHeight;
-  if (isCover) {
-    renderer.setPixelRatio(1920 / w);   // fixed 1920 × 1080 output
-    renderer.setSize(w, h, false); renderer.domElement.style.width = w + 'px'; renderer.domElement.style.height = h + 'px';
-    labelRenderer.setSize(w, h);
-    camera.aspect = 16 / 9; camera.fov = 28;
-    camera.setViewOffset(1920, 1080, -0.08 * 1920, 0, 1920, 1080);   // shift the device right of centre, to balance the text block on the left
-    camera.updateProjectionMatrix();
-    return;
-  }
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2, Math.sqrt(8.3e6 / (w * h))));   // at most about 4K worth of pixels
+  renderer.setPixelRatio(1920 / w);   // fixed 1920 × 1080 output
   renderer.setSize(w, h, false); renderer.domElement.style.width = w + 'px'; renderer.domElement.style.height = h + 'px';
   labelRenderer.setSize(w, h);
-  outline ??= measureOutline();
-  const sr = stage.getBoundingClientRect(), r = slot.getBoundingClientRect();
-  const cs = getComputedStyle(slot), fx = parseFloat(cs.getPropertyValue('--fx')) || 0.5, fy = parseFloat(cs.getPropertyValue('--fy')) || 0.5, fill = parseFloat(cs.getPropertyValue('--fill')) || 1;
-  const s = fill * Math.min(2 * Math.min(fx, 1 - fx) * r.width / (outline.x1 - outline.x0), 2 * Math.min(fy, 1 - fy) * r.height / (outline.y1 - outline.y0));
-  const ox = (outline.x0 + outline.x1) / 2 * s - (r.left - sr.left + fx * r.width);
-  const oy = (outline.y0 + outline.y1) / 2 * s - (r.top - sr.top + fy * r.height);
-  camera.aspect = 1; camera.fov = 28;
-  camera.setViewOffset(1080 * s, 1080 * s, ox, oy, w, h);
+  camera.aspect = 16 / 9; camera.fov = 28;
+  camera.setViewOffset(1920, 1080, -0.08 * 1920, 0, 1920, 1080);   // shift the device right of centre, to balance the text block on the left
   camera.updateProjectionMatrix();
-  // backdrop light pool and contact shadow where the cover has them, relative to the device (cover px − 573.6 in x)
-  const at = (x, y) => [(x - 573.6) * s - ox + 'px', y * s - oy + 'px'];
-  const [cx, cy] = at(1106, 496.8), [shx, shy] = at(1106, 912.6);
-  Object.entries({ '--s': s, '--cx': cx, '--cy': cy, '--pw': 538 * s + 'px', '--ph': 454 * s + 'px', '--shx': shx, '--shy': shy })
-    .forEach(([k, val]) => stage.style.setProperty(k, val));
-  // when the page is taller than the window, vertical swipes scroll it instead of orbiting
-  renderer.domElement.style.touchAction = stage.scrollHeight > innerHeight + 1 ? 'pan-y' : 'none';
 }
-const ro = new ResizeObserver(resize); ro.observe(host); ro.observe(slot); resize();
-
-// Cursor: an open hand over the device (it can be orbited by dragging), a closed hand while dragging.
-{
-  const cvs = renderer.domElement, ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), box = new THREE.Box3();
-  let dragging = false, over = false;
-  const hit = e => {
-    const r = cvs.getBoundingClientRect();
-    ndc.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
-    ray.setFromCamera(ndc, camera);
-    return ray.ray.intersectsBox(box.setFromObject(device));
-  };
-  const show = () => { cvs.style.cursor = dragging ? 'grabbing' : over ? 'grab' : ''; };
-  cvs.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && !dragging) { over = hit(e); show(); } });
-  cvs.addEventListener('pointerleave', () => { over = false; show(); });
-  controls.addEventListener('start', () => { dragging = true; show(); });
-  controls.addEventListener('end', () => { dragging = false; show(); });
-}
+new ResizeObserver(resize).observe(host); resize();
 function frame(now) { stepTween(now); controls.update(); updateCallouts(); renderer.render(scene, camera); labelRenderer.render(scene, camera); requestAnimationFrame(frame); }
 requestAnimationFrame(frame);
 </script>
-</body>
-</html>

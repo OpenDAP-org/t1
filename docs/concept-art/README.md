@@ -2,8 +2,8 @@
 
 ## Current concept
 
-- `concept.png`: the 1920 × 1080 cover used in the READMEs, captured from [`renders/web/concept.html`](../../renders/web/concept.html) opened with `?cover`.
-- `renders/web/concept.html`: the interactive source of the cover, also served as the page at [opendap.cc](https://opendap.cc/). Without `?cover` it lays itself out for any window size and orientation. It is a visual reference built by eye from the requirements and the design system, not a mechanical design: dimensions, radii and port positions are not set yet. It loads three.js from a CDN; the marks at top right come from Simple Icons (CC0) and remain their owners' trademarks.
+- `concept.png`: the 1920 × 1080 cover used in the READMEs, captured from [`renders/web/concept.html`](../../renders/web/concept.html).
+- `renders/web/concept.html`: the interactive source of the cover. It is a visual reference built by eye from the requirements and the design system, not a mechanical design: dimensions, radii and port positions are not set yet. It loads three.js from a CDN; the marks at top right come from Simple Icons (CC0) and remain their owners' trademarks.
 
 ## Earlier experiments
 
